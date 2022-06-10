@@ -2,8 +2,17 @@
 #include    "imgui.h"
 #include    "imgui_impl_glfw.h"
 #include    "imgui_impl_opengl3.h"
+#include    "imgui_ja_gryph_ranges.h"
 
 using namespace Sample;
+
+/**
+ * @brief		ウィンドウサイズ変更時に呼び出す
+ */
+void WindowResize(GLFWwindow* window, int width, int height)
+{
+    GraphicsController::GetInstance().Initialize(window);
+}
 
 /**
  * @brief		エラー発生時に呼び出されるコールバック
@@ -53,7 +62,7 @@ bool Framework::Create(int w, int h, const char* title) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
 	//ウインドウの生成
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 	glfwWindowHint(GLFW_MAXIMIZED, GL_FALSE);
 	window_ = glfwCreateWindow(w, h, title, nullptr, nullptr);
 	if (!window_)
@@ -63,6 +72,7 @@ bool Framework::Create(int w, int h, const char* title) {
 	width_ = w;
 	height_ = h;
 	glfwMakeContextCurrent(window_);
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -86,6 +96,8 @@ bool Framework::Create(int w, int h, const char* title) {
     // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window_, true);
     ImGui_ImplOpenGL3_Init("#version 410");
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("Resources/Roboto-Medium.ttf", 12.0f, nullptr, glyphRangesJapanese);
 
 	//初期化終了
 	INFO_LOG("Frameworkの初期化終了...");
@@ -99,9 +111,20 @@ void Framework::Run() {
 	//初期化
 	Initialize();
 
+    // 変更監視用
+    int w = width_, h = height_;
+
 	//アプリループ
 	while (!glfwWindowShouldClose(window_))
 	{
+        // ウィンドウサイズの変更を監視
+        glfwGetWindowSize(window_, &w, &h);
+        if (w != width_ || h != height_)
+        {
+            width_ = w; height_ = h;
+            WindowResize(window_, w, h);
+            continue;
+        }
 		//タイマー処理
 		timer_->Refresh();
 		timer_->Sleep();
@@ -120,16 +143,21 @@ void Framework::Run() {
         
         // Rendering
         ImGui::Render();
+        GraphicsController::GetInstance().RenderBegin();
 		//アプリの描画
 		Render();
+        GraphicsController::GetInstance().RenderEnd();
+        glfwPollEvents();
 	}
 
 	//アプリ終了
 	INFO_LOG("Frameworkの終了...");
-    // Cleanup
+    
+	// Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+
 	audio_.reset();
 	glfwDestroyWindow(window_);
 }

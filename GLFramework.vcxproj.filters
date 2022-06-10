@@ -135,6 +135,12 @@
     <ClCompile Include="Library\include\imgui\imgui_widgets.cpp">
       <Filter>Framework\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_ja_gryph_ranges.h">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Graphics\GraphicsController.cpp">
+      <Filter>Framework\Graphics\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Timer\IFrameTimer.h">

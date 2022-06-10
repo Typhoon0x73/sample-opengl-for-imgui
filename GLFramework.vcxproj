@@ -75,12 +75,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>.\Library\include\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>.\Library\include\imgui;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,6 +98,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)\PostBuild.bat $(SolutionDir) $(OutputPath)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,6 +133,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)\PostBuild.bat $(SolutionDir) $(OutputPath)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -151,6 +159,7 @@
     <ClCompile Include="Framework\Framework\Framework.cpp" />
     <ClCompile Include="Framework\Graphics\Buffer.cpp" />
     <ClCompile Include="Framework\Graphics\FrameBuffer.cpp" />
+    <ClCompile Include="Framework\Graphics\GraphicsController.cpp" />
     <ClCompile Include="Framework\Graphics\Shader.cpp" />
     <ClCompile Include="Framework\Graphics\Texture.cpp" />
     <ClCompile Include="Framework\Sound\Audio.cpp" />
@@ -162,6 +171,7 @@
     <ClCompile Include="Library\include\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="Library\include\imgui\imgui_impl_glut.cpp" />
     <ClCompile Include="Library\include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Library\include\imgui\imgui_ja_gryph_ranges.h" />
     <ClCompile Include="Library\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Library\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
