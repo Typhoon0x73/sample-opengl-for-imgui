@@ -6,6 +6,14 @@
 
 namespace Sample {
 
+    // FWD
+    class FrameBuffer;
+    class Sprite;
+    class Shader;
+    using FrameBufferPtr = std::shared_ptr<FrameBuffer>;
+    using SpritePtr      = std::shared_ptr<Sprite>;
+    using ShaderPtr      = std::shared_ptr<Shader>;
+
 	/**
 	 * @brief		描画管理
 	 */
@@ -21,22 +29,33 @@ namespace Sample {
 		int											width_;
 		/**	画面高さ */
 		int											height_;
+        /** 描画用バッファ */
+        FrameBufferPtr                              frameBuffer_;
+        /** 描画用スプライト */
+        SpritePtr                                   frameSprite_;
+        /** シェーダー */
+        ShaderPtr                                   shader_;
 
 		GraphicsController()
 		: window_(nullptr)
-		, currentCamera_()
+		, currentCamera_(nullptr)
 		, width_(0)
-		, height_(0) {
+		, height_(0)
+		, frameBuffer_(nullptr)
+		, frameSprite_(nullptr)
+        , shader_(nullptr) {
 		}
 		virtual ~GraphicsController() = default;
 	public:
 		/**
 		 * @brief		初期化
 		 */
-		void Initialize(GLFWwindow* w) {
-			window_ = w;
-			glfwGetWindowSize(w, &width_, &height_);
-		}
+        void Initialize(GLFWwindow* w);
+
+        /**
+         * @brief		描画用バッファの生成
+         */
+        void CreateBuffer();
 
 		/**
 		 * @brief		ターゲットのリセット
@@ -45,6 +64,16 @@ namespace Sample {
 			glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 			glViewport(0, 0, width_, height_);
 		}
+
+        /**
+         * @brief		描画開始
+         */
+        void RenderBegin();
+
+        /**
+         * @brief		描画
+         */
+        void RenderEnd();
 
 		/**
 		 * @brief		利用中のカメラの設定
