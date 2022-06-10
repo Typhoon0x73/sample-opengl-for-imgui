@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{f092b645-89ed-49a9-892f-21da26553cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Timer">
+      <UniqueIdentifier>{0097f936-450c-4776-be48-ce0eeb10204e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Common">
+      <UniqueIdentifier>{df48216a-411a-4b95-a621-ca5293daf5f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Math">
+      <UniqueIdentifier>{bea40149-2563-4c8d-99af-ea97ffed9d92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics">
+      <UniqueIdentifier>{6b903f07-b5a9-422b-a3a4-6f035bde7dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Texture">
+      <UniqueIdentifier>{44308bf6-ecce-4ba4-b0b5-170242c9b4e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Resource">
+      <UniqueIdentifier>{8e4c6a34-429b-40d1-b569-32fa09cdfa53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Shader">
+      <UniqueIdentifier>{63103b8a-f5e3-477c-8df8-0fd1d510b5ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound">
+      <UniqueIdentifier>{9da62c25-4502-470c-b495-364f23d74de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Buffer">
+      <UniqueIdentifier>{460c03d5-442b-48a6-86db-7d8eba597fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Camera">
+      <UniqueIdentifier>{b59c5255-40f3-4583-9dae-ca1ebb1dddf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{7ceb76b2-0426-43b2-82a9-768917b52272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Framework">
+      <UniqueIdentifier>{d9023fa2-60fb-4b36-8e8a-36c7f87d8c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Sprite">
+      <UniqueIdentifier>{89576d0c-3c95-4c7e-9ee0-2c372fde6d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Controller">
+      <UniqueIdentifier>{6a027e29-d80e-43f5-b5bc-755bcf7f9d10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound\Audio">
+      <UniqueIdentifier>{44b75689-5509-454c-81eb-a96a5f6390e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound\Sound">
+      <UniqueIdentifier>{5a33470a-ebe7-4a34-95f4-793fa751d71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\FrameBuffer">
+      <UniqueIdentifier>{da9ec471-48d5-4e3f-a0e3-c0f454560357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Sampler">
+      <UniqueIdentifier>{80fc096e-6d02-4ac5-8cbc-7e5900e0e3b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Font">
+      <UniqueIdentifier>{dccdd6a5-aa97-4c26-be7d-3e72679782a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\PolyLine">
+      <UniqueIdentifier>{945eba12-616b-43fb-9539-2329f70393a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\imgui">
+      <UniqueIdentifier>{1552d1ca-a206-4c93-b93f-62af5c45b261}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Graphics\Texture.cpp">
+      <Filter>Framework\Graphics\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Graphics\Shader.cpp">
+      <Filter>Framework\Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Graphics\Buffer.cpp">
+      <Filter>Framework\Graphics\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Framework\Framework.cpp">
+      <Filter>Framework\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Sound\Audio.cpp">
+      <Filter>Framework\Sound\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Sound\Sound.cpp">
+      <Filter>Framework\Sound\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Sound\WaveFile.cpp">
+      <Filter>Framework\Sound\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Graphics\FrameBuffer.cpp">
+      <Filter>Framework\Graphics\FrameBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_demo.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_draw.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_impl_glfw.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_impl_glut.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_tables.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\include\imgui\imgui_widgets.cpp">
+      <Filter>Framework\imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Framework\Timer\IFrameTimer.h">
+      <Filter>Framework\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Timer\WinFrameTimer.h">
+      <Filter>Framework\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Timer\GLFrameTimer.h">
+      <Filter>Framework\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Common\Common.h">
+      <Filter>Framework\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Vector4.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Vector3.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Texture.h">
+      <Filter>Framework\Graphics\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Resource\ResourceBase.h">
+      <Filter>Framework\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Shader.h">
+      <Filter>Framework\Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Buffer.h">
+      <Filter>Framework\Graphics\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Common\Singleton.h">
+      <Filter>Framework\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Camera.h">
+      <Filter>Framework\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Math\Rectangle.h">
+      <Filter>Framework\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Framework\Framework.h">
+      <Filter>Framework\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Sprite.h">
+      <Filter>Framework\Graphics\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\GraphicsController.h">
+      <Filter>Framework\Graphics\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Input\Input.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Sound\Audio.h">
+      <Filter>Framework\Sound\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Sound\IAudio.h">
+      <Filter>Framework\Sound\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Sound\Sound.h">
+      <Filter>Framework\Sound\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Sound\WaveFile.h">
+      <Filter>Framework\Sound\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Input\IInput.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\SpriteBatch.h">
+      <Filter>Framework\Graphics\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\FrameBuffer.h">
+      <Filter>Framework\Graphics\FrameBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\ShaderParameterBind.h">
+      <Filter>Framework\Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\ShaderParameterBind1F.h">
+      <Filter>Framework\Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Sampler.h">
+      <Filter>Framework\Graphics\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\FreeTypeLibrary.h">
+      <Filter>Framework\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\Font.h">
+      <Filter>Framework\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\FontAtlas.h">
+      <Filter>Framework\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\FontRender.h">
+      <Filter>Framework\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Graphics\PolyLine.h">
+      <Filter>Framework\Graphics\PolyLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imconfig.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui_impl_glfw.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui_impl_glut.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui_impl_opengl3.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imgui_internal.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imstb_rectpack.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imstb_textedit.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\include\imgui\imstb_truetype.h">
+      <Filter>Framework\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
