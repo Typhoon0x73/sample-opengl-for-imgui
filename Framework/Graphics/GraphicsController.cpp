@@ -16,7 +16,7 @@ void GraphicsController::Initialize(GLFWwindow * w)
     //シェーダー読み込み
     if (!shader_)
     {
-        shader_ = std::make_shared<Shader>("Resources/Sprite.vert", "Resources/Sprite.frag");
+        shader_ = std::make_shared<Sample::Shader>("Resources/Sprite.vert", "Resources/Sprite.frag");
     }
     CreateBuffer();
 }
@@ -35,7 +35,7 @@ void Sample::GraphicsController::CreateBuffer()
     int renderBufferWidth, renderBufferHeight;
     glfwGetFramebufferSize(window_, &renderBufferWidth, &renderBufferHeight);
 
-    frameBuffer_ = std::make_shared<FrameBuffer>();
+    frameBuffer_ = std::make_shared<Sample::FrameBuffer>();
     frameBuffer_->Create(renderBufferWidth, renderBufferHeight);
     frameSprite_ = frameBuffer_->CreateSprite(shader_);
     if (currentCamera_)
@@ -49,8 +49,6 @@ void Sample::GraphicsController::CreateBuffer()
  */
 void GraphicsController::RenderBegin()
 {
-    //フレームバッファ利用
-    frameBuffer_->Bind();
 }
 
 /**

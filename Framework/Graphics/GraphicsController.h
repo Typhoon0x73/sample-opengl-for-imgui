@@ -34,7 +34,7 @@ namespace Sample {
         /** 描画用スプライト */
         SpritePtr                                   frameSprite_;
         /** シェーダー */
-        ShaderPtr                                   shader_;
+		ShaderPtr                                   shader_;
 
 		GraphicsController()
 		: window_(nullptr)
@@ -89,6 +89,30 @@ namespace Sample {
 		 */
 		const CameraPtr& Camera() const {
 			return currentCamera_;
+		}
+
+		/**
+		 * @brief		利用中のシェーダーの取得
+		 * @return		利用中のシェーダー
+		 */
+		const ShaderPtr& Shader() const {
+			return shader_;
+		}
+
+		/**
+		 * @brief		初期のフレームバッファの取得
+		 * @return		初期のフレームバッファ
+		 */
+		const FrameBufferPtr& FrameBuffer() const {
+			return frameBuffer_;
+		}
+
+		/**
+		 * @brief		初期のスプライトの取得
+		 * @return		初期のスプライト
+		 */
+		const SpritePtr& Sprite() const {
+			return frameSprite_;
 		}
 
 		/**

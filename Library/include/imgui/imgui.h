@@ -2286,7 +2286,7 @@ struct ImGuiOnceUponAFrame
     operator bool() const { int current_frame = ImGui::GetFrameCount(); if (RefFrame == current_frame) return false; RefFrame = current_frame; return true; }
 };
 
-// Helper: Parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
+// Helper: parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
 struct ImGuiTextFilter
 {
     IMGUI_API           ImGuiTextFilter(const char* default_filter = "");

@@ -2298,7 +2298,7 @@ void ImGuiStorage::SetAllInt(int v)
 // [SECTION] ImGuiTextFilter
 //-----------------------------------------------------------------------------
 
-// Helper: Parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
+// Helper: parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
 ImGuiTextFilter::ImGuiTextFilter(const char* default_filter) //-V1077
 {
     InputBuf[0] = 0;
@@ -12363,7 +12363,7 @@ void ImGui::LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size)
             continue;
         if (line[0] == '[' && line_end > line && line_end[-1] == ']')
         {
-            // Parse "[Type][Name]". Note that 'Name' can itself contains [] characters, which is acceptable with the current format and parsing code.
+            // parse "[Type][Name]". Note that 'Name' can itself contains [] characters, which is acceptable with the current format and parsing code.
             line_end[-1] = 0;
             const char* name_end = line_end - 1;
             const char* type_start = line + 1;

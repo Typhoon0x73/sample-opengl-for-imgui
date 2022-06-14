@@ -30,5 +30,12 @@ namespace Sample {
 		 * @brief		•`‰æ
 		 */
 		void Render() override;
+
+	private:
+
+		//•`‰æŠÖ˜A
+		CameraPtr camera_;
+		SpritePtr canvas_;
+		FrameBufferPtr frameCanvas_;
 	};
 }

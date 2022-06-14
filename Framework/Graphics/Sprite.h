@@ -435,6 +435,9 @@ namespace Sample {
 			return shader_;
 		}
 
+		const GLuint ColorLocation(void) const {
+			return colorLocation;
+		}
 	};
 	using SpritePtr = std::shared_ptr< Sprite >;
 }

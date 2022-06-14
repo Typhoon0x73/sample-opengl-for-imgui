@@ -141,6 +141,12 @@
     <ClCompile Include="Framework\Graphics\GraphicsController.cpp">
       <Filter>Framework\Graphics\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="PrimitiveRenderUtilities.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\SpriteAnimation.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Timer\IFrameTimer.h">
@@ -271,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitiveRenderUtilities.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\SpriteAnimation.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\SpriteAnimationCommon.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

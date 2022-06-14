@@ -1,11 +1,9 @@
 #pragma once
 
 #include	"Application.h"
+#include    "Application/SpriteAnimation.h"
 
 using namespace Sample;
-
-//描画関連
-CameraPtr camera;
 
 /**
  * @brief		コンストラクタ
@@ -24,19 +22,51 @@ Application::~Application() {
  * @brief		初期化
  */
 void Application::Initialize() {
-    //リソースディレクトリを素材配置先に指定
-    ::SetCurrentDirectory(L"Resources");
+	//リソースディレクトリを素材配置先に指定
+	::SetCurrentDirectory(L"Resources");
 
-    //TODO:
-    //アプリの初期化処理を記述
+	//TODO:
+	//アプリの初期化処理を記述
 
-    //カメラ設定
-    camera = std::make_shared<Camera>();
-    camera->Create2D(1024, 768);
-    GraphicsController::GetInstance().Camera(camera);
+	//カメラ設定
+	camera_ = std::make_shared<Camera>();
+	camera_->Create2D(1024, 768);
+	GraphicsController::GetInstance().Camera(camera_);
 
-    auto& imguiIO = ImGui::GetIO();
-    imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	auto& imguiIO = ImGui::GetIO();
+	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+	frameCanvas_ = std::make_shared<FrameBuffer>();
+	frameCanvas_->Create(4096, 4096);
+	canvas_ = frameCanvas_->CreateSprite(GraphicsController::GetInstance().Shader());
+
+	SpriteAnimationController test;
+	SpriteAnimation animation;
+	animation.addPattern(SpriteAnimation::Pattern{ 0,   0, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0,  32, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0,  64, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0,  96, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 128, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 160, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 192, 0, 32, 32, 0.080, 0, 0 });
+	animation.setLoop(true);
+	test.addAnimation("sample", animation);
+
+	std::vector<std::string> texturePathArray;
+	texturePathArray.push_back("enemy.png");
+
+	SpriteAnimationDataExporter exporter("sample.sa");
+	if (!exporter.exportToSA(&test, &texturePathArray))
+	{
+		return;
+	}
+
+	std::vector<std::string> texturePathArray2;
+	SpriteAnimationController test2("sample.sa", &texturePathArray2);
+	if (test == test2)
+	{
+		return;
+	}
 }
 
 /**
@@ -60,46 +90,57 @@ void Application::Update() {
         unsigned dockNodeFlags = ImGuiDockNodeFlags_None;
         dockNodeFlags |= ImGuiWindowFlags_NoBackground;
         ImGui::DockSpace(baseDockspace, ImVec2{ 0.0f, 0.0f }, dockNodeFlags);
+
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("file"))
+			{
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenuBar();
+		}
+
+		ImGui::Begin("canvas", nullptr, ImGuiWindowFlags_NoBackground);
+		{
+			auto tex = canvas_->Texture();
+			ImVec2 size(tex->Width(), tex->Height());
+			ImGui::Image((ImTextureID)tex->ID(), size, ImVec2(0, 1), ImVec2(1, 0));
+		}
+		ImGui::End();
+
+		ImGui::Begin("animations");
+		{
+
+		}
+		ImGui::End();
+
+		ImGui::Begin("tool bar");
+		{
+
+		}
+		ImGui::End();
+
+		ImGui::Begin("sprites");
+		{
+
+		}
+		ImGui::End();
+
+		ImGui::Begin("animation view");
+		{
+
+		}
+		ImGui::End();
+
+		ImGui::Begin("editor");
+		{
+
+		}
+		ImGui::End();
     }
     ImGui::End();
     /*//**/
     //ImGui::ShowDemoWindow();
-
-    ImGui::Begin("canvas");
-    {
-
-    }
-    ImGui::End();
-
-    ImGui::Begin("animations");
-    {
-
-    }
-    ImGui::End();
-
-    ImGui::Begin("tool bar");
-    {
-
-    }
-    ImGui::End();
-
-    ImGui::Begin("sprites");
-    {
-
-    }
-    ImGui::End();
-
-    ImGui::Begin("animation view");
-    {
-
-    }
-    ImGui::End();
-
-    ImGui::Begin("editor");
-    {
-
-    }
-    ImGui::End();
 }
 
 /**
@@ -107,20 +148,36 @@ void Application::Update() {
  */
 void Application::Render() {
 
-    //初期設定と画面クリア
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClearDepth(1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// キャンバス用描画
+	{
+		frameCanvas_->Bind();
+		glClearColor(0.0f, 0.0f, 0.2f, 1.0f);
+		glClearDepth(1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+	}
 
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// 通常描画
+	//フレームバッファ利用
+	GraphicsController::GetInstance().FrameBuffer()->Bind();
+	{
+		//初期設定と画面クリア
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearDepth(1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    //TODO:
-    //アプリの描画処理を記述
+		//TODO:
+		//アプリの描画処理を記述
 
 
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
 
     //ターゲットのリセット
     GraphicsController::GetInstance().ResetTarget();
