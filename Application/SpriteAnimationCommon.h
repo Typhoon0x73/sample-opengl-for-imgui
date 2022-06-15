@@ -1,9 +1,17 @@
 #ifndef SPRITEANIMATIONCOMMON_H_
 #define SPRITEANIMATIONCOMMON_H_
 
+/*! 独自ヘッダ */
 #define SPRITE_ANIMATION_HEADER         "SPRITE_ANIMATION_HEADER"
+
+/*! 独自ヘッダ長 */
 #define SPRITE_ANIMATION_HEADER_LEN     strlen(SPRITE_ANIMATION_HEADER)
 
+// --------------------------------------------------------------------------------
+/// <summary>
+/// .saファイルデータチャンク
+/// </summary>
+// --------------------------------------------------------------------------------
 enum class SpriteAnimationFileChunk : unsigned char
 {
 	Header             = 0x01, // chunk(0x01), size(SPRITE_ANIMATION_HEADER_LEN), header(SPRITE_ANIMATION_HEADER)
@@ -14,6 +22,11 @@ enum class SpriteAnimationFileChunk : unsigned char
 	Eof                = 0xFF, // chunk(0xFF)
 };
 
+// --------------------------------------------------------------------------------
+/// <summary>
+/// .saアニメーションデータチャンク
+/// </summary>
+// --------------------------------------------------------------------------------
 enum class SpriteAnimationDataChunk : unsigned char
 {
 	Name               = 0x40, // chunk(0x40), i(array no), size(length), name,
@@ -22,6 +35,11 @@ enum class SpriteAnimationDataChunk : unsigned char
 	PatternData        = 0x43, // chunk(0x43), i(array no), size(data size), data,
 };
 
+// --------------------------------------------------------------------------------
+/// <summary>
+/// .saスプライトデータチャンク
+/// </summary>
+// --------------------------------------------------------------------------------
 enum class SpritePatternDataChunk : unsigned char
 {
 	ImageNo            = 0x60, // chunk(0x60), i(array no), j(pattern no), image no,
@@ -34,6 +52,11 @@ enum class SpritePatternDataChunk : unsigned char
 	DrawOffsetY        = 0x67, // chunk(0x67), i(array no), j(pattern no), draw offset y,
 };
 
+// --------------------------------------------------------------------------------
+/// <summary>
+/// .sa画像データチャンク
+/// </summary>
+// --------------------------------------------------------------------------------
 enum class SpriteTextureDataChunk : unsigned char
 {
 	FullPath           = 0x20, // chunk(0x20), i(array no), size(length), path,

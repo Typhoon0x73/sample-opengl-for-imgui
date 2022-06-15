@@ -2,16 +2,41 @@
 #include <algorithm>
 #include <cmath>
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+// ********************************************************************************
 SpriteAnimation::Pattern::Pattern(const Pattern & copy)
 {
 	*this = copy;
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+// ********************************************************************************
 SpriteAnimation::Pattern::Pattern(Pattern && move)
 {
 	*this = std::move(move);
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="n">画像番号</param>
+/// <param name="x">オフセットX</param>
+/// <param name="y">オフセットY</param>
+/// <param name="w">横幅</param>
+/// <param name="h">高さ</param>
+/// <param name="t">描画時間(単位は秒)</param>
+/// <param name="ox">描画オフセットX</param>
+/// <param name="oy">描画オフセットY</param>
+// ********************************************************************************
 SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y, std::int32_t w, std::int32_t h, double t, std::int32_t ox, std::int32_t oy)
 	: m_ImageNo{ n }
 	, m_OffsetX{ x }
@@ -24,6 +49,13 @@ SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & copy)
 {
 	m_ImageNo     = copy.m_ImageNo    ;
@@ -37,6 +69,13 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & c
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::Pattern && move)
 {
 	m_ImageNo     = std::move(move.m_ImageNo    );
@@ -50,6 +89,13 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator== 等価比較演算
+/// </summary>
+/// <param name="pattern">比較対象</param>
+/// <returns>true : パターンデータ一致, false : 一致しない</returns>
+// ********************************************************************************
 bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & pattern) const
 {
 	if (m_ImageNo     != pattern.m_ImageNo    ) return false;
@@ -63,21 +109,47 @@ bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & patte
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator!= 比較演算
+/// </summary>
+/// <param name="pattern">比較対象</param>
+/// <returns>!(*this == pattern)</returns>
+// ********************************************************************************
 bool SpriteAnimation::Pattern::operator!=(const SpriteAnimation::Pattern & pattern) const
 {
 	return !(operator==(pattern));
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+// ********************************************************************************
 SpriteAnimation::SpriteAnimation(const SpriteAnimation & copy)
 {
 	*this = copy;
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+// ********************************************************************************
 SpriteAnimation::SpriteAnimation(SpriteAnimation && move)
 {
 	*this = std::move(move);
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="patterns">パターン配列</param>
+/// <param name="hasLooped">ループフラグ</param>
+// ********************************************************************************
 SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& patterns, bool hasLooped)
 	: m_PatternArray{ patterns }
 	, m_hasLooped{ hasLooped }
@@ -91,6 +163,13 @@ SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& pa
 	}
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="patterns">パターン配列(ムーブ)</param>
+/// <param name="hasLooped">ループフラグ</param>
+// ********************************************************************************
 SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& patterns, bool hasLooped)
 	: m_PatternArray{ std::move(patterns) }
 	, m_hasLooped{ hasLooped }
@@ -104,6 +183,14 @@ SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& pattern
 	}
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="patterns">パターン配列</param>
+/// <param name="count">パターン登録数</param>
+/// <param name="hasLooped">ループフラグ</param>
+// ********************************************************************************
 SpriteAnimation::SpriteAnimation(SpriteAnimation::Pattern * patterns, std::size_t count, bool hasLooped)
 	: m_PatternArray{ patterns, patterns + count }
 	, m_hasLooped{ hasLooped }
@@ -117,11 +204,23 @@ SpriteAnimation::SpriteAnimation(SpriteAnimation::Pattern * patterns, std::size_
 	}
 }
 
+// ********************************************************************************
+/// <summary>
+/// デストラクタ
+/// </summary>
+// ********************************************************************************
 SpriteAnimation::~SpriteAnimation()
 {
 	clear();
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションの更新
+/// </summary>
+/// <param name="deltaTime">更新時間(単位は秒)</param>
+/// <returns>true : 更新あり, false : 更新なし</returns>
+// ********************************************************************************
 bool SpriteAnimation::update(const float deltaTime)
 {
 	if (m_CurrentPatternNo < 0 || m_CurrentPatternNo >= (std::int32_t)m_PatternArray.size())
@@ -142,6 +241,13 @@ bool SpriteAnimation::update(const float deltaTime)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの追加
+/// </summary>
+/// <param name="pattern">追加するパターンデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
 {
 	m_PatternArray.push_back(pattern);
@@ -149,6 +255,13 @@ bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの追加
+/// </summary>
+/// <param name="pattern">追加するパターンデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
 {
 	m_TotalTime += pattern.m_RefreshTime;
@@ -156,6 +269,14 @@ bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの変更
+/// </summary>
+/// <param name="no">変更する配列番号</param>
+/// <param name="pattern">変更後のパターンデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern & pattern)
 {
 	if (m_PatternArray.size() >= no)
@@ -168,6 +289,14 @@ bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern 
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの変更
+/// </summary>
+/// <param name="no">変更する配列番号</param>
+/// <param name="pattern">変更後のパターンデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setPattern(std::size_t no, SpriteAnimation::Pattern && pattern)
 {
 	if (m_PatternArray.size() >= no)
@@ -180,6 +309,13 @@ bool SpriteAnimation::setPattern(std::size_t no, SpriteAnimation::Pattern && pat
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの削除
+/// </summary>
+/// <param name="no">削除する配列番号</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::removePattern(std::size_t no)
 {
 	if (m_PatternArray.size() >= no)
@@ -192,6 +328,13 @@ bool SpriteAnimation::removePattern(std::size_t no)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの削除
+/// </summary>
+/// <param name="pattern">削除するパターンデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
 {
 	auto size = m_PatternArray.size();
@@ -209,6 +352,13 @@ bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
 	return (size != m_PatternArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの削除
+/// </summary>
+/// <param name="pattern">削除するパターンデータのイテレータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::removePattern(std::vector<SpriteAnimation::Pattern>::const_iterator pattern)
 {
 	m_TotalTime -= pattern->m_RefreshTime;
@@ -217,6 +367,12 @@ bool SpriteAnimation::removePattern(std::vector<SpriteAnimation::Pattern>::const
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの全削除
+/// </summary>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::clear()
 {
 	m_PatternArray.clear();
@@ -226,6 +382,13 @@ bool SpriteAnimation::clear()
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン配列の変更
+/// </summary>
+/// <param name="patterns">変更後のパターン配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern>& patterns)
 {
 	m_PatternArray = patterns;
@@ -236,6 +399,13 @@ bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン配列の変更
+/// </summary>
+/// <param name="patterns">変更後のパターン配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& patterns)
 {
 	m_PatternArray = std::move(patterns);
@@ -246,6 +416,14 @@ bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& pa
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン配列の変更
+/// </summary>
+/// <param name="patterns">変更後のパターン配列</param>
+/// <param name="count">変更後のパターン数</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setPatternArray(SpriteAnimation::Pattern* patterns, std::size_t count)
 {
 	m_PatternArray = std::vector<SpriteAnimation::Pattern>(patterns, patterns + count);
@@ -256,12 +434,26 @@ bool SpriteAnimation::setPatternArray(SpriteAnimation::Pattern* patterns, std::s
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションのループ設定
+/// </summary>
+/// <param name="hasLooped">true : ループする, false : ループしない</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setLoop(bool hasLooped)
 {
 	m_hasLooped = hasLooped;
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中パターン番号の変更
+/// </summary>
+/// <param name="no">変更後のパターン番号</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setCurrentPatternNo(std::int32_t no)
 {
 	if ((std::int32_t)m_PatternArray.size() <= no || no < 0)
@@ -273,6 +465,13 @@ bool SpriteAnimation::setCurrentPatternNo(std::int32_t no)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 時間指定による再生中パターン番号の変更
+/// </summary>
+/// <param name="t">再生したいアニメーション経過時間(単位は秒)</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::setCurrentPatternNoByTime(double t)
 {
 	if (m_PatternArray.size() <= 0)
@@ -284,6 +483,13 @@ bool SpriteAnimation::setCurrentPatternNoByTime(double t)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンアニメーションの再生
+/// </summary>
+/// <param name="no">再生開始パターン番号</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimation::play(std::size_t no)
 {
 	if (m_PatternArray.size() <= no)
@@ -296,16 +502,54 @@ bool SpriteAnimation::play(std::size_t no)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 開始時間指定によるパターンアニメーションの再生
+/// </summary>
+/// <param name="t">再生開始アニメーション時間(単位は秒)</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimation::playByTime(double t)
+{
+	if (m_PatternArray.size() <= 0)
+	{
+		m_CurrentPatternNo = -1;
+		return false;
+	}
+	m_CurrentPatternNo = patternNoByTime(t);
+	m_Timer            = t;
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// パターン配列の取得
+/// </summary>
+/// <returns>パターン配列ポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 const std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray() const
 {
 	return &m_PatternArray;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン配列の取得
+/// </summary>
+/// <returns>パターン配列ポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray()
 {
 	return &m_PatternArray;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 時間指定によるパターンデータの取得
+/// </summary>
+/// <param name="t">取得したいアニメーション時間(単位は秒)</param>
+/// <returns>指定された時間に再生されるパターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) const
 {
 	if (m_PatternArray.size() <= 0)
@@ -315,6 +559,13 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) 
 	return &(m_PatternArray[patternNoByTime(t)]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 時間指定によるパターンデータの取得
+/// </summary>
+/// <param name="t">取得したいアニメーション時間(単位は秒)</param>
+/// <returns>指定された時間に再生されるパターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
 {
 	if (m_PatternArray.size() <= 0)
@@ -324,6 +575,13 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
 	return &(m_PatternArray[patternNoByTime(t)]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの取得
+/// </summary>
+/// <param name="no">取得したい配列番号</param>
+/// <returns>パターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no) const
 {
 	if (m_PatternArray.size() >= no)
@@ -333,6 +591,13 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::si
 	return &(m_PatternArray[no]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターンデータの取得
+/// </summary>
+/// <param name="no">取得したい配列番号</param>
+/// <returns>パターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no)
 {
 	if (m_PatternArray.size() >= no)
@@ -342,6 +607,12 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t n
 	return &(m_PatternArray[no]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のパターンデータの取得
+/// </summary>
+/// <returns>再生中のパターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
 {
 	if (m_CurrentPatternNo < 0 || m_PatternArray.size() <= 0)
@@ -355,6 +626,12 @@ const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
 	return &(m_PatternArray[m_CurrentPatternNo]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のパターンデータの取得
+/// </summary>
+/// <returns>再生中のパターンデータポインタ, nullptr : データなし</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::currentPattern()
 {
 	if (m_CurrentPatternNo < 0 || m_PatternArray.size() <= 0)
@@ -368,17 +645,36 @@ SpriteAnimation::Pattern * const SpriteAnimation::currentPattern()
 	return &(m_PatternArray[m_CurrentPatternNo]);
 }
 
+// ********************************************************************************
+/// <summary>
+/// ループ設定の確認
+/// </summary>
+/// <returns>true : ループする, false : ループしない</returns>
+// ********************************************************************************
 bool SpriteAnimation::hasLooped() const
 {
 	return m_hasLooped;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションが終了しているか判定(ループフラグが立っていれば必ずfalseが返る)
+/// </summary>
+/// <returns>true : アニメーション終了, false : アニメーション中</returns>
+// ********************************************************************************
 bool SpriteAnimation::hasEnded() const
 {
 	if (m_hasLooped) return false;
 	return (m_CurrentPatternNo >= (std::int32_t)m_PatternArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// 時間指定によるパターン番号の取得
+/// </summary>
+/// <param name="t">取得したい時間</param>
+/// <returns>指定された時間に再生されるパターン番号</returns>
+// ********************************************************************************
 std::int32_t SpriteAnimation::patternNoByTime(double t) const
 {
 	if (t == 0.0)
@@ -420,21 +716,46 @@ std::int32_t SpriteAnimation::patternNoByTime(double t) const
 	return 0;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のパターン番号の取得
+/// </summary>
+/// <returns>再生中のパターン番号, -1 : データなし</returns>
+// ********************************************************************************
 std::int32_t SpriteAnimation::currentPatternNo() const
 {
 	return m_CurrentPatternNo;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン変更用タイマーの取得
+/// </summary>
+/// <returns>パターン毎の経過時間(単位は秒)</returns>
+// ********************************************************************************
 double SpriteAnimation::timer() const
 {
 	return m_Timer;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション終了までの合計時間の取得(ループ関係なく配列の合計描画時間が返る)
+/// </summary>
+/// <returns>アニメーション終了までの合計時間(単位は秒)</returns>
+// ********************************************************************************
 double SpriteAnimation::totalTime() const
 {
 	return m_TotalTime;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimation & SpriteAnimation::operator=(const SpriteAnimation & copy)
 {
 	m_PatternArray     = copy.m_PatternArray;
@@ -444,6 +765,13 @@ SpriteAnimation & SpriteAnimation::operator=(const SpriteAnimation & copy)
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimation & SpriteAnimation::operator=(SpriteAnimation && move)
 {
 	m_PatternArray     = std::move(move.m_PatternArray);
@@ -453,6 +781,13 @@ SpriteAnimation & SpriteAnimation::operator=(SpriteAnimation && move)
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator== 等価比較演算
+/// </summary>
+/// <param name="animation">比較対象</param>
+/// <returns>true : アニメーションデータ一致, false : 一致しない</returns>
+// ********************************************************************************
 bool SpriteAnimation::operator==(const SpriteAnimation & animation) const
 {
     std::size_t size = m_PatternArray.size();
@@ -472,11 +807,23 @@ bool SpriteAnimation::operator==(const SpriteAnimation & animation) const
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator!= 比較演算
+/// </summary>
+/// <param name="animation">比較演算</param>
+/// <returns>!(*this == animation)</returns>
+// ********************************************************************************
 bool SpriteAnimation::operator!=(const SpriteAnimation & animation) const
 {
 	return !(operator==(animation));
 }
 
+// ********************************************************************************
+/// <summary>
+/// 内部で再生中のパターン番号を丸める処理
+/// </summary>
+// ********************************************************************************
 void SpriteAnimation::roundCurrentPatternNo()
 {
 	if (m_CurrentPatternNo < 0)
@@ -491,18 +838,37 @@ void SpriteAnimation::roundCurrentPatternNo()
 #include <iostream>
 #include <fstream>
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const SpriteAnimationController & copy)
 	: m_CurrentAnimationNo{ -1 }
 {
 	*this = copy;
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(SpriteAnimationController && move)
 	: m_CurrentAnimationNo{ -1 }
 {
 	*this = std::move(move);
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="pFile">.saファイルパス</param>
+/// <param name="outTexturePathArray">出力先画像ファイルパス配列</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const char * pFile, std::vector<std::string>* outTexturePathArray)
 {
 	std::ifstream ifs(pFile, std::ios::binary);
@@ -514,6 +880,14 @@ SpriteAnimationController::SpriteAnimationController(const char * pFile, std::ve
 	}
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="pData">.saデータ</param>
+/// <param name="dataLen">データ長</param>
+/// <param name="outTexturePathArray">出力先画像ファイルパス配列</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const char * pData, std::size_t dataLen, std::vector<std::string>* outTexturePathArray)
 	: m_CurrentAnimationNo{ -1 }
 {
@@ -521,29 +895,60 @@ SpriteAnimationController::SpriteAnimationController(const char * pData, std::si
 	parser.parseFromSA(this, outTexturePathArray);
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="animations">アニメーション配列</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
 	: m_AnimationArray{ animations }
 	, m_CurrentAnimationNo{ -1 }
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="animations">アニメーション配列</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
 	: m_AnimationArray{ std::move(animations) }
 	, m_CurrentAnimationNo{ -1 }
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="animations">アニメーション配列</param>
+/// <param name="count">アニメーション数</param>
+// ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
 	: m_AnimationArray{ animations, animations + count }
 	, m_CurrentAnimationNo{ -1 }
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// デストラクタ
+/// </summary>
+// ********************************************************************************
 SpriteAnimationController::~SpriteAnimationController()
 {
 	clear();
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションの更新
+/// </summary>
+/// <param name="deltaTime">更新時間(単位は秒)</param>
+/// <returns>true : 更新あり, false : 更新なし</returns>
+// ********************************************************************************
 bool SpriteAnimationController::update(const float deltaTime)
 {
 	if (m_CurrentAnimationNo < 0 || (std::int32_t)m_AnimationArray.size() <= m_CurrentAnimationNo)
@@ -553,42 +958,169 @@ bool SpriteAnimationController::update(const float deltaTime)
 	return m_AnimationArray[m_CurrentAnimationNo].second.update(deltaTime);
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="name">アニメーション名</param>
+/// <param name="animation">アニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::string & name, const SpriteAnimation & animation)
 {
 	m_AnimationArray.push_back(std::make_pair(name, animation));
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="name">アニメーション名</param>
+/// <param name="animation">アニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::string & name, SpriteAnimation && animation)
 {
 	m_AnimationArray.push_back(std::make_pair(name, std::move(animation)));
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="name">アニメーション名</param>
+/// <param name="animation">アニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::string && name, const SpriteAnimation & animation)
 {
 	m_AnimationArray.push_back(std::make_pair(std::move(name), animation));
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="name">アニメーション名</param>
+/// <param name="animation">アニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::string && name, SpriteAnimation && animation)
 {
 	m_AnimationArray.emplace_back(std::move(name), std::move(animation));
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="animation">アニメーション配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::pair<std::string, SpriteAnimation>& animation)
 {
 	m_AnimationArray.push_back(animation);
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの追加
+/// </summary>
+/// <param name="animation">アニメーション配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::pair<std::string, SpriteAnimation>&& animation)
 {
 	m_AnimationArray.emplace_back(std::move(animation));
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション名の変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimationController::setAnimationName(std::size_t no, const std::string & name)
+{
+	if (no >= m_AnimationArray.size())
+	{
+		return false;
+	}
+	m_AnimationArray[no].first = name;
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// アニメーション名の変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimationController::setAnimationName(std::size_t no, std::string && name)
+{
+	if (no >= m_AnimationArray.size())
+	{
+		return false;
+	}
+	m_AnimationArray[no].first = std::move(name);
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimationController::setAnimation(std::size_t no, const SpriteAnimation & animation)
+{
+	if (no >= m_AnimationArray.size())
+	{
+		return false;
+	}
+	m_AnimationArray[no].second = animation;
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimationController::setAnimation(std::size_t no, SpriteAnimation && animation)
+{
+	if (no >= m_AnimationArray.size())
+	{
+		return false;
+	}
+	m_AnimationArray[no].second = std::move(animation);
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::string & name, const SpriteAnimation & animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -600,6 +1132,15 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::string &
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::string & name, SpriteAnimation && animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -611,6 +1152,15 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::string &
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name, const SpriteAnimation & animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -622,6 +1172,15 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="name">変更後の名前</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name, SpriteAnimation && animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -633,6 +1192,14 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std::string, SpriteAnimation>& animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -643,6 +1210,14 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの変更
+/// </summary>
+/// <param name="no">変更するアニメーション配列番号</param>
+/// <param name="animation">変更後のアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::pair<std::string, SpriteAnimation>&& animation)
 {
 	if (no >= m_AnimationArray.size())
@@ -653,6 +1228,13 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::pair<std::stri
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの削除
+/// </summary>
+/// <param name="no">削除するアニメーション配列番号</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(std::size_t no)
 {
 	if (no >= m_AnimationArray.size())
@@ -664,6 +1246,13 @@ bool SpriteAnimationController::removeAnimation(std::size_t no)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 名前指定でアニメーションデータの削除(同一名はすべて削除)
+/// </summary>
+/// <param name="name">削除するアニメーション名</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::string & name)
 {
 	auto size = m_AnimationArray.size();
@@ -677,6 +1266,13 @@ bool SpriteAnimationController::removeAnimation(const std::string & name)
 	return (size != m_AnimationArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータ指定でアニメーションデータの削除(同一データはすべて削除)
+/// </summary>
+/// <param name="animation">削除するアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const SpriteAnimation & animation)
 {
 	auto size = m_AnimationArray.size();
@@ -690,6 +1286,14 @@ bool SpriteAnimationController::removeAnimation(const SpriteAnimation & animatio
 	return (size != m_AnimationArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// [key, data]でアニメーションデータの削除(同一データはすべて削除)
+/// </summary>
+/// <param name="name">削除するアニメーション名</param>
+/// <param name="animation">削除するアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::string & name, SpriteAnimation & animation)
 {
 	auto size = m_AnimationArray.size();
@@ -703,6 +1307,13 @@ bool SpriteAnimationController::removeAnimation(const std::string & name, Sprite
 	return (size != m_AnimationArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータ指定でアニメーションデータの削除(同一データはすべて削除)
+/// </summary>
+/// <param name="animation">削除するアニメーションデータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::pair<std::string, SpriteAnimation> & animation)
 {
 	auto size = m_AnimationArray.size();
@@ -716,6 +1327,13 @@ bool SpriteAnimationController::removeAnimation(const std::pair<std::string, Spr
 	return (size != m_AnimationArray.size());
 }
 
+// ********************************************************************************
+/// <summary>
+/// イテレータ指定でアニメーションデータの削除
+/// </summary>
+/// <param name="animation">削除するアニメーションデータイテレータ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::removeAnimation(std::vector<std::pair<std::string, SpriteAnimation>>::const_iterator animation)
 {
 	m_AnimationArray.erase(animation);
@@ -723,6 +1341,12 @@ bool SpriteAnimationController::removeAnimation(std::vector<std::pair<std::strin
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの全削除
+/// </summary>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::clear()
 {
 	m_AnimationArray.clear();
@@ -730,24 +1354,54 @@ bool SpriteAnimationController::clear()
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション配列の変更
+/// </summary>
+/// <param name="animations">変更後のアニメーション配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
 {
 	m_AnimationArray = animations;
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション配列の変更
+/// </summary>
+/// <param name="animations">変更後のアニメーション配列</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
 {
 	m_AnimationArray = std::move(animations);
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション配列の変更
+/// </summary>
+/// <param name="animations">変更後のアニメーション配列</param>
+/// <param name="count">変更後のアニメーション数</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
 {
 	m_AnimationArray = std::vector<std::pair<std::string, SpriteAnimation>>(animations, animations + count);
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生アニメーションの変更
+/// </summary>
+/// <param name="key">変更後のアニメーション番号</param>
+/// <param name="isSamed">再生中のアニメーションと同一で上書きしないフラグ(false指定で同一アニメーションでも0から再生)</param>
+/// <returns>true : 変更あり, false : 変更なし</returns>
+// ********************************************************************************
 bool SpriteAnimationController::changeAnimation(std::size_t key, bool isSamed)
 {
 	if (key >= m_AnimationArray.size())
@@ -763,6 +1417,14 @@ bool SpriteAnimationController::changeAnimation(std::size_t key, bool isSamed)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 名前指定で再生アニメーションの変更(同一名が複数ある場合最初のアニメーションになる)
+/// </summary>
+/// <param name="key">変更後のアニメーション名</param>
+/// <param name="isSamed">再生中のアニメーションと同一で上書きしないフラグ(false指定で同一アニメーションでも0から再生)</param>
+/// <returns>true : 変更あり, false : 変更なし</returns>
+// ********************************************************************************
 bool SpriteAnimationController::changeAnimation(const std::string & key, bool isSamed)
 {
 	if (m_CurrentAnimationNo >= 0 &&
@@ -790,16 +1452,34 @@ bool SpriteAnimationController::changeAnimation(const std::string & key, bool is
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション配列の取得
+/// </summary>
+/// <returns>アニメーション配列, nullptr : データなし</returns>
+// ********************************************************************************
 const std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray() const
 {
 	return &m_AnimationArray;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション配列の取得
+/// </summary>
+/// <returns>アニメーション配列, nullptr : データなし</returns>
+// ********************************************************************************
 std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray()
 {
 	return &m_AnimationArray;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のアニメーションデータの取得
+/// </summary>
+/// <returns>再生中のアニメーションデータ, nullptr : データなし</returns>
+// ********************************************************************************
 const SpriteAnimation * const SpriteAnimationController::currentAnimation() const
 {
 	if (m_CurrentAnimationNo < 0)
@@ -809,6 +1489,12 @@ const SpriteAnimation * const SpriteAnimationController::currentAnimation() cons
 	return &(m_AnimationArray[m_CurrentAnimationNo].second);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のアニメーションデータの取得
+/// </summary>
+/// <returns>再生中のアニメーションデータ, nullptr : データなし</returns>
+// ********************************************************************************
 SpriteAnimation * const SpriteAnimationController::currentAnimation()
 {
 	if (m_CurrentAnimationNo < 0)
@@ -818,6 +1504,12 @@ SpriteAnimation * const SpriteAnimationController::currentAnimation()
 	return &(m_AnimationArray[m_CurrentAnimationNo].second);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のパターンデータの取得
+/// </summary>
+/// <returns>再生中のパターンデータ, nullptr : データなし</returns>
+// ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern() const
 {
 	if (m_CurrentAnimationNo < 0)
@@ -827,6 +1519,12 @@ const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern
 	return m_AnimationArray[m_CurrentAnimationNo].second.currentPattern();
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のパターンデータの取得
+/// </summary>
+/// <returns>再生中のパターンデータ, nullptr : データなし</returns>
+// ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern()
 {
 	if (m_CurrentAnimationNo < 0)
@@ -836,6 +1534,12 @@ SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern()
 	return m_AnimationArray[m_CurrentAnimationNo].second.currentPattern();
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のアニメーション名の取得
+/// </summary>
+/// <returns>再生中のアニメーション名, nullptr : データなし</returns>
+// ********************************************************************************
 const std::string * const SpriteAnimationController::currentAnimationName() const
 {
 	if (m_CurrentAnimationNo < 0)
@@ -845,16 +1549,35 @@ const std::string * const SpriteAnimationController::currentAnimationName() cons
 	return &(m_AnimationArray[m_CurrentAnimationNo].first);
 }
 
+// ********************************************************************************
+/// <summary>
+/// 再生中のアニメーション番号の取得
+/// </summary>
+/// <returns>再生中のアニメーション番号, -1 : データなし</returns>
+// ********************************************************************************
 std::int32_t SpriteAnimationController::currentAnimationNo() const
 {
 	return m_CurrentAnimationNo;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション数の取得
+/// </summary>
+/// <returns>アニメーション数</returns>
+// ********************************************************************************
 std::size_t SpriteAnimationController::animationCount() const
 {
 	return m_AnimationArray.size();
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimationController & SpriteAnimationController::operator=(const SpriteAnimationController & copy)
 {
 	m_AnimationArray     = copy.m_AnimationArray;
@@ -862,6 +1585,13 @@ SpriteAnimationController & SpriteAnimationController::operator=(const SpriteAni
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
 SpriteAnimationController & SpriteAnimationController::operator=(SpriteAnimationController && move)
 {
 	m_AnimationArray     = std::move(move.m_AnimationArray);
@@ -869,6 +1599,13 @@ SpriteAnimationController & SpriteAnimationController::operator=(SpriteAnimation
 	return *this;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator== 等価比較演算
+/// </summary>
+/// <param name="controller">比較対象</param>
+/// <returns>true : 一致, false : 一致しない</returns>
+// ********************************************************************************
 bool SpriteAnimationController::operator==(const SpriteAnimationController & controller) const
 {
 	const std::size_t size = controller.m_AnimationArray.size();
@@ -890,11 +1627,23 @@ bool SpriteAnimationController::operator==(const SpriteAnimationController & con
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// operator!= 比較演算
+/// </summary>
+/// <param name="controller">比較対象</param>
+/// <returns>!(*this == controller)</returns>
+// ********************************************************************************
 bool SpriteAnimationController::operator!=(const SpriteAnimationController & controller) const
 {
 	return !(operator==(controller));
 }
 
+// ********************************************************************************
+/// <summary>
+/// 内部で再生中のアニメーション番号を丸める処理
+/// </summary>
+// ********************************************************************************
 void SpriteAnimationController::roundCurrentAnimationNo()
 {
 	if (m_CurrentAnimationNo < 0)
@@ -908,6 +1657,13 @@ void SpriteAnimationController::roundCurrentAnimationNo()
 
 #include "SpriteAnimationCommon.h"
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="pData">データ</param>
+/// <param name="dataLen">データ長</param>
+// ********************************************************************************
 SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::size_t dataLen)
 	: m_pData{ pData }
 	, m_DataLen{ dataLen }
@@ -915,10 +1671,23 @@ SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::si
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// デストラクタ
+/// </summary>
+// ********************************************************************************
 SpriteAnimationDataParser::~SpriteAnimationDataParser()
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// 解析、分解
+/// </summary>
+/// <param name="outAnimation">出力先</param>
+/// <param name="outTexturePathArray">出力先</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationDataParser::parseFromSA(SpriteAnimationController * outAnimation, std::vector<std::string>* outTexturePathArray)
 {
 	if (outTexturePathArray == nullptr ||
@@ -993,6 +1762,13 @@ bool SpriteAnimationDataParser::parseFromSA(SpriteAnimationController * outAnima
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// アニメーション情報の解析、分解
+/// </summary>
+/// <param name="out">出力先</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 {
 	std::int32_t dataSize = charToNum(&(m_pData[m_Index]));
@@ -1041,6 +1817,14 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// パターン情報の解析、分解
+/// </summary>
+/// <param name="out">出力先</param>
+/// <param name="index">アニメーション情報データインデックス</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, std::int32_t& in)
 {
 	std::int32_t dataSize = charToNum(&(m_pData[m_Index + in]));
@@ -1122,6 +1906,13 @@ bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, st
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// 画像パス配列情報の解析、分解
+/// </summary>
+/// <param name="out">出力先</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationDataParser::texturePathArrayParse(std::vector<std::string>* out)
 {
 	std::int32_t dataSize = charToNum(&(m_pData[m_Index]));
@@ -1147,6 +1938,13 @@ bool SpriteAnimationDataParser::texturePathArrayParse(std::vector<std::string>* 
 	return true;
 }
 
+// ********************************************************************************
+/// <summary>
+/// データ配列の先頭から4バイト分を4バイトデータに変換
+/// </summary>
+/// <param name="pData">データ配列</param>
+/// <returns>4バイトデータ</returns>
+// ********************************************************************************
 std::int32_t SpriteAnimationDataParser::charToNum(const char * pData)
 {
 	std::int32_t result = 0;
@@ -1163,15 +1961,34 @@ std::int32_t SpriteAnimationDataParser::charToNum(const char * pData)
 #include <fstream>
 #include "SpriteAnimationCommon.h"
 
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="pName">出力ファイルパス</param>
+// ********************************************************************************
 SpriteAnimationDataExporter::SpriteAnimationDataExporter(const char * pName)
 	: m_pFileName { pName }
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// デストラクタ
+/// </summary>
+// ********************************************************************************
 SpriteAnimationDataExporter::~SpriteAnimationDataExporter()
 {
 }
 
+// ********************************************************************************
+/// <summary>
+/// .saデータに出力
+/// </summary>
+/// <param name="expoortController">出力するアニメーションデータ</param>
+/// <param name="exportTexturePathArray">出力する画像パス配列データ</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
 bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoortController, std::vector<std::string>* exportTexturePathArray)
 {
 	std::ofstream ofs(m_pFileName, std::ios::binary);
