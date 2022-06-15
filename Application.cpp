@@ -18,6 +18,7 @@ Application::Application()
 Application::~Application() {
 }
 
+SpriteAnimationController test;
 /**
  * @brief		初期化
  */
@@ -40,7 +41,6 @@ void Application::Initialize() {
 	frameCanvas_->Create(4096, 4096);
 	canvas_ = frameCanvas_->CreateSprite(GraphicsController::GetInstance().Shader());
 
-	SpriteAnimationController test;
 	SpriteAnimation animation;
 	animation.addPattern(SpriteAnimation::Pattern{ 0,   0, 0, 32, 32, 0.080, 0, 0 });
 	animation.addPattern(SpriteAnimation::Pattern{ 0,  32, 0, 32, 32, 0.080, 0, 0 });
@@ -63,10 +63,11 @@ void Application::Initialize() {
 
 	std::vector<std::string> texturePathArray2;
 	SpriteAnimationController test2("sample.sa", &texturePathArray2);
-	if (test == test2)
+	if (test != test2)
 	{
 		return;
 	}
+	test.changeAnimation("sample");
 }
 
 /**
@@ -75,7 +76,16 @@ void Application::Initialize() {
 void Application::Update() {
 	//TODO:
 	//アプリの更新処理を記述
-
+	test.update(timer_->Time() * 0.1f);
+	std::cout << "{ " << test.currentPattern()->m_ImageNo << ", ";
+	std::cout << test.currentPattern()->m_OffsetX     << ", ";
+	std::cout << test.currentPattern()->m_OffsetY     << ", ";
+	std::cout << test.currentPattern()->m_Width       << ", ";
+	std::cout << test.currentPattern()->m_Height      << ", ";
+	std::cout << test.currentPattern()->m_RefreshTime << ", ";
+	std::cout << test.currentPattern()->m_DrawOffsetX << ", ";
+	std::cout << test.currentPattern()->m_DrawOffsetY << ", ";
+	std::cout << test.currentPattern()->m_DrawOffsetY << " }\n";
     /**/
     unsigned flags = ImGuiWindowFlags_NoTitleBar;
     flags |= ImGuiWindowFlags_NoMove;

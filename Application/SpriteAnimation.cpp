@@ -129,7 +129,7 @@ bool SpriteAnimation::update(const float deltaTime)
 		return false;
 	}
 	m_Timer += deltaTime;
-	if (m_PatternArray[m_CurrentPatternNo].m_RefreshTime >= m_Timer)
+	if (m_PatternArray[m_CurrentPatternNo].m_RefreshTime <= m_Timer)
 	{
 		m_Timer = 0.0;
 		m_CurrentPatternNo++;
@@ -286,7 +286,7 @@ bool SpriteAnimation::setCurrentPatternNoByTime(double t)
 
 bool SpriteAnimation::play(std::size_t no)
 {
-	if (m_PatternArray.size() >= no)
+	if (m_PatternArray.size() <= no)
 	{
 		m_CurrentPatternNo = -1;
 		return false;
@@ -546,7 +546,7 @@ SpriteAnimationController::~SpriteAnimationController()
 
 bool SpriteAnimationController::update(const float deltaTime)
 {
-	if (m_CurrentAnimationNo < 0 || (std::int32_t)m_AnimationArray.size() >= m_CurrentAnimationNo)
+	if (m_CurrentAnimationNo < 0 || (std::int32_t)m_AnimationArray.size() <= m_CurrentAnimationNo)
 	{
 		return false;
 	}
@@ -765,7 +765,8 @@ bool SpriteAnimationController::changeAnimation(std::size_t key, bool isSamed)
 
 bool SpriteAnimationController::changeAnimation(const std::string & key, bool isSamed)
 {
-	if (m_AnimationArray[m_CurrentAnimationNo].first.compare(key) == 0 && isSamed)
+	if (m_CurrentAnimationNo >= 0 &&
+		m_AnimationArray[m_CurrentAnimationNo].first.compare(key) == 0 && isSamed)
 	{
 		return false;
 	}
