@@ -4,9 +4,9 @@
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimation::Pattern::Pattern(const Pattern & copy)
 {
@@ -15,9 +15,9 @@ SpriteAnimation::Pattern::Pattern(const Pattern & copy)
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimation::Pattern::Pattern(Pattern && move)
 {
@@ -26,16 +26,16 @@ SpriteAnimation::Pattern::Pattern(Pattern && move)
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="n">‰æ‘œ”Ô†</param>
-/// <param name="x">ƒIƒtƒZƒbƒgX</param>
-/// <param name="y">ƒIƒtƒZƒbƒgY</param>
-/// <param name="w">‰¡•</param>
-/// <param name="h">‚‚³</param>
-/// <param name="t">•`‰æŠÔ(’PˆÊ‚Í•b)</param>
-/// <param name="ox">•`‰æƒIƒtƒZƒbƒgX</param>
-/// <param name="oy">•`‰æƒIƒtƒZƒbƒgY</param>
+/// <param name="n">ç”»åƒç•ªå·</param>
+/// <param name="x">ã‚ªãƒ•ã‚»ãƒƒãƒˆX</param>
+/// <param name="y">ã‚ªãƒ•ã‚»ãƒƒãƒˆY</param>
+/// <param name="w">æ¨ªå¹…</param>
+/// <param name="h">é«˜ã•</param>
+/// <param name="t">æç”»æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <param name="ox">æç”»ã‚ªãƒ•ã‚»ãƒƒãƒˆX</param>
+/// <param name="oy">æç”»ã‚ªãƒ•ã‚»ãƒƒãƒˆY</param>
 // ********************************************************************************
 SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y, std::int32_t w, std::int32_t h, double t, std::int32_t ox, std::int32_t oy)
 	: m_ImageNo{ n }
@@ -51,9 +51,9 @@ SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & copy)
@@ -71,9 +71,9 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & c
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::Pattern && move)
@@ -91,10 +91,10 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::
 
 // ********************************************************************************
 /// <summary>
-/// operator== “™‰¿”äŠr‰‰Z
+/// operator== ç­‰ä¾¡æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="pattern">”äŠr‘ÎÛ</param>
-/// <returns>true : ƒpƒ^[ƒ“ƒf[ƒ^ˆê’v, false : ˆê’v‚µ‚È‚¢</returns>
+/// <param name="pattern">æ¯”è¼ƒå¯¾è±¡</param>
+/// <returns>true : ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ä¸€è‡´, false : ä¸€è‡´ã—ãªã„</returns>
 // ********************************************************************************
 bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & pattern) const
 {
@@ -111,9 +111,9 @@ bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & patte
 
 // ********************************************************************************
 /// <summary>
-/// operator!= ”äŠr‰‰Z
+/// operator!= æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="pattern">”äŠr‘ÎÛ</param>
+/// <param name="pattern">æ¯”è¼ƒå¯¾è±¡</param>
 /// <returns>!(*this == pattern)</returns>
 // ********************************************************************************
 bool SpriteAnimation::Pattern::operator!=(const SpriteAnimation::Pattern & pattern) const
@@ -123,9 +123,9 @@ bool SpriteAnimation::Pattern::operator!=(const SpriteAnimation::Pattern & patte
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(const SpriteAnimation & copy)
 {
@@ -134,9 +134,9 @@ SpriteAnimation::SpriteAnimation(const SpriteAnimation & copy)
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(SpriteAnimation && move)
 {
@@ -145,10 +145,10 @@ SpriteAnimation::SpriteAnimation(SpriteAnimation && move)
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="patterns">ƒpƒ^[ƒ“”z—ñ</param>
-/// <param name="hasLooped">ƒ‹[ƒvƒtƒ‰ƒO</param>
+/// <param name="patterns">ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—</param>
+/// <param name="hasLooped">ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& patterns, bool hasLooped)
 	: m_PatternArray{ patterns }
@@ -165,10 +165,10 @@ SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& pa
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="patterns">ƒpƒ^[ƒ“”z—ñ(ƒ€[ƒu)</param>
-/// <param name="hasLooped">ƒ‹[ƒvƒtƒ‰ƒO</param>
+/// <param name="patterns">ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—(ãƒ ãƒ¼ãƒ–)</param>
+/// <param name="hasLooped">ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& patterns, bool hasLooped)
 	: m_PatternArray{ std::move(patterns) }
@@ -185,11 +185,11 @@ SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& pattern
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="patterns">ƒpƒ^[ƒ“”z—ñ</param>
-/// <param name="count">ƒpƒ^[ƒ““o˜^”</param>
-/// <param name="hasLooped">ƒ‹[ƒvƒtƒ‰ƒO</param>
+/// <param name="patterns">ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—</param>
+/// <param name="count">ãƒ‘ã‚¿ãƒ¼ãƒ³ç™»éŒ²æ•°</param>
+/// <param name="hasLooped">ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(SpriteAnimation::Pattern * patterns, std::size_t count, bool hasLooped)
 	: m_PatternArray{ patterns, patterns + count }
@@ -206,7 +206,7 @@ SpriteAnimation::SpriteAnimation(SpriteAnimation::Pattern * patterns, std::size_
 
 // ********************************************************************************
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 // ********************************************************************************
 SpriteAnimation::~SpriteAnimation()
@@ -216,10 +216,10 @@ SpriteAnimation::~SpriteAnimation()
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌXV
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ›´æ–°
 /// </summary>
-/// <param name="deltaTime">XVŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>true : XV‚ ‚è, false : XV‚È‚µ</returns>
+/// <param name="deltaTime">æ›´æ–°æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>true : æ›´æ–°ã‚ã‚Š, false : æ›´æ–°ãªã—</returns>
 // ********************************************************************************
 bool SpriteAnimation::update(const float deltaTime)
 {
@@ -243,10 +243,10 @@ bool SpriteAnimation::update(const float deltaTime)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="pattern">’Ç‰Á‚·‚éƒpƒ^[ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="pattern">è¿½åŠ ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
 {
@@ -257,10 +257,10 @@ bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="pattern">’Ç‰Á‚·‚éƒpƒ^[ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="pattern">è¿½åŠ ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
 {
@@ -271,11 +271,11 @@ bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚é”z—ñ”Ô†</param>
-/// <param name="pattern">•ÏXŒã‚Ìƒpƒ^[ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹é…åˆ—ç•ªå·</param>
+/// <param name="pattern">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern & pattern)
 {
@@ -291,11 +291,11 @@ bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern 
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚é”z—ñ”Ô†</param>
-/// <param name="pattern">•ÏXŒã‚Ìƒpƒ^[ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹é…åˆ—ç•ªå·</param>
+/// <param name="pattern">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setPattern(std::size_t no, SpriteAnimation::Pattern && pattern)
 {
@@ -311,10 +311,10 @@ bool SpriteAnimation::setPattern(std::size_t no, SpriteAnimation::Pattern && pat
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ìíœ
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
 /// </summary>
-/// <param name="no">íœ‚·‚é”z—ñ”Ô†</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å‰Šé™¤ã™ã‚‹é…åˆ—ç•ªå·</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::removePattern(std::size_t no)
 {
@@ -330,10 +330,10 @@ bool SpriteAnimation::removePattern(std::size_t no)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ìíœ
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
 /// </summary>
-/// <param name="pattern">íœ‚·‚éƒpƒ^[ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="pattern">å‰Šé™¤ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
 {
@@ -354,10 +354,10 @@ bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ìíœ
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
 /// </summary>
-/// <param name="pattern">íœ‚·‚éƒpƒ^[ƒ“ƒf[ƒ^‚ÌƒCƒeƒŒ[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="pattern">å‰Šé™¤ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::removePattern(std::vector<SpriteAnimation::Pattern>::const_iterator pattern)
 {
@@ -369,9 +369,9 @@ bool SpriteAnimation::removePattern(std::vector<SpriteAnimation::Pattern>::const
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ì‘Síœ
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å…¨å‰Šé™¤
 /// </summary>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::clear()
 {
@@ -384,10 +384,10 @@ bool SpriteAnimation::clear()
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“”z—ñ‚Ì•ÏX
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="patterns">•ÏXŒã‚Ìƒpƒ^[ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="patterns">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern>& patterns)
 {
@@ -401,10 +401,10 @@ bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“”z—ñ‚Ì•ÏX
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="patterns">•ÏXŒã‚Ìƒpƒ^[ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="patterns">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& patterns)
 {
@@ -418,11 +418,11 @@ bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& pa
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“”z—ñ‚Ì•ÏX
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="patterns">•ÏXŒã‚Ìƒpƒ^[ƒ“”z—ñ</param>
-/// <param name="count">•ÏXŒã‚Ìƒpƒ^[ƒ“”</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="patterns">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—</param>
+/// <param name="count">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setPatternArray(SpriteAnimation::Pattern* patterns, std::size_t count)
 {
@@ -436,10 +436,10 @@ bool SpriteAnimation::setPatternArray(SpriteAnimation::Pattern* patterns, std::s
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒvİ’è
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ«ãƒ¼ãƒ—è¨­å®š
 /// </summary>
-/// <param name="hasLooped">true : ƒ‹[ƒv‚·‚é, false : ƒ‹[ƒv‚µ‚È‚¢</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="hasLooped">true : ãƒ«ãƒ¼ãƒ—ã™ã‚‹, false : ãƒ«ãƒ¼ãƒ—ã—ãªã„</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setLoop(bool hasLooped)
 {
@@ -449,10 +449,10 @@ bool SpriteAnimation::setLoop(bool hasLooped)
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†ƒpƒ^[ƒ“”Ô†‚Ì•ÏX
+/// å†ç”Ÿä¸­ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏXŒã‚Ìƒpƒ^[ƒ“”Ô†</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´å¾Œã®ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setCurrentPatternNo(std::int32_t no)
 {
@@ -467,10 +467,10 @@ bool SpriteAnimation::setCurrentPatternNo(std::int32_t no)
 
 // ********************************************************************************
 /// <summary>
-/// ŠÔw’è‚É‚æ‚éÄ¶’†ƒpƒ^[ƒ“”Ô†‚Ì•ÏX
+/// æ™‚é–“æŒ‡å®šã«ã‚ˆã‚‹å†ç”Ÿä¸­ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã®å¤‰æ›´
 /// </summary>
-/// <param name="t">Ä¶‚µ‚½‚¢ƒAƒjƒ[ƒVƒ‡ƒ“Œo‰ßŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="t">å†ç”Ÿã—ãŸã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµŒéæ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::setCurrentPatternNoByTime(double t)
 {
@@ -485,10 +485,10 @@ bool SpriteAnimation::setCurrentPatternNoByTime(double t)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿ
 /// </summary>
-/// <param name="no">Ä¶ŠJnƒpƒ^[ƒ“”Ô†</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å†ç”Ÿé–‹å§‹ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::play(std::size_t no)
 {
@@ -504,10 +504,10 @@ bool SpriteAnimation::play(std::size_t no)
 
 // ********************************************************************************
 /// <summary>
-/// ŠJnŠÔw’è‚É‚æ‚éƒpƒ^[ƒ“ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶
+/// é–‹å§‹æ™‚é–“æŒ‡å®šã«ã‚ˆã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿ
 /// </summary>
-/// <param name="t">Ä¶ŠJnƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="t">å†ç”Ÿé–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimation::playByTime(double t)
 {
@@ -523,9 +523,9 @@ bool SpriteAnimation::playByTime(double t)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“”z—ñ‚Ìæ“¾
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã®å–å¾—
 /// </summary>
-/// <returns>ƒpƒ^[ƒ“”z—ñƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray() const
 {
@@ -534,9 +534,9 @@ const std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“”z—ñ‚Ìæ“¾
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã®å–å¾—
 /// </summary>
-/// <returns>ƒpƒ^[ƒ“”z—ñƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray()
 {
@@ -545,10 +545,10 @@ std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray()
 
 // ********************************************************************************
 /// <summary>
-/// ŠÔw’è‚É‚æ‚éƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// æ™‚é–“æŒ‡å®šã«ã‚ˆã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <param name="t">æ“¾‚µ‚½‚¢ƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>w’è‚³‚ê‚½ŠÔ‚ÉÄ¶‚³‚ê‚éƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <param name="t">å–å¾—ã—ãŸã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>æŒ‡å®šã•ã‚ŒãŸæ™‚é–“ã«å†ç”Ÿã•ã‚Œã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) const
 {
@@ -561,10 +561,10 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) 
 
 // ********************************************************************************
 /// <summary>
-/// ŠÔw’è‚É‚æ‚éƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// æ™‚é–“æŒ‡å®šã«ã‚ˆã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <param name="t">æ“¾‚µ‚½‚¢ƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>w’è‚³‚ê‚½ŠÔ‚ÉÄ¶‚³‚ê‚éƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <param name="t">å–å¾—ã—ãŸã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>æŒ‡å®šã•ã‚ŒãŸæ™‚é–“ã«å†ç”Ÿã•ã‚Œã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
 {
@@ -577,10 +577,10 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <param name="no">æ“¾‚µ‚½‚¢”z—ñ”Ô†</param>
-/// <returns>ƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <param name="no">å–å¾—ã—ãŸã„é…åˆ—ç•ªå·</param>
+/// <returns>ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no) const
 {
@@ -593,10 +593,10 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::si
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <param name="no">æ“¾‚µ‚½‚¢”z—ñ”Ô†</param>
-/// <returns>ƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <param name="no">å–å¾—ã—ãŸã„é…åˆ—ç•ªå·</param>
+/// <returns>ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no)
 {
@@ -609,9 +609,9 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t n
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
 {
@@ -628,9 +628,9 @@ const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^ƒ|ƒCƒ“ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒã‚¤ãƒ³ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::currentPattern()
 {
@@ -647,9 +647,9 @@ SpriteAnimation::Pattern * const SpriteAnimation::currentPattern()
 
 // ********************************************************************************
 /// <summary>
-/// ƒ‹[ƒvİ’è‚ÌŠm”F
+/// ãƒ«ãƒ¼ãƒ—è¨­å®šã®ç¢ºèª
 /// </summary>
-/// <returns>true : ƒ‹[ƒv‚·‚é, false : ƒ‹[ƒv‚µ‚È‚¢</returns>
+/// <returns>true : ãƒ«ãƒ¼ãƒ—ã™ã‚‹, false : ãƒ«ãƒ¼ãƒ—ã—ãªã„</returns>
 // ********************************************************************************
 bool SpriteAnimation::hasLooped() const
 {
@@ -658,9 +658,9 @@ bool SpriteAnimation::hasLooped() const
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹‚µ‚Ä‚¢‚é‚©”»’è(ƒ‹[ƒvƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚ê‚Î•K‚¸false‚ª•Ô‚é)
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ã¦ã„ã‚‹ã‹åˆ¤å®š(ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚Œã°å¿…ãšfalseãŒè¿”ã‚‹)
 /// </summary>
-/// <returns>true : ƒAƒjƒ[ƒVƒ‡ƒ“I—¹, false : ƒAƒjƒ[ƒVƒ‡ƒ“’†</returns>
+/// <returns>true : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†, false : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ä¸­</returns>
 // ********************************************************************************
 bool SpriteAnimation::hasEnded() const
 {
@@ -670,10 +670,10 @@ bool SpriteAnimation::hasEnded() const
 
 // ********************************************************************************
 /// <summary>
-/// ŠÔw’è‚É‚æ‚éƒpƒ^[ƒ“”Ô†‚Ìæ“¾
+/// æ™‚é–“æŒ‡å®šã«ã‚ˆã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã®å–å¾—
 /// </summary>
-/// <param name="t">æ“¾‚µ‚½‚¢ŠÔ</param>
-/// <returns>w’è‚³‚ê‚½ŠÔ‚ÉÄ¶‚³‚ê‚éƒpƒ^[ƒ“”Ô†</returns>
+/// <param name="t">å–å¾—ã—ãŸã„æ™‚é–“</param>
+/// <returns>æŒ‡å®šã•ã‚ŒãŸæ™‚é–“ã«å†ç”Ÿã•ã‚Œã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·</returns>
 // ********************************************************************************
 std::int32_t SpriteAnimation::patternNoByTime(double t) const
 {
@@ -718,9 +718,9 @@ std::int32_t SpriteAnimation::patternNoByTime(double t) const
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚Ìƒpƒ^[ƒ“”Ô†‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚Ìƒpƒ^[ƒ“”Ô†, -1 : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·, -1 : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 std::int32_t SpriteAnimation::currentPatternNo() const
 {
@@ -729,9 +729,9 @@ std::int32_t SpriteAnimation::currentPatternNo() const
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“•ÏX—pƒ^ƒCƒ}[‚Ìæ“¾
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³å¤‰æ›´ç”¨ã‚¿ã‚¤ãƒãƒ¼ã®å–å¾—
 /// </summary>
-/// <returns>ƒpƒ^[ƒ“–ˆ‚ÌŒo‰ßŠÔ(’PˆÊ‚Í•b)</returns>
+/// <returns>ãƒ‘ã‚¿ãƒ¼ãƒ³æ¯ã®çµŒéæ™‚é–“(å˜ä½ã¯ç§’)</returns>
 // ********************************************************************************
 double SpriteAnimation::timer() const
 {
@@ -740,9 +740,9 @@ double SpriteAnimation::timer() const
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“I—¹‚Ü‚Å‚Ì‡ŒvŠÔ‚Ìæ“¾(ƒ‹[ƒvŠÖŒW‚È‚­”z—ñ‚Ì‡Œv•`‰æŠÔ‚ª•Ô‚é)
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†ã¾ã§ã®åˆè¨ˆæ™‚é–“ã®å–å¾—(ãƒ«ãƒ¼ãƒ—é–¢ä¿‚ãªãé…åˆ—ã®åˆè¨ˆæç”»æ™‚é–“ãŒè¿”ã‚‹)
 /// </summary>
-/// <returns>ƒAƒjƒ[ƒVƒ‡ƒ“I—¹‚Ü‚Å‚Ì‡ŒvŠÔ(’PˆÊ‚Í•b)</returns>
+/// <returns>ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†ã¾ã§ã®åˆè¨ˆæ™‚é–“(å˜ä½ã¯ç§’)</returns>
 // ********************************************************************************
 double SpriteAnimation::totalTime() const
 {
@@ -751,9 +751,9 @@ double SpriteAnimation::totalTime() const
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimation & SpriteAnimation::operator=(const SpriteAnimation & copy)
@@ -767,9 +767,9 @@ SpriteAnimation & SpriteAnimation::operator=(const SpriteAnimation & copy)
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimation & SpriteAnimation::operator=(SpriteAnimation && move)
@@ -783,10 +783,10 @@ SpriteAnimation & SpriteAnimation::operator=(SpriteAnimation && move)
 
 // ********************************************************************************
 /// <summary>
-/// operator== “™‰¿”äŠr‰‰Z
+/// operator== ç­‰ä¾¡æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="animation">”äŠr‘ÎÛ</param>
-/// <returns>true : ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^ˆê’v, false : ˆê’v‚µ‚È‚¢</returns>
+/// <param name="animation">æ¯”è¼ƒå¯¾è±¡</param>
+/// <returns>true : ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ä¸€è‡´, false : ä¸€è‡´ã—ãªã„</returns>
 // ********************************************************************************
 bool SpriteAnimation::operator==(const SpriteAnimation & animation) const
 {
@@ -809,9 +809,9 @@ bool SpriteAnimation::operator==(const SpriteAnimation & animation) const
 
 // ********************************************************************************
 /// <summary>
-/// operator!= ”äŠr‰‰Z
+/// operator!= æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="animation">”äŠr‰‰Z</param>
+/// <param name="animation">æ¯”è¼ƒæ¼”ç®—</param>
 /// <returns>!(*this == animation)</returns>
 // ********************************************************************************
 bool SpriteAnimation::operator!=(const SpriteAnimation & animation) const
@@ -821,7 +821,7 @@ bool SpriteAnimation::operator!=(const SpriteAnimation & animation) const
 
 // ********************************************************************************
 /// <summary>
-/// “à•”‚ÅÄ¶’†‚Ìƒpƒ^[ƒ“”Ô†‚ğŠÛ‚ß‚éˆ—
+/// å†…éƒ¨ã§å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã‚’ä¸¸ã‚ã‚‹å‡¦ç†
 /// </summary>
 // ********************************************************************************
 void SpriteAnimation::roundCurrentPatternNo()
@@ -840,9 +840,9 @@ void SpriteAnimation::roundCurrentPatternNo()
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const SpriteAnimationController & copy)
 	: m_CurrentAnimationNo{ -1 }
@@ -852,9 +852,9 @@ SpriteAnimationController::SpriteAnimationController(const SpriteAnimationContro
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(SpriteAnimationController && move)
 	: m_CurrentAnimationNo{ -1 }
@@ -864,10 +864,10 @@ SpriteAnimationController::SpriteAnimationController(SpriteAnimationController &
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="pFile">.saƒtƒ@ƒCƒ‹ƒpƒX</param>
-/// <param name="outTexturePathArray">o—Íæ‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX”z—ñ</param>
+/// <param name="pFile">.saãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
+/// <param name="outTexturePathArray">å‡ºåŠ›å…ˆç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹é…åˆ—</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const char * pFile, std::vector<std::string>* outTexturePathArray)
 {
@@ -882,11 +882,11 @@ SpriteAnimationController::SpriteAnimationController(const char * pFile, std::ve
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="pData">.saƒf[ƒ^</param>
-/// <param name="dataLen">ƒf[ƒ^’·</param>
-/// <param name="outTexturePathArray">o—Íæ‰æ‘œƒtƒ@ƒCƒ‹ƒpƒX”z—ñ</param>
+/// <param name="pData">.saãƒ‡ãƒ¼ã‚¿</param>
+/// <param name="dataLen">ãƒ‡ãƒ¼ã‚¿é•·</param>
+/// <param name="outTexturePathArray">å‡ºåŠ›å…ˆç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹é…åˆ—</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const char * pData, std::size_t dataLen, std::vector<std::string>* outTexturePathArray)
 	: m_CurrentAnimationNo{ -1 }
@@ -897,9 +897,9 @@ SpriteAnimationController::SpriteAnimationController(const char * pData, std::si
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="animations">ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
+/// <param name="animations">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
 	: m_AnimationArray{ animations }
@@ -909,9 +909,9 @@ SpriteAnimationController::SpriteAnimationController(const std::vector<std::pair
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="animations">ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
+/// <param name="animations">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
 	: m_AnimationArray{ std::move(animations) }
@@ -921,10 +921,10 @@ SpriteAnimationController::SpriteAnimationController(std::vector<std::pair<std::
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="animations">ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <param name="count">ƒAƒjƒ[ƒVƒ‡ƒ“”</param>
+/// <param name="animations">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <param name="count">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
 	: m_AnimationArray{ animations, animations + count }
@@ -934,7 +934,7 @@ SpriteAnimationController::SpriteAnimationController(std::pair<std::string, Spri
 
 // ********************************************************************************
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 // ********************************************************************************
 SpriteAnimationController::~SpriteAnimationController()
@@ -944,10 +944,10 @@ SpriteAnimationController::~SpriteAnimationController()
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌXV
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ›´æ–°
 /// </summary>
-/// <param name="deltaTime">XVŠÔ(’PˆÊ‚Í•b)</param>
-/// <returns>true : XV‚ ‚è, false : XV‚È‚µ</returns>
+/// <param name="deltaTime">æ›´æ–°æ™‚é–“(å˜ä½ã¯ç§’)</param>
+/// <returns>true : æ›´æ–°ã‚ã‚Š, false : æ›´æ–°ãªã—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::update(const float deltaTime)
 {
@@ -960,11 +960,11 @@ bool SpriteAnimationController::update(const float deltaTime)
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="name">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::string & name, const SpriteAnimation & animation)
 {
@@ -974,11 +974,11 @@ bool SpriteAnimationController::addAnimation(const std::string & name, const Spr
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="name">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::string & name, SpriteAnimation && animation)
 {
@@ -988,11 +988,11 @@ bool SpriteAnimationController::addAnimation(const std::string & name, SpriteAni
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="name">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::string && name, const SpriteAnimation & animation)
 {
@@ -1002,11 +1002,11 @@ bool SpriteAnimationController::addAnimation(std::string && name, const SpriteAn
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="name">ƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::string && name, SpriteAnimation && animation)
 {
@@ -1016,10 +1016,10 @@ bool SpriteAnimationController::addAnimation(std::string && name, SpriteAnimatio
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(const std::pair<std::string, SpriteAnimation>& animation)
 {
@@ -1029,10 +1029,10 @@ bool SpriteAnimationController::addAnimation(const std::pair<std::string, Sprite
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì’Ç‰Á
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ 
 /// </summary>
-/// <param name="animation">ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animation">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::addAnimation(std::pair<std::string, SpriteAnimation>&& animation)
 {
@@ -1042,11 +1042,11 @@ bool SpriteAnimationController::addAnimation(std::pair<std::string, SpriteAnimat
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“–¼‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimationName(std::size_t no, const std::string & name)
 {
@@ -1060,11 +1060,11 @@ bool SpriteAnimationController::setAnimationName(std::size_t no, const std::stri
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“–¼‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimationName(std::size_t no, std::string && name)
 {
@@ -1078,11 +1078,11 @@ bool SpriteAnimationController::setAnimationName(std::size_t no, std::string && 
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const SpriteAnimation & animation)
 {
@@ -1096,11 +1096,11 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const SpriteAnimati
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, SpriteAnimation && animation)
 {
@@ -1114,12 +1114,12 @@ bool SpriteAnimationController::setAnimation(std::size_t no, SpriteAnimation && 
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::string & name, const SpriteAnimation & animation)
 {
@@ -1134,12 +1134,12 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::string &
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::string & name, SpriteAnimation && animation)
 {
@@ -1154,12 +1154,12 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::string &
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name, const SpriteAnimation & animation)
 {
@@ -1174,12 +1174,12 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="name">•ÏXŒã‚Ì–¼‘O</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="name">å¤‰æ›´å¾Œã®åå‰</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name, SpriteAnimation && animation)
 {
@@ -1194,11 +1194,11 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std::string, SpriteAnimation>& animation)
 {
@@ -1212,11 +1212,11 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›´
 /// </summary>
-/// <param name="no">•ÏX‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <param name="animation">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å¤‰æ›´ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <param name="animation">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::size_t no, std::pair<std::string, SpriteAnimation>&& animation)
 {
@@ -1230,10 +1230,10 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::pair<std::stri
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
 /// </summary>
-/// <param name="no">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ”Ô†</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="no">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ç•ªå·</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(std::size_t no)
 {
@@ -1248,10 +1248,10 @@ bool SpriteAnimationController::removeAnimation(std::size_t no)
 
 // ********************************************************************************
 /// <summary>
-/// –¼‘Ow’è‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ(“¯ˆê–¼‚Í‚·‚×‚Äíœ)
+/// åå‰æŒ‡å®šã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤(åŒä¸€åã¯ã™ã¹ã¦å‰Šé™¤)
 /// </summary>
-/// <param name="name">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::string & name)
 {
@@ -1268,10 +1268,10 @@ bool SpriteAnimationController::removeAnimation(const std::string & name)
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^w’è‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ(“¯ˆêƒf[ƒ^‚Í‚·‚×‚Äíœ)
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿æŒ‡å®šã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤(åŒä¸€ãƒ‡ãƒ¼ã‚¿ã¯ã™ã¹ã¦å‰Šé™¤)
 /// </summary>
-/// <param name="animation">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animation">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const SpriteAnimation & animation)
 {
@@ -1288,11 +1288,11 @@ bool SpriteAnimationController::removeAnimation(const SpriteAnimation & animatio
 
 // ********************************************************************************
 /// <summary>
-/// [key, data]‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ(“¯ˆêƒf[ƒ^‚Í‚·‚×‚Äíœ)
+/// [key, data]ã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤(åŒä¸€ãƒ‡ãƒ¼ã‚¿ã¯ã™ã¹ã¦å‰Šé™¤)
 /// </summary>
-/// <param name="name">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="animation">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="name">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="animation">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::string & name, SpriteAnimation & animation)
 {
@@ -1309,10 +1309,10 @@ bool SpriteAnimationController::removeAnimation(const std::string & name, Sprite
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^w’è‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ(“¯ˆêƒf[ƒ^‚Í‚·‚×‚Äíœ)
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿æŒ‡å®šã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤(åŒä¸€ãƒ‡ãƒ¼ã‚¿ã¯ã™ã¹ã¦å‰Šé™¤)
 /// </summary>
-/// <param name="animation">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animation">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(const std::pair<std::string, SpriteAnimation> & animation)
 {
@@ -1329,10 +1329,10 @@ bool SpriteAnimationController::removeAnimation(const std::pair<std::string, Spr
 
 // ********************************************************************************
 /// <summary>
-/// ƒCƒeƒŒ[ƒ^w’è‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìíœ
+/// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿æŒ‡å®šã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
 /// </summary>
-/// <param name="animation">íœ‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^ƒCƒeƒŒ[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animation">å‰Šé™¤ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::removeAnimation(std::vector<std::pair<std::string, SpriteAnimation>>::const_iterator animation)
 {
@@ -1343,9 +1343,9 @@ bool SpriteAnimationController::removeAnimation(std::vector<std::pair<std::strin
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì‘Síœ
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å…¨å‰Šé™¤
 /// </summary>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::clear()
 {
@@ -1356,10 +1356,10 @@ bool SpriteAnimationController::clear()
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="animations">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animations">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
 {
@@ -1369,10 +1369,10 @@ bool SpriteAnimationController::setAnimation(const std::vector<std::pair<std::st
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="animations">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animations">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
 {
@@ -1382,11 +1382,11 @@ bool SpriteAnimationController::setAnimation(std::vector<std::pair<std::string, 
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ‚Ì•ÏX
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ã®å¤‰æ›´
 /// </summary>
-/// <param name="animations">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ</param>
-/// <param name="count">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="animations">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—</param>
+/// <param name="count">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::setAnimation(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
 {
@@ -1396,11 +1396,11 @@ bool SpriteAnimationController::setAnimation(std::pair<std::string, SpriteAnimat
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì•ÏX
+/// å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å¤‰æ›´
 /// </summary>
-/// <param name="key">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”Ô†</param>
-/// <param name="isSamed">Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Æ“¯ˆê‚Åã‘‚«‚µ‚È‚¢ƒtƒ‰ƒO(falsew’è‚Å“¯ˆêƒAƒjƒ[ƒVƒ‡ƒ“‚Å‚à0‚©‚çÄ¶)</param>
-/// <returns>true : •ÏX‚ ‚è, false : •ÏX‚È‚µ</returns>
+/// <param name="key">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·</param>
+/// <param name="isSamed">å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¨åŒä¸€ã§ä¸Šæ›¸ãã—ãªã„ãƒ•ãƒ©ã‚°(falseæŒ‡å®šã§åŒä¸€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã§ã‚‚0ã‹ã‚‰å†ç”Ÿ)</param>
+/// <returns>true : å¤‰æ›´ã‚ã‚Š, false : å¤‰æ›´ãªã—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::changeAnimation(std::size_t key, bool isSamed)
 {
@@ -1419,11 +1419,11 @@ bool SpriteAnimationController::changeAnimation(std::size_t key, bool isSamed)
 
 // ********************************************************************************
 /// <summary>
-/// –¼‘Ow’è‚ÅÄ¶ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì•ÏX(“¯ˆê–¼‚ª•¡”‚ ‚éê‡Å‰‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚É‚È‚é)
+/// åå‰æŒ‡å®šã§å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å¤‰æ›´(åŒä¸€åãŒè¤‡æ•°ã‚ã‚‹å ´åˆæœ€åˆã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã«ãªã‚‹)
 /// </summary>
-/// <param name="key">•ÏXŒã‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼</param>
-/// <param name="isSamed">Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Æ“¯ˆê‚Åã‘‚«‚µ‚È‚¢ƒtƒ‰ƒO(falsew’è‚Å“¯ˆêƒAƒjƒ[ƒVƒ‡ƒ“‚Å‚à0‚©‚çÄ¶)</param>
-/// <returns>true : •ÏX‚ ‚è, false : •ÏX‚È‚µ</returns>
+/// <param name="key">å¤‰æ›´å¾Œã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å</param>
+/// <param name="isSamed">å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¨åŒä¸€ã§ä¸Šæ›¸ãã—ãªã„ãƒ•ãƒ©ã‚°(falseæŒ‡å®šã§åŒä¸€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã§ã‚‚0ã‹ã‚‰å†ç”Ÿ)</param>
+/// <returns>true : å¤‰æ›´ã‚ã‚Š, false : å¤‰æ›´ãªã—</returns>
 // ********************************************************************************
 bool SpriteAnimationController::changeAnimation(const std::string & key, bool isSamed)
 {
@@ -1454,9 +1454,9 @@ bool SpriteAnimationController::changeAnimation(const std::string & key, bool is
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ‚Ìæ“¾
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ã®å–å¾—
 /// </summary>
-/// <returns>ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray() const
 {
@@ -1465,9 +1465,9 @@ const std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimatio
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ‚Ìæ“¾
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—ã®å–å¾—
 /// </summary>
-/// <returns>ƒAƒjƒ[ƒVƒ‡ƒ“”z—ñ, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é…åˆ—, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray()
 {
@@ -1476,9 +1476,9 @@ std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationContr
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const SpriteAnimation * const SpriteAnimationController::currentAnimation() const
 {
@@ -1491,9 +1491,9 @@ const SpriteAnimation * const SpriteAnimationController::currentAnimation() cons
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 SpriteAnimation * const SpriteAnimationController::currentAnimation()
 {
@@ -1506,9 +1506,9 @@ SpriteAnimation * const SpriteAnimationController::currentAnimation()
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern() const
 {
@@ -1521,9 +1521,9 @@ const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚Ìƒpƒ^[ƒ“ƒf[ƒ^, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern()
 {
@@ -1536,9 +1536,9 @@ SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern()
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³åã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“–¼, nullptr : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å, nullptr : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 const std::string * const SpriteAnimationController::currentAnimationName() const
 {
@@ -1551,9 +1551,9 @@ const std::string * const SpriteAnimationController::currentAnimationName() cons
 
 // ********************************************************************************
 /// <summary>
-/// Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”Ô†‚Ìæ“¾
+/// å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã®å–å¾—
 /// </summary>
-/// <returns>Ä¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”Ô†, -1 : ƒf[ƒ^‚È‚µ</returns>
+/// <returns>å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·, -1 : ãƒ‡ãƒ¼ã‚¿ãªã—</returns>
 // ********************************************************************************
 std::int32_t SpriteAnimationController::currentAnimationNo() const
 {
@@ -1562,9 +1562,9 @@ std::int32_t SpriteAnimationController::currentAnimationNo() const
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“”‚Ìæ“¾
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°ã®å–å¾—
 /// </summary>
-/// <returns>ƒAƒjƒ[ƒVƒ‡ƒ“”</returns>
+/// <returns>ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°</returns>
 // ********************************************************************************
 std::size_t SpriteAnimationController::animationCount() const
 {
@@ -1573,9 +1573,9 @@ std::size_t SpriteAnimationController::animationCount() const
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="copy">ƒRƒs[ƒf[ƒ^</param>
+/// <param name="copy">ã‚³ãƒ”ãƒ¼ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimationController & SpriteAnimationController::operator=(const SpriteAnimationController & copy)
@@ -1587,9 +1587,9 @@ SpriteAnimationController & SpriteAnimationController::operator=(const SpriteAni
 
 // ********************************************************************************
 /// <summary>
-/// operator= ‘ã“ü‰‰Z
+/// operator= ä»£å…¥æ¼”ç®—
 /// </summary>
-/// <param name="move">ƒ€[ƒuƒf[ƒ^</param>
+/// <param name="move">ãƒ ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿</param>
 /// <returns>*this</returns>
 // ********************************************************************************
 SpriteAnimationController & SpriteAnimationController::operator=(SpriteAnimationController && move)
@@ -1601,10 +1601,10 @@ SpriteAnimationController & SpriteAnimationController::operator=(SpriteAnimation
 
 // ********************************************************************************
 /// <summary>
-/// operator== “™‰¿”äŠr‰‰Z
+/// operator== ç­‰ä¾¡æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="controller">”äŠr‘ÎÛ</param>
-/// <returns>true : ˆê’v, false : ˆê’v‚µ‚È‚¢</returns>
+/// <param name="controller">æ¯”è¼ƒå¯¾è±¡</param>
+/// <returns>true : ä¸€è‡´, false : ä¸€è‡´ã—ãªã„</returns>
 // ********************************************************************************
 bool SpriteAnimationController::operator==(const SpriteAnimationController & controller) const
 {
@@ -1629,9 +1629,9 @@ bool SpriteAnimationController::operator==(const SpriteAnimationController & con
 
 // ********************************************************************************
 /// <summary>
-/// operator!= ”äŠr‰‰Z
+/// operator!= æ¯”è¼ƒæ¼”ç®—
 /// </summary>
-/// <param name="controller">”äŠr‘ÎÛ</param>
+/// <param name="controller">æ¯”è¼ƒå¯¾è±¡</param>
 /// <returns>!(*this == controller)</returns>
 // ********************************************************************************
 bool SpriteAnimationController::operator!=(const SpriteAnimationController & controller) const
@@ -1641,7 +1641,7 @@ bool SpriteAnimationController::operator!=(const SpriteAnimationController & con
 
 // ********************************************************************************
 /// <summary>
-/// “à•”‚ÅÄ¶’†‚ÌƒAƒjƒ[ƒVƒ‡ƒ“”Ô†‚ğŠÛ‚ß‚éˆ—
+/// å†…éƒ¨ã§å†ç”Ÿä¸­ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã‚’ä¸¸ã‚ã‚‹å‡¦ç†
 /// </summary>
 // ********************************************************************************
 void SpriteAnimationController::roundCurrentAnimationNo()
@@ -1659,10 +1659,10 @@ void SpriteAnimationController::roundCurrentAnimationNo()
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="pData">ƒf[ƒ^</param>
-/// <param name="dataLen">ƒf[ƒ^’·</param>
+/// <param name="pData">ãƒ‡ãƒ¼ã‚¿</param>
+/// <param name="dataLen">ãƒ‡ãƒ¼ã‚¿é•·</param>
 // ********************************************************************************
 SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::size_t dataLen)
 	: m_pData{ pData }
@@ -1673,7 +1673,7 @@ SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::si
 
 // ********************************************************************************
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 // ********************************************************************************
 SpriteAnimationDataParser::~SpriteAnimationDataParser()
@@ -1682,11 +1682,11 @@ SpriteAnimationDataParser::~SpriteAnimationDataParser()
 
 // ********************************************************************************
 /// <summary>
-/// ‰ğÍA•ª‰ğ
+/// è§£æã€åˆ†è§£
 /// </summary>
-/// <param name="outAnimation">o—Íæ</param>
-/// <param name="outTexturePathArray">o—Íæ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="outAnimation">å‡ºåŠ›å…ˆ</param>
+/// <param name="outTexturePathArray">å‡ºåŠ›å…ˆ</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationDataParser::parseFromSA(SpriteAnimationController * outAnimation, std::vector<std::string>* outTexturePathArray)
 {
@@ -1764,10 +1764,10 @@ bool SpriteAnimationDataParser::parseFromSA(SpriteAnimationController * outAnima
 
 // ********************************************************************************
 /// <summary>
-/// ƒAƒjƒ[ƒVƒ‡ƒ“î•ñ‚Ì‰ğÍA•ª‰ğ
+/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±ã®è§£æã€åˆ†è§£
 /// </summary>
-/// <param name="out">o—Íæ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="out">å‡ºåŠ›å…ˆ</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 {
@@ -1819,11 +1819,11 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 
 // ********************************************************************************
 /// <summary>
-/// ƒpƒ^[ƒ“î•ñ‚Ì‰ğÍA•ª‰ğ
+/// ãƒ‘ã‚¿ãƒ¼ãƒ³æƒ…å ±ã®è§£æã€åˆ†è§£
 /// </summary>
-/// <param name="out">o—Íæ</param>
-/// <param name="index">ƒAƒjƒ[ƒVƒ‡ƒ“î•ñƒf[ƒ^ƒCƒ“ƒfƒbƒNƒX</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="out">å‡ºåŠ›å…ˆ</param>
+/// <param name="index">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±ãƒ‡ãƒ¼ã‚¿ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, std::int32_t& in)
 {
@@ -1908,10 +1908,10 @@ bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, st
 
 // ********************************************************************************
 /// <summary>
-/// ‰æ‘œƒpƒX”z—ñî•ñ‚Ì‰ğÍA•ª‰ğ
+/// ç”»åƒãƒ‘ã‚¹é…åˆ—æƒ…å ±ã®è§£æã€åˆ†è§£
 /// </summary>
-/// <param name="out">o—Íæ</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="out">å‡ºåŠ›å…ˆ</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationDataParser::texturePathArrayParse(std::vector<std::string>* out)
 {
@@ -1940,10 +1940,10 @@ bool SpriteAnimationDataParser::texturePathArrayParse(std::vector<std::string>* 
 
 // ********************************************************************************
 /// <summary>
-/// ƒf[ƒ^”z—ñ‚Ìæ“ª‚©‚ç4ƒoƒCƒg•ª‚ğ4ƒoƒCƒgƒf[ƒ^‚É•ÏŠ·
+/// ãƒ‡ãƒ¼ã‚¿é…åˆ—ã®å…ˆé ­ã‹ã‚‰4ãƒã‚¤ãƒˆåˆ†ã‚’4ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿ã«å¤‰æ›
 /// </summary>
-/// <param name="pData">ƒf[ƒ^”z—ñ</param>
-/// <returns>4ƒoƒCƒgƒf[ƒ^</returns>
+/// <param name="pData">ãƒ‡ãƒ¼ã‚¿é…åˆ—</param>
+/// <returns>4ãƒã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿</returns>
 // ********************************************************************************
 std::int32_t SpriteAnimationDataParser::charToNum(const char * pData)
 {
@@ -1963,9 +1963,9 @@ std::int32_t SpriteAnimationDataParser::charToNum(const char * pData)
 
 // ********************************************************************************
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
-/// <param name="pName">o—Íƒtƒ@ƒCƒ‹ƒpƒX</param>
+/// <param name="pName">å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹</param>
 // ********************************************************************************
 SpriteAnimationDataExporter::SpriteAnimationDataExporter(const char * pName)
 	: m_pFileName { pName }
@@ -1974,7 +1974,7 @@ SpriteAnimationDataExporter::SpriteAnimationDataExporter(const char * pName)
 
 // ********************************************************************************
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 // ********************************************************************************
 SpriteAnimationDataExporter::~SpriteAnimationDataExporter()
@@ -1983,11 +1983,11 @@ SpriteAnimationDataExporter::~SpriteAnimationDataExporter()
 
 // ********************************************************************************
 /// <summary>
-/// .saƒf[ƒ^‚Éo—Í
+/// .saãƒ‡ãƒ¼ã‚¿ã«å‡ºåŠ›
 /// </summary>
-/// <param name="expoortController">o—Í‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^</param>
-/// <param name="exportTexturePathArray">o—Í‚·‚é‰æ‘œƒpƒX”z—ñƒf[ƒ^</param>
-/// <returns>true : ¬Œ÷, false : ¸”s</returns>
+/// <param name="expoortController">å‡ºåŠ›ã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿</param>
+/// <param name="exportTexturePathArray">å‡ºåŠ›ã™ã‚‹ç”»åƒãƒ‘ã‚¹é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
+/// <returns>true : æˆåŠŸ, false : å¤±æ•—</returns>
 // ********************************************************************************
 bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoortController, std::vector<std::string>* exportTexturePathArray)
 {

@@ -1,15 +1,15 @@
 #ifndef SPRITEANIMATIONCOMMON_H_
 #define SPRITEANIMATIONCOMMON_H_
 
-/*! “Æ©ƒwƒbƒ_ */
+/*! ç‹¬è‡ªãƒ˜ãƒƒãƒ€ */
 #define SPRITE_ANIMATION_HEADER         "SPRITE_ANIMATION_HEADER"
 
-/*! “Æ©ƒwƒbƒ_’· */
+/*! ç‹¬è‡ªãƒ˜ãƒƒãƒ€é•· */
 #define SPRITE_ANIMATION_HEADER_LEN     strlen(SPRITE_ANIMATION_HEADER)
 
 // --------------------------------------------------------------------------------
 /// <summary>
-/// .saƒtƒ@ƒCƒ‹ƒf[ƒ^ƒ`ƒƒƒ“ƒN
+/// .saãƒ•ã‚¡ã‚¤ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒãƒ£ãƒ³ã‚¯
 /// </summary>
 // --------------------------------------------------------------------------------
 enum class SpriteAnimationFileChunk : unsigned char
@@ -24,7 +24,7 @@ enum class SpriteAnimationFileChunk : unsigned char
 
 // --------------------------------------------------------------------------------
 /// <summary>
-/// .saƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^ƒ`ƒƒƒ“ƒN
+/// .saã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ãƒãƒ£ãƒ³ã‚¯
 /// </summary>
 // --------------------------------------------------------------------------------
 enum class SpriteAnimationDataChunk : unsigned char
@@ -37,7 +37,7 @@ enum class SpriteAnimationDataChunk : unsigned char
 
 // --------------------------------------------------------------------------------
 /// <summary>
-/// .saƒXƒvƒ‰ƒCƒgƒf[ƒ^ƒ`ƒƒƒ“ƒN
+/// .saã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿ãƒãƒ£ãƒ³ã‚¯
 /// </summary>
 // --------------------------------------------------------------------------------
 enum class SpritePatternDataChunk : unsigned char
@@ -54,7 +54,7 @@ enum class SpritePatternDataChunk : unsigned char
 
 // --------------------------------------------------------------------------------
 /// <summary>
-/// .sa‰æ‘œƒf[ƒ^ƒ`ƒƒƒ“ƒN
+/// .saç”»åƒãƒ‡ãƒ¼ã‚¿ãƒãƒ£ãƒ³ã‚¯
 /// </summary>
 // --------------------------------------------------------------------------------
 enum class SpriteTextureDataChunk : unsigned char
