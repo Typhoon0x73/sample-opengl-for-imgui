@@ -1026,7 +1026,8 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 		}
 		case SpriteAnimationDataChunk::PatternData:
 		{
-			if (!patternParse(out))
+			std::int32_t animNo = charToNum(&(m_pData[m_Index])); index += sizeof(std::int32_t);
+			if (!patternParse(out, index))
 			{
 				return false;
 			}
@@ -1039,84 +1040,84 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 	return true;
 }
 
-bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out)
+bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, std::int32_t& in)
 {
-	std::int32_t dataSize = charToNum(&(m_pData[m_Index]));
-	m_Index += sizeof(std::int32_t);
+	std::int32_t dataSize = charToNum(&(m_pData[m_Index + in]));
+	in += sizeof(std::int32_t);
 	for (std::int32_t index = 0; index < dataSize;)
 	{
-		SpritePatternDataChunk chunk = static_cast<SpritePatternDataChunk>(m_pData[m_Index + index]);
+		SpritePatternDataChunk chunk = static_cast<SpritePatternDataChunk>(m_pData[m_Index + in + index]);
 		index += sizeof(SpritePatternDataChunk);
 		switch (chunk)
 		{
 		case SpritePatternDataChunk::ImageNo:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t imageNo   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t imageNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_ImageNo = imageNo;
 			break;
 		}
 		case SpritePatternDataChunk::OffsetX:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t offsetX   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t offsetX   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_OffsetX = offsetX;
 			break;
 		}
 		case SpritePatternDataChunk::OffsetY:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t offsetY   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t offsetY   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_OffsetY = offsetY;
 			break;
 		}
 		case SpritePatternDataChunk::Width:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t width     = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t width     = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_Width = width;
 			break;
 		}
 		case SpritePatternDataChunk::Height:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t height    = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t height    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_Height = height;
 			break;
 		}
 		case SpritePatternDataChunk::RefreshTime:
 		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t refreshTime = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t refreshTime = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_RefreshTime = refreshTime * 0.001;
 			break;
 		}
 		case SpritePatternDataChunk::DrawOffsetX:
 		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t drawOffsetX = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t drawOffsetX = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_DrawOffsetX = drawOffsetX;
 			break;
 		}
 		case SpritePatternDataChunk::DrawOffsetY:
 		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
-			std::int32_t drawOffsetY = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t drawOffsetY = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_DrawOffsetY = drawOffsetY;
 			break;
 		}
 		default: return false;
 		}
 	}
-	m_Index += dataSize;
+	in += dataSize;
 	return true;
 }
 
@@ -1235,7 +1236,7 @@ bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoort
 		size +=  sizeof(SpriteAnimationDataChunk::PatternCount);
 		size +=  sizeof(std::int32_t);
 		size +=  sizeof(std::int32_t);
-		size += (sizeof(SpriteAnimationDataChunk::PatternData) + sizeof(std::int32_t) + sizeof(std::int32_t))* patternCount;
+		size += (sizeof(SpriteAnimationDataChunk::PatternData) + sizeof(std::int32_t) + sizeof(std::int32_t));
 		size += (sizeof(SpritePatternDataChunk::ImageNo      ) + dataSize) * patternCount;
 		size += (sizeof(SpritePatternDataChunk::OffsetX      ) + dataSize) * patternCount;
 		size += (sizeof(SpritePatternDataChunk::OffsetY      ) + dataSize) * patternCount;
@@ -1272,21 +1273,21 @@ bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoort
 		const std::size_t dataSize = sizeof(std::int32_t) + sizeof(std::int32_t) + sizeof(std::int32_t);
 		chunk = SpriteAnimationDataChunk::PatternData;
 		size  = 0;
-		size += (sizeof(SpritePatternDataChunk::ImageNo      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetX      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetY      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Width        ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Height       ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::RefreshTime  ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetX  ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetY  ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::ImageNo    ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::OffsetX    ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::OffsetY    ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::Width      ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::Height     ) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::RefreshTime) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::DrawOffsetX) + dataSize) * patternCount;
+		size += (sizeof(SpritePatternDataChunk::DrawOffsetY) + dataSize) * patternCount;
 		ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 		ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
 		ofs.write(reinterpret_cast<const char*>(&size ), sizeof(size ));
 
 		for(std::int32_t j = 0; j < static_cast<std::int32_t>(patternCount); j++)
 		{
-			const auto& pattern = anim.second.patternArray()->at(j);
+			const auto&            pattern  = anim.second.patternArray()->at(j);
 			const std::size_t      dataSize = sizeof(std::int32_t);
 			SpritePatternDataChunk chunk    = SpritePatternDataChunk::ImageNo;
 			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));

@@ -176,7 +176,7 @@ public:
 private:
 
 	bool animationParse(SpriteAnimationController* out);
-	bool patternParse(SpriteAnimationController * out);
+	bool patternParse(SpriteAnimationController * out, std::int32_t& index);
 	bool texturePathArrayParse(std::vector<std::string>* out);
 
 	std::int32_t charToNum(const char* pData);
