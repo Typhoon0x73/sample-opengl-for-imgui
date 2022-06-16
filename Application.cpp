@@ -2,6 +2,7 @@
 
 #include	"Application.h"
 #include    "Application/SpriteAnimation.h"
+#include    "PrimitiveRenderUtilities.h"
 
 using namespace Sample;
 
@@ -159,15 +160,22 @@ void Application::Update() {
 void Application::Render() {
 
 	// キャンバス用描画
+	frameCanvas_->Bind();
 	{
-		frameCanvas_->Bind();
 		glClearColor(0.0f, 0.0f, 0.2f, 1.0f);
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
+		auto ptn = test.currentPattern();
+		if (ptn)
+		{
+			PrimitiveRenderUtilities::RenderRect(
+				ptn->m_OffsetX, ptn->m_OffsetY, ptn->m_Width, ptn->m_Height,
+				Vector4F(1.0f, 1.0f, 1.0f, 1.0f), true
+			);
+		}
 	}
 
 	// 通常描画

@@ -32,7 +32,7 @@ Shader::Shader(const char* name)
  * @param[in]	vname	頂点シェーダー
  * @param[in]	fname	フラグメントシェーダー
  */
-Shader::Shader(const char* vname, const char* fname) 
+Shader::Shader(const char* vname, const char* fname)
 : ResourceBase()
 , id_(0)
 , matVP_(-1)
