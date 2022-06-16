@@ -91,6 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Application\Command\CommandManager.cpp" />
     <ClCompile Include="Application\SpriteAnimation.cpp" />
     <ClCompile Include="Framework\Framework\Framework.cpp" />
     <ClCompile Include="Framework\Graphics\Buffer.cpp" />
@@ -115,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Application\Command\CommandManager.h" />
+    <ClInclude Include="Application\Command\ICommand.h" />
     <ClInclude Include="Application\SpriteAnimation.h" />
     <ClInclude Include="Framework\Common\Common.h" />
     <ClInclude Include="Framework\Common\Singleton.h" />

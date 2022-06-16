@@ -600,7 +600,7 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::si
 // ********************************************************************************
 SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no)
 {
-	if (m_PatternArray.size() >= no)
+	if (m_PatternArray.size() <= no)
 	{
 		return nullptr;
 	}

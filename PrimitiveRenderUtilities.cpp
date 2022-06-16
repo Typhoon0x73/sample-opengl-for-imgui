@@ -3,28 +3,18 @@
 
 void PrimitiveRenderUtilities::RenderRect(float x, float y, float w, float h, const Sample::Vector4F& color, bool isFilled)
 {
-	GLenum type;
-	float pVerCoord[12];
+	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	ImColor imColor(color.r, color.g, color.b, color.a);
+	ImVec2 lt(x, y);
+	ImVec2 rb(x + w, y + h);
 	if (isFilled)
 	{
-		pVerCoord[0] = pVerCoord[3] = x;
-		pVerCoord[1] = pVerCoord[7] = y;
-		pVerCoord[4] = pVerCoord[10] = y + h;
-		pVerCoord[6] = pVerCoord[9] = x + w;
-		pVerCoord[2] = pVerCoord[5] = pVerCoord[8] = pVerCoord[11] = 0;
-		type = GL_TRIANGLE_STRIP;
+		draw_list->AddRectFilled(lt, rb, imColor);
 	}
 	else
 	{
-		pVerCoord[0] = pVerCoord[9] = x;
-		pVerCoord[1] = pVerCoord[4] = y;
-		pVerCoord[3] = pVerCoord[6] = x + w;
-		pVerCoord[7] = pVerCoord[10] = y + h;
-		pVerCoord[2] = pVerCoord[5] = pVerCoord[8] = pVerCoord[11] = 0;
-		type = GL_LINE_LOOP;
+		draw_list->AddRect(lt, rb, imColor);
 	}
-
-	RenderPolygon2D(pVerCoord, color, type, 4);
 }
 
 void PrimitiveRenderUtilities::RenderPolygon2D(float * pVertex, const Sample::Vector4F & color, GLenum type, int count)

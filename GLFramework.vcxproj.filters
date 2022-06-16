@@ -79,6 +79,9 @@
     <Filter Include="Framework\imgui">
       <UniqueIdentifier>{1552d1ca-a206-4c93-b93f-62af5c45b261}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Command">
+      <UniqueIdentifier>{967ef2d9-285b-4405-8b56-8e445f990b2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="Application\SpriteAnimation.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Command\CommandManager.cpp">
+      <Filter>ソース ファイル\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="Application\SpriteAnimationCommon.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Command\CommandManager.h">
+      <Filter>ソース ファイル\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Command\ICommand.h">
+      <Filter>ソース ファイル\Command</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,8 +3,15 @@
 #include	"Application.h"
 #include    "Application/SpriteAnimation.h"
 #include    "PrimitiveRenderUtilities.h"
+#include    "imgui_internal.h"
 
 using namespace Sample;
+
+std::vector<TexturePtr> sampleTextures;
+SpritePtr  sampleSprite;
+std::vector<std::string> texturePathArray;
+int editAnimNo = 0;
+int editPatternNo = 0;
 
 /**
  * @brief		コンストラクタ
@@ -39,22 +46,26 @@ void Application::Initialize() {
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	frameCanvas_ = std::make_shared<FrameBuffer>();
-	frameCanvas_->Create(4096, 4096);
+	frameCanvas_->Create(1024, 768);
 	canvas_ = frameCanvas_->CreateSprite(GraphicsController::GetInstance().Shader());
 
 	SpriteAnimation animation;
-	animation.addPattern(SpriteAnimation::Pattern{ 0,   0, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0,  32, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0,  64, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0,  96, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 128, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 160, 0, 32, 32, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 192, 0, 32, 32, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0,   0, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0,  60, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 120, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 180, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 240, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 300, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 360, 0, 60, 64, 0.080, 0, 0 });
+	animation.addPattern(SpriteAnimation::Pattern{ 0, 420, 0, 60, 64, 0.080, 0, 0 });
 	animation.setLoop(true);
-	test.addAnimation("sample", animation);
+	test.addAnimation("idle", animation);
 
-	std::vector<std::string> texturePathArray;
-	texturePathArray.push_back("enemy.png");
+	sampleTextures.push_back(std::make_shared<Texture>("Player.png"));
+	sampleSprite  = std::make_shared<Sprite>();
+	sampleSprite->Create(sampleTextures[0], GraphicsController::GetInstance().Shader());
+
+	texturePathArray.push_back("Player.png");
 
 	SpriteAnimationDataExporter exporter("sample.sa");
 	if (!exporter.exportToSA(&test, &texturePathArray))
@@ -68,7 +79,7 @@ void Application::Initialize() {
 	{
 		return;
 	}
-	test.changeAnimation("sample");
+	test.changeAnimation("idle");
 }
 
 /**
@@ -77,16 +88,29 @@ void Application::Initialize() {
 void Application::Update() {
 	//TODO:
 	//アプリの更新処理を記述
-	test.update(timer_->Time() * 0.1f);
-	std::cout << "{ " << test.currentPattern()->m_ImageNo << ", ";
-	std::cout << test.currentPattern()->m_OffsetX     << ", ";
-	std::cout << test.currentPattern()->m_OffsetY     << ", ";
-	std::cout << test.currentPattern()->m_Width       << ", ";
-	std::cout << test.currentPattern()->m_Height      << ", ";
-	std::cout << test.currentPattern()->m_RefreshTime << ", ";
-	std::cout << test.currentPattern()->m_DrawOffsetX << ", ";
-	std::cout << test.currentPattern()->m_DrawOffsetY << ", ";
-	std::cout << test.currentPattern()->m_DrawOffsetY << " }\n";
+	test.update(timer_->Time());
+	auto ptn = test.currentPattern();
+	if (ptn)
+	{
+		auto l = ptn->m_OffsetX;
+		auto t = ptn->m_OffsetY;
+		auto r = ptn->m_Width  + l;
+		auto b = ptn->m_Height + t;
+
+		sampleSprite->SrcRect(RectangleF(l, t, r, b));
+		sampleSprite->Position(Vector3F(0.0f, 0.0f, 0.0f));
+		sampleSprite->RefreshMatrix();
+
+		std::cout << "{ " << ptn->m_ImageNo << ", ";
+		std::cout << ptn->m_OffsetX << ", ";
+		std::cout << ptn->m_OffsetY << ", ";
+		std::cout << ptn->m_Width << ", ";
+		std::cout << ptn->m_Height << ", ";
+		std::cout << ptn->m_RefreshTime << ", ";
+		std::cout << ptn->m_DrawOffsetX << ", ";
+		std::cout << ptn->m_DrawOffsetY << ", ";
+		std::cout << ptn->m_DrawOffsetY << " }\n";
+	}
     /**/
     unsigned flags = ImGuiWindowFlags_NoTitleBar;
     flags |= ImGuiWindowFlags_NoMove;
@@ -113,15 +137,52 @@ void Application::Update() {
 
 		ImGui::Begin("canvas", nullptr, ImGuiWindowFlags_NoBackground);
 		{
-			auto tex = canvas_->Texture();
+			auto tex = sampleTextures[0];
 			ImVec2 size(tex->Width(), tex->Height());
-			ImGui::Image((ImTextureID)tex->ID(), size, ImVec2(0, 1), ImVec2(1, 0));
+			ImGui::Image((ImTextureID)tex->ID(), size);
+			ImGui::SameLine();
+			auto ptn = test.currentPattern();
+			if (ptn)
+			{
+				auto scrollX = ImGui::GetScrollX();
+				auto scrollY = ImGui::GetScrollY();
+				auto padding = ImGui::GetStyle().WindowPadding;
+				auto pos = ImGui::GetWindowPos();
+				auto t = ImGui::GetCurrentContext()->CurrentWindow->TitleBarHeight();
+				auto x = ptn->m_OffsetX + pos.x + padding.x - scrollX;
+				auto y = ptn->m_OffsetY + pos.y + padding.y - scrollY + t;
+				auto w = ptn->m_Width;
+				auto h = ptn->m_Height;
+				PrimitiveRenderUtilities::RenderRect(x, y, w, h, { 0.6f, 0.1f, 0.1f, 1.0f }, false);
+			}
 		}
 		ImGui::End();
 
 		ImGui::Begin("animations");
 		{
+			int current = editAnimNo;
+			auto pAnimArray = test.animationArray();
+			if (ImGui::BeginListBox("##animationList"))
+			{
+				if (pAnimArray)
+				{
+					auto listCount = pAnimArray->size();
+					for (std::size_t i = 0; i < listCount; i++)
+					{
+						auto anim = pAnimArray->at(i);
+						if (ImGui::Selectable(anim.first.c_str(), (i == current)))
+						{
+							test.changeAnimation(i);
+							editAnimNo = i;
+						}
+					}
+				}
+				else
+				{
 
+				}
+				ImGui::EndListBox();
+			}
 		}
 		ImGui::End();
 
@@ -137,19 +198,117 @@ void Application::Update() {
 		}
 		ImGui::End();
 
+		ImGui::Begin("patterns");
+		{
+			auto ptns = test.animationArray()->at(editAnimNo).second.patternArray();
+			if (!ptns)
+			{
+
+			}
+			else
+			{
+				auto ptnCount = ptns->size();
+				for (std::size_t i = 0; i < ptnCount; i++)
+				{
+					auto ptn = ptns->at(i);
+					auto no  = ptn.m_ImageNo;
+					if (no < 0)
+					{
+						if(ImGui::Button(""))
+					}
+					else
+					{
+						auto tex = sampleTextures[no];
+						auto tw = (float)tex->Width();
+						auto th = (float)tex->Height();
+						ImVec2 uv0((float)ptn.m_OffsetX / tw, (float)ptn.m_OffsetY / th);
+						ImVec2 uv1((float)(ptn.m_OffsetX + ptn.m_Width) / tw, (float)(ptn.m_OffsetY + ptn.m_Height) / th);
+						ImTextureID id = (void*)tex->ID();
+						auto w = (float)ptn.m_Width;
+						auto h = (float)ptn.m_Height;
+						if (ImGui::ImageButton(id, ImVec2(w, h), uv0, uv1))
+						{
+							editPatternNo = i;
+							break;
+						}
+					}
+					ImGui::SameLine();
+				}
+			}
+		}
+		ImGui::End();
+
 		ImGui::Begin("animation view");
 		{
-
+			auto ptn = test.currentPattern();
+			if (ptn)
+			{
+				auto x = ptn->m_OffsetX;
+				auto y = ptn->m_OffsetY;
+				auto w = ptn->m_Width;
+				auto h = ptn->m_Height;
+				auto tex = canvas_->Texture();
+				ImVec2 size(tex->Width(), tex->Height());
+				ImVec2 uv((float)w / (float)tex->Width(), (float)h / (float)tex->Height());
+				ImGui::Image((ImTextureID)tex->ID(), ImVec2(w, h), ImVec2(0, 1), ImVec2(uv.x, 1.0f - uv.y));
+			}
 		}
 		ImGui::End();
 
 		ImGui::Begin("editor");
 		{
+			auto const pattern = test.animationArray()->at(editAnimNo).second.patternByArrayNo(editPatternNo);
+			if (!pattern)
+			{
 
+			}
+			else
+			{
+				auto imageNo = pattern->m_ImageNo;
+				bool isValid = (imageNo >= 0) && (imageNo < texturePathArray.size());
+				const char* const selectName = (isValid ? texturePathArray[imageNo].c_str() : "none");
+				if (ImGui::BeginCombo("texture", selectName))
+				{
+					if (ImGui::Selectable("none", (imageNo == -1)))
+					{
+						pattern->m_ImageNo = -1;
+					}
+					auto texPathCount = texturePathArray.size();
+					for (std::size_t i = 0; i < texPathCount; i++)
+					{
+						if (ImGui::Selectable(texturePathArray[i].c_str(), (i == imageNo)))
+						{
+							pattern->m_ImageNo = 0;
+						}
+					}
+					ImGui::EndCombo();
+				}
+				auto offsetX = pattern->m_OffsetX;
+				if (ImGui::InputInt("offset x", &offsetX))
+				{
+					pattern->m_OffsetX = offsetX;
+				}
+				auto offsetY = pattern->m_OffsetY;
+				if (ImGui::InputInt("offset y", &offsetY))
+				{
+					pattern->m_OffsetY = offsetY;
+				}
+				auto width = pattern->m_Width;
+				if (ImGui::InputInt("width", &width))
+				{
+					pattern->m_Width = width;
+				}
+				auto height = pattern->m_Height;
+				if (ImGui::InputInt("height", &height))
+				{
+					pattern->m_Height = height;
+				}
+			}
 		}
 		ImGui::End();
-    }
+	}
     ImGui::End();
+
     /*//**/
     //ImGui::ShowDemoWindow();
 }
@@ -168,14 +327,10 @@ void Application::Render() {
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		auto ptn = test.currentPattern();
-		if (ptn)
-		{
-			PrimitiveRenderUtilities::RenderRect(
-				ptn->m_OffsetX, ptn->m_OffsetY, ptn->m_Width, ptn->m_Height,
-				Vector4F(1.0f, 1.0f, 1.0f, 1.0f), true
-			);
-		}
+
+		sampleSprite->Position(Vector3F(0.0f, 0.0f, 0.0f));
+		sampleSprite->RefreshMatrix();
+		sampleSprite->Render();
 	}
 
 	// 通常描画
@@ -193,9 +348,9 @@ void Application::Render() {
 		//TODO:
 		//アプリの描画処理を記述
 
-
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
+
 
     //ターゲットのリセット
     GraphicsController::GetInstance().ResetTarget();
