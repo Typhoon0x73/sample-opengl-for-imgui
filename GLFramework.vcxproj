@@ -91,6 +91,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Application\Command\CommandManager.cpp" />
+    <ClCompile Include="Application\SpriteAnimation.cpp" />
     <ClCompile Include="Framework\Framework\Framework.cpp" />
     <ClCompile Include="Framework\Graphics\Buffer.cpp" />
     <ClCompile Include="Framework\Graphics\FrameBuffer.cpp" />
@@ -110,9 +112,13 @@
     <ClCompile Include="Library\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Library\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PrimitiveRenderUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Application\Command\CommandManager.h" />
+    <ClInclude Include="Application\Command\ICommand.h" />
+    <ClInclude Include="Application\SpriteAnimation.h" />
     <ClInclude Include="Framework\Common\Common.h" />
     <ClInclude Include="Framework\Common\Singleton.h" />
     <ClInclude Include="Framework\Framework\Framework.h" />
@@ -155,6 +161,8 @@
     <ClInclude Include="Library\include\imgui\imstb_rectpack.h" />
     <ClInclude Include="Library\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Library\include\imgui\imstb_truetype.h" />
+    <ClInclude Include="PrimitiveRenderUtilities.h" />
+    <ClInclude Include="Application\SpriteAnimationCommon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

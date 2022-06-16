@@ -3316,7 +3316,7 @@ static const char* ImAtoi(const char* src, TYPE* output)
     return src;
 }
 
-// Parse display precision back from the display format string
+// parse display precision back from the display format string
 // FIXME: This is still used by some navigation code path to infer a minimum tweak step, but we should aim to rework widgets so it isn't needed.
 int ImParseFormatPrecision(const char* fmt, int default_precision)
 {
