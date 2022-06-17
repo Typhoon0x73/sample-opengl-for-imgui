@@ -210,11 +210,10 @@ void Application::Update() {
 				auto ptnCount = ptns->size();
 				for (std::size_t i = 0; i < ptnCount; i++)
 				{
-					auto ptn = ptns->at(i);
+					const auto& ptn = ptns->at(i);
 					auto no  = ptn.m_ImageNo;
 					if (no < 0)
 					{
-						if(ImGui::Button(""))
 					}
 					else
 					{
