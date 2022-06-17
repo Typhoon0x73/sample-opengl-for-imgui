@@ -7,8 +7,7 @@
 
 using namespace Sample;
 
-std::vector<TexturePtr> sampleTextures;
-SpritePtr  sampleSprite;
+std::vector<TexturePtr>  sampleTextures;
 std::vector<std::string> texturePathArray;
 int editAnimNo = 0;
 int editPatternNo = 0;
@@ -26,7 +25,7 @@ Application::Application()
 Application::~Application() {
 }
 
-SpriteAnimationController test;
+spa::SpriteAnimationController test;
 /**
  * @brief		初期化
  */
@@ -45,36 +44,30 @@ void Application::Initialize() {
 	auto& imguiIO = ImGui::GetIO();
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-	frameCanvas_ = std::make_shared<FrameBuffer>();
-	frameCanvas_->Create(1024, 768);
-	canvas_ = frameCanvas_->CreateSprite(GraphicsController::GetInstance().Shader());
-
-	SpriteAnimation animation;
-	animation.addPattern(SpriteAnimation::Pattern{ 0,   0, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0,  60, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 120, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 180, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 240, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 300, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 360, 0, 60, 64, 0.080, 0, 0 });
-	animation.addPattern(SpriteAnimation::Pattern{ 0, 420, 0, 60, 64, 0.080, 0, 0 });
+	spa::SpriteAnimation animation;
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
 	test.addAnimation("idle", animation);
 
 	sampleTextures.push_back(std::make_shared<Texture>("Player.png"));
-	sampleSprite  = std::make_shared<Sprite>();
-	sampleSprite->Create(sampleTextures[0], GraphicsController::GetInstance().Shader());
 
 	texturePathArray.push_back("Player.png");
 
-	SpriteAnimationDataExporter exporter("sample.sa");
+	spa::SpriteAnimationDataExporter exporter("sample.spa");
 	if (!exporter.exportToSA(&test, &texturePathArray))
 	{
 		return;
 	}
 
 	std::vector<std::string> texturePathArray2;
-	SpriteAnimationController test2("sample.sa", &texturePathArray2);
+	spa::SpriteAnimationController test2("sample.spa", &texturePathArray2);
 	if (test != test2)
 	{
 		return;
@@ -88,30 +81,10 @@ void Application::Initialize() {
 void Application::Update() {
 	//TODO:
 	//アプリの更新処理を記述
+
 	test.update(timer_->Time());
-	auto ptn = test.currentPattern();
-	if (ptn)
-	{
-		auto l = ptn->m_OffsetX;
-		auto t = ptn->m_OffsetY;
-		auto r = ptn->m_Width  + l;
-		auto b = ptn->m_Height + t;
-
-		sampleSprite->SrcRect(RectangleF(l, t, r, b));
-		sampleSprite->Position(Vector3F(0.0f, 0.0f, 0.0f));
-		sampleSprite->RefreshMatrix();
-
-		std::cout << "{ " << ptn->m_ImageNo << ", ";
-		std::cout << ptn->m_OffsetX << ", ";
-		std::cout << ptn->m_OffsetY << ", ";
-		std::cout << ptn->m_Width << ", ";
-		std::cout << ptn->m_Height << ", ";
-		std::cout << ptn->m_RefreshTime << ", ";
-		std::cout << ptn->m_DrawOffsetX << ", ";
-		std::cout << ptn->m_DrawOffsetY << ", ";
-		std::cout << ptn->m_DrawOffsetY << " }\n";
-	}
-    /**/
+    
+	/**/
     unsigned flags = ImGuiWindowFlags_NoTitleBar;
     flags |= ImGuiWindowFlags_NoMove;
     flags |= ImGuiWindowFlags_NoResize;
@@ -144,17 +117,26 @@ void Application::Update() {
 			auto ptn = test.currentPattern();
 			if (ptn)
 			{
-				auto scrollX = ImGui::GetScrollX();
-				auto scrollY = ImGui::GetScrollY();
-				auto padding = ImGui::GetStyle().WindowPadding;
-				auto pos = ImGui::GetWindowPos();
-				auto t = ImGui::GetCurrentContext()->CurrentWindow->TitleBarHeight();
-				auto x = ptn->m_OffsetX + pos.x + padding.x - scrollX;
-				auto y = ptn->m_OffsetY + pos.y + padding.y - scrollY + t;
-				auto w = ptn->m_Width;
-				auto h = ptn->m_Height;
-				PrimitiveRenderUtilities::RenderRect(x, y, w, h, { 0.6f, 0.1f, 0.1f, 1.0f }, false);
+				for (const auto& layer : ptn->m_LayerArray)
+				{
+					const auto& scrollX = ImGui::GetScrollX();
+					const auto& scrollY = ImGui::GetScrollY();
+					const auto& padding = ImGui::GetStyle().WindowPadding;
+					const auto& pos     = ImGui::GetWindowPos();
+					const auto& t       = ImGui::GetCurrentContext()->CurrentWindow->TitleBarHeight();
+					const auto& x       = layer.second.m_OffsetX + pos.x + padding.x - scrollX;
+					const auto& y       = layer.second.m_OffsetY + pos.y + padding.y - scrollY + t;
+					const auto& w       = layer.second.m_Width;
+					const auto& h       = layer.second.m_Height;
+					PrimitiveRenderUtilities::RenderRect(x, y, w, h, { 0.6f, 0.1f, 0.1f, 1.0f }, false);
+				}
 			}
+		}
+		ImGui::End();
+
+		ImGui::Begin("texture view");
+		{
+
 		}
 		ImGui::End();
 
@@ -192,13 +174,13 @@ void Application::Update() {
 		}
 		ImGui::End();
 
-		ImGui::Begin("sprites");
+		ImGui::Begin("textures");
 		{
 
 		}
 		ImGui::End();
 
-		ImGui::Begin("patterns");
+		ImGui::Begin("patterns", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 		{
 			const auto const anims = test.animationArray();
 			const auto const ptns = anims->at(editAnimNo).second.patternArray();
@@ -208,11 +190,11 @@ void Application::Update() {
 			}
 			else
 			{
-				auto ptnCount = ptns->size();
+				/*auto ptnCount = ptns->size();
 				for (std::size_t i = 0; i < ptnCount; i++)
 				{
 					const auto& ptn = ptns->at(i);
-					auto no  = ptn.m_ImageNo;
+					const auto& no  = ptn.m_ImageNo;
 					if (no < 0)
 					{
 						if (ImGui::Button("no image"))
@@ -231,14 +213,18 @@ void Application::Update() {
 						ImTextureID id = (void*)tex->ID();
 						auto w = (float)ptn.m_Width;
 						auto h = (float)ptn.m_Height;
-						if (ImGui::ImageButton(id, ImVec2(w, h), uv0, uv1))
+						ImVec2 padding = ImGui::GetStyle().FramePadding;
+						ImVec4 bgColor = ((i == editPatternNo) ? ImGui::GetStyle().Colors[ImGuiCol_Button] : ImVec4{ 0, 0, 0, 0 });
+						ImVec4 tintColor{ 1.0f, 1.0f, 1.0f, 1.0f };
+						auto btnId = "##ptn_id_" + std::to_string(i);
+						if (ImGui::ImageButtonEx(ImGui::GetID(btnId.c_str()), id, ImVec2(w, h), uv0, uv1, padding, bgColor, tintColor))
 						{
 							editPatternNo = i;
 							break;
 						}
 					}
 					ImGui::SameLine();
-				}
+				}*/
 			}
 		}
 		ImGui::End();
@@ -248,14 +234,23 @@ void Application::Update() {
 			auto ptn = test.currentPattern();
 			if (ptn)
 			{
-				auto x = ptn->m_OffsetX;
-				auto y = ptn->m_OffsetY;
-				auto w = ptn->m_Width;
-				auto h = ptn->m_Height;
-				auto tex = canvas_->Texture();
-				ImVec2 size(tex->Width(), tex->Height());
-				ImVec2 uv((float)w / (float)tex->Width(), (float)h / (float)tex->Height());
-				ImGui::Image((ImTextureID)tex->ID(), ImVec2(w, h), ImVec2(0, 1), ImVec2(uv.x, 1.0f - uv.y));
+				for (const auto& layer : ptn->m_LayerArray)
+				{
+					const auto& imageNo = layer.second.m_ImageNo;
+					if(imageNo < 0)
+					{
+						continue;
+					}
+					const auto& x = layer.second.m_OffsetX;
+					const auto& y = layer.second.m_OffsetY;
+					const auto& w = layer.second.m_Width;
+					const auto& h = layer.second.m_Height;
+					const auto& tex = sampleTextures[imageNo];
+					ImVec2 size(tex->Width(), tex->Height());
+					ImVec2 uv0((float)(x) / (float)tex->Width(), (float)(y) / (float)tex->Height());
+					ImVec2 uv1((float)(x + w) / (float)tex->Width(), (float)(y + h) / (float)tex->Height());
+					ImGui::Image((ImTextureID)tex->ID(), ImVec2(w, h), uv0, uv1);
+				}
 			}
 		}
 		ImGui::End();
@@ -269,7 +264,7 @@ void Application::Update() {
 			}
 			else
 			{
-				auto imageNo = pattern->m_ImageNo;
+				/*auto imageNo = pattern->m_ImageNo;
 				bool isValid = (imageNo >= 0) && (imageNo < texturePathArray.size());
 				const char* const selectName = (isValid ? texturePathArray[imageNo].c_str() : "none");
 				if (ImGui::BeginCombo("texture", selectName))
@@ -289,25 +284,40 @@ void Application::Update() {
 					ImGui::EndCombo();
 				}
 				auto offsetX = pattern->m_OffsetX;
-				if (ImGui::InputInt("offset x", &offsetX))
+				if (ImGui::DragInt("offset x", &offsetX))
 				{
 					pattern->m_OffsetX = offsetX;
 				}
 				auto offsetY = pattern->m_OffsetY;
-				if (ImGui::InputInt("offset y", &offsetY))
+				if (ImGui::DragInt("offset y", &offsetY))
 				{
 					pattern->m_OffsetY = offsetY;
 				}
 				auto width = pattern->m_Width;
-				if (ImGui::InputInt("width", &width))
+				if (ImGui::DragInt("width", &width))
 				{
 					pattern->m_Width = width;
 				}
 				auto height = pattern->m_Height;
-				if (ImGui::InputInt("height", &height))
+				if (ImGui::DragInt("height", &height))
 				{
 					pattern->m_Height = height;
 				}
+				float refresh = static_cast<float>(pattern->m_RefreshTime);
+				if (ImGui::DragFloat("refresh", &refresh, 0.004f, 0.0f, 100.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp))
+				{
+					pattern->m_RefreshTime = static_cast<double>(refresh);
+				}
+				auto drawOffsetX = pattern->m_DrawOffsetX;
+				if (ImGui::DragInt("draw offset x", &drawOffsetX))
+				{
+					pattern->m_DrawOffsetX = drawOffsetX;
+				}
+				auto drawOffsetY = pattern->m_DrawOffsetY;
+				if (ImGui::DragInt("draw offset y", &drawOffsetY))
+				{
+					pattern->m_DrawOffsetY = drawOffsetY;
+				}*/
 			}
 		}
 		ImGui::End();
@@ -322,21 +332,6 @@ void Application::Update() {
  * @brief		描画
  */
 void Application::Render() {
-
-	// キャンバス用描画
-	frameCanvas_->Bind();
-	{
-		glClearColor(0.0f, 0.0f, 0.2f, 1.0f);
-		glClearDepth(1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		sampleSprite->Position(Vector3F(0.0f, 0.0f, 0.0f));
-		sampleSprite->RefreshMatrix();
-		sampleSprite->Render();
-	}
 
 	// 通常描画
 	//フレームバッファ利用

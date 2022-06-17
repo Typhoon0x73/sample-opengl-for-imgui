@@ -2,26 +2,17 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace spa;
+
 // ********************************************************************************
 /// <summary>
 /// コンストラクタ
 /// </summary>
 /// <param name="copy">コピーデータ</param>
 // ********************************************************************************
-SpriteAnimation::Pattern::Pattern(const SpriteAnimation::Pattern & copy)
+Layer::Layer(const Layer & copy)
 {
 	*this = copy;
-}
-
-// ********************************************************************************
-/// <summary>
-/// コンストラクタ
-/// </summary>
-/// <param name="move">ムーブデータ</param>
-// ********************************************************************************
-SpriteAnimation::Pattern::Pattern(SpriteAnimation::Pattern && move)
-{
-	*this = std::move(move);
 }
 
 // ********************************************************************************
@@ -33,19 +24,131 @@ SpriteAnimation::Pattern::Pattern(SpriteAnimation::Pattern && move)
 /// <param name="y">オフセットY</param>
 /// <param name="w">横幅</param>
 /// <param name="h">高さ</param>
-/// <param name="t">描画時間(単位は秒)</param>
 /// <param name="ox">描画オフセットX</param>
 /// <param name="oy">描画オフセットY</param>
 // ********************************************************************************
-SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y, std::int32_t w, std::int32_t h, double t, std::int32_t ox, std::int32_t oy)
+Layer::Layer(std::int32_t n, std::int32_t x, std::int32_t y, std::int32_t w, std::int32_t h, std::int32_t ox, std::int32_t oy)
 	: m_ImageNo{ n }
 	, m_OffsetX{ x }
 	, m_OffsetY{ y }
 	, m_Width{ w }
 	, m_Height{ h }
-	, m_RefreshTime{ t }
 	, m_DrawOffsetX{ ox }
 	, m_DrawOffsetY{ oy }
+{
+
+}
+
+// ********************************************************************************
+/// <summary>
+/// operator= 代入演算
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+/// <returns>*this</returns>
+// ********************************************************************************
+Layer & Layer::operator=(const Layer & copy)
+{
+	m_ImageNo     = copy.m_ImageNo    ;
+	m_OffsetX     = copy.m_OffsetX    ;
+	m_OffsetY     = copy.m_OffsetY    ;
+	m_Width       = copy.m_Width      ;
+	m_Height      = copy.m_Height     ;
+	m_DrawOffsetX = copy.m_DrawOffsetX;
+	m_DrawOffsetY = copy.m_DrawOffsetY;
+	return *this;
+}
+
+
+// ********************************************************************************
+/// <summary>
+/// operator== 等価比較演算
+/// </summary>
+/// <param name="layer">比較対象</param>
+/// <returns>true : レイヤーデータ一致, false : 一致しない</returns>
+// ********************************************************************************
+bool Layer::operator==(const Layer & layer) const
+{
+	if (m_ImageNo     != layer.m_ImageNo    ) return false;
+	if (m_OffsetX     != layer.m_OffsetX    ) return false;
+	if (m_OffsetY     != layer.m_OffsetY    ) return false;
+	if (m_Width       != layer.m_Width      ) return false;
+	if (m_Height      != layer.m_Height     ) return false;
+	if (m_DrawOffsetX != layer.m_DrawOffsetX) return false;
+	if (m_DrawOffsetY != layer.m_DrawOffsetY) return false;
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// operator!= 比較演算
+/// </summary>
+/// <param name="layer">比較対象</param>
+/// <returns>!(*this == layer)</returns>
+// ********************************************************************************
+bool Layer::operator!=(const Layer & layer) const
+{
+	return !(*this == layer);
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="copy">コピーデータ</param>
+// ********************************************************************************
+Pattern::Pattern(const Pattern & copy)
+{
+	*this = copy;
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="move">ムーブデータ</param>
+// ********************************************************************************
+Pattern::Pattern(Pattern && move)
+{
+	*this = std::move(move);
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="layers">レイヤー配列</param>
+/// <param name="t">描画時間(単位は秒)</param>
+// ********************************************************************************
+Pattern::Pattern(const LayerArray& layers, double t)
+	: m_LayerArray{ layers }
+	, m_RefreshTime{ t }
+{
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="layers">レイヤー配列</param>
+/// <param name="t">描画時間(単位は秒)</param>
+// ********************************************************************************
+Pattern::Pattern(LayerArray&& layers, double t)
+	: m_LayerArray{ std::move(layers) }
+	, m_RefreshTime{ t }
+{
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="layers">レイヤー配列</param>
+/// <param name="count">レイヤー数</param>
+/// <param name="t">描画時間(単位は秒)</param>
+// ********************************************************************************
+Pattern::Pattern(LayerData* layers, std::size_t count, double t)
+	: m_LayerArray{ layers, layers + count }
+	, m_RefreshTime{ t }
 {
 }
 
@@ -56,16 +159,10 @@ SpriteAnimation::Pattern::Pattern(std::int32_t n, std::int32_t x, std::int32_t y
 /// <param name="copy">コピーデータ</param>
 /// <returns>*this</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & copy)
+Pattern & Pattern::operator=(const Pattern & copy)
 {
-	m_ImageNo     = copy.m_ImageNo    ;
-	m_OffsetX     = copy.m_OffsetX    ;
-	m_OffsetY     = copy.m_OffsetY    ;
-	m_Width       = copy.m_Width      ;
-	m_Height      = copy.m_Height     ;
+	m_LayerArray  = copy.m_LayerArray ;
 	m_RefreshTime = copy.m_RefreshTime;
-	m_DrawOffsetX = copy.m_DrawOffsetX;
-	m_DrawOffsetY = copy.m_DrawOffsetY;
 	return *this;
 }
 
@@ -76,16 +173,10 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(const Pattern & c
 /// <param name="move">ムーブデータ</param>
 /// <returns>*this</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::Pattern && move)
+Pattern & Pattern::operator=(Pattern && move)
 {
-	m_ImageNo     = std::move(move.m_ImageNo    );
-	m_OffsetX     = std::move(move.m_OffsetX    );
-	m_OffsetY     = std::move(move.m_OffsetY    );
-	m_Width       = std::move(move.m_Width      );
-	m_Height      = std::move(move.m_Height     );
+	m_LayerArray  = std::move(move.m_LayerArray );
 	m_RefreshTime = std::move(move.m_RefreshTime);
-	m_DrawOffsetX = std::move(move.m_DrawOffsetX);
-	m_DrawOffsetY = std::move(move.m_DrawOffsetY);
 	return *this;
 }
 
@@ -96,16 +187,16 @@ SpriteAnimation::Pattern & SpriteAnimation::Pattern::operator=(SpriteAnimation::
 /// <param name="pattern">比較対象</param>
 /// <returns>true : パターンデータ一致, false : 一致しない</returns>
 // ********************************************************************************
-bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & pattern) const
+bool Pattern::operator==(const Pattern & pattern) const
 {
-	if (m_ImageNo     != pattern.m_ImageNo    ) return false;
-	if (m_OffsetX     != pattern.m_OffsetX    ) return false;
-	if (m_OffsetY     != pattern.m_OffsetY    ) return false;
-	if (m_Width       != pattern.m_Width      ) return false;
-	if (m_Height      != pattern.m_Height     ) return false;
-	if (m_RefreshTime != pattern.m_RefreshTime) return false;
-	if (m_DrawOffsetX != pattern.m_DrawOffsetX) return false;
-	if (m_DrawOffsetY != pattern.m_DrawOffsetY) return false;
+	auto size = pattern.m_LayerArray.size();
+	if (m_LayerArray.size() != size                 ) return false;
+	if (m_RefreshTime       != pattern.m_RefreshTime) return false;
+	for (std::size_t i = 0; i < size; i++)
+	{
+		if (m_LayerArray[i].first.compare(pattern.m_LayerArray[i].first) != 0) return false;
+		if (m_LayerArray[i].second != pattern.m_LayerArray[i].second) return false;
+	}
 	return true;
 }
 
@@ -116,7 +207,7 @@ bool SpriteAnimation::Pattern::operator==(const SpriteAnimation::Pattern & patte
 /// <param name="pattern">比較対象</param>
 /// <returns>!(*this == pattern)</returns>
 // ********************************************************************************
-bool SpriteAnimation::Pattern::operator!=(const SpriteAnimation::Pattern & pattern) const
+bool Pattern::operator!=(const Pattern & pattern) const
 {
 	return !(operator==(pattern));
 }
@@ -150,7 +241,7 @@ SpriteAnimation::SpriteAnimation(SpriteAnimation && move)
 /// <param name="patterns">パターン配列</param>
 /// <param name="hasLooped">ループフラグ</param>
 // ********************************************************************************
-SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& patterns, bool hasLooped)
+SpriteAnimation::SpriteAnimation(const PatternArray& patterns, bool hasLooped)
 	: m_PatternArray{ patterns }
 	, m_hasLooped{ hasLooped }
 	, m_CurrentPatternNo{ -1 }
@@ -170,7 +261,7 @@ SpriteAnimation::SpriteAnimation(const std::vector<SpriteAnimation::Pattern>& pa
 /// <param name="patterns">パターン配列(ムーブ)</param>
 /// <param name="hasLooped">ループフラグ</param>
 // ********************************************************************************
-SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& patterns, bool hasLooped)
+SpriteAnimation::SpriteAnimation(PatternArray&& patterns, bool hasLooped)
 	: m_PatternArray{ std::move(patterns) }
 	, m_hasLooped{ hasLooped }
 	, m_CurrentPatternNo{ -1 }
@@ -191,7 +282,7 @@ SpriteAnimation::SpriteAnimation(std::vector<SpriteAnimation::Pattern>&& pattern
 /// <param name="count">パターン登録数</param>
 /// <param name="hasLooped">ループフラグ</param>
 // ********************************************************************************
-SpriteAnimation::SpriteAnimation(SpriteAnimation::Pattern * patterns, std::size_t count, bool hasLooped)
+SpriteAnimation::SpriteAnimation(Pattern * patterns, std::size_t count, bool hasLooped)
 	: m_PatternArray{ patterns, patterns + count }
 	, m_hasLooped{ hasLooped }
 	, m_CurrentPatternNo{ -1 }
@@ -248,7 +339,7 @@ bool SpriteAnimation::update(const float deltaTime)
 /// <param name="pattern">追加するパターンデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
+bool SpriteAnimation::addPattern(const Pattern & pattern)
 {
 	m_PatternArray.push_back(pattern);
 	m_TotalTime += pattern.m_RefreshTime;
@@ -262,7 +353,7 @@ bool SpriteAnimation::addPattern(const SpriteAnimation::Pattern & pattern)
 /// <param name="pattern">追加するパターンデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
+bool SpriteAnimation::addPattern(Pattern && pattern)
 {
 	m_TotalTime += pattern.m_RefreshTime;
 	m_PatternArray.emplace_back(std::move(pattern));
@@ -277,7 +368,7 @@ bool SpriteAnimation::addPattern(SpriteAnimation::Pattern && pattern)
 /// <param name="pattern">変更後のパターンデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern & pattern)
+bool SpriteAnimation::setPattern(std::size_t no, const Pattern & pattern)
 {
 	if (m_PatternArray.size() >= no)
 	{
@@ -297,7 +388,7 @@ bool SpriteAnimation::setPattern(std::size_t no, const SpriteAnimation::Pattern 
 /// <param name="pattern">変更後のパターンデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::setPattern(std::size_t no, SpriteAnimation::Pattern && pattern)
+bool SpriteAnimation::setPattern(std::size_t no, Pattern && pattern)
 {
 	if (m_PatternArray.size() >= no)
 	{
@@ -335,7 +426,7 @@ bool SpriteAnimation::removePattern(std::size_t no)
 /// <param name="pattern">削除するパターンデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
+bool SpriteAnimation::removePattern(const Pattern & pattern)
 {
 	auto size = m_PatternArray.size();
 	m_PatternArray.erase(
@@ -359,7 +450,7 @@ bool SpriteAnimation::removePattern(const SpriteAnimation::Pattern & pattern)
 /// <param name="pattern">削除するパターンデータのイテレータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::removePattern(std::vector<SpriteAnimation::Pattern>::const_iterator pattern)
+bool SpriteAnimation::removePattern(PatternArray::const_iterator pattern)
 {
 	m_TotalTime -= pattern->m_RefreshTime;
 	m_PatternArray.erase(pattern);
@@ -389,7 +480,7 @@ bool SpriteAnimation::clear()
 /// <param name="patterns">変更後のパターン配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern>& patterns)
+bool SpriteAnimation::setPatternArray(const PatternArray& patterns)
 {
 	m_PatternArray = patterns;
 	for (const auto& pattern : m_PatternArray)
@@ -406,7 +497,7 @@ bool SpriteAnimation::setPatternArray(const std::vector<SpriteAnimation::Pattern
 /// <param name="patterns">変更後のパターン配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& patterns)
+bool SpriteAnimation::setPatternArray(PatternArray&& patterns)
 {
 	m_PatternArray = std::move(patterns);
 	for (const auto& pattern : m_PatternArray)
@@ -424,9 +515,9 @@ bool SpriteAnimation::setPatternArray(std::vector<SpriteAnimation::Pattern>&& pa
 /// <param name="count">変更後のパターン数</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimation::setPatternArray(SpriteAnimation::Pattern* patterns, std::size_t count)
+bool SpriteAnimation::setPatternArray(Pattern* patterns, std::size_t count)
 {
-	m_PatternArray = std::vector<SpriteAnimation::Pattern>(patterns, patterns + count);
+	m_PatternArray = PatternArray(patterns, patterns + count);
 	for (const auto& pattern : m_PatternArray)
 	{
 		m_TotalTime += pattern.m_RefreshTime;
@@ -527,7 +618,7 @@ bool SpriteAnimation::playByTime(double t)
 /// </summary>
 /// <returns>パターン配列ポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-const std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray() const
+const PatternArray* const SpriteAnimation::patternArray() const
 {
 	return &m_PatternArray;
 }
@@ -538,7 +629,7 @@ const std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray
 /// </summary>
 /// <returns>パターン配列ポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray()
+PatternArray* const SpriteAnimation::patternArray()
 {
 	return &m_PatternArray;
 }
@@ -550,7 +641,7 @@ std::vector<SpriteAnimation::Pattern>* const SpriteAnimation::patternArray()
 /// <param name="t">取得したいアニメーション時間(単位は秒)</param>
 /// <returns>指定された時間に再生されるパターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) const
+const Pattern * const SpriteAnimation::patternByTime(double t) const
 {
 	if (m_PatternArray.size() <= 0)
 	{
@@ -566,7 +657,7 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t) 
 /// <param name="t">取得したいアニメーション時間(単位は秒)</param>
 /// <returns>指定された時間に再生されるパターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
+Pattern * const SpriteAnimation::patternByTime(double t)
 {
 	if (m_PatternArray.size() <= 0)
 	{
@@ -582,7 +673,7 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByTime(double t)
 /// <param name="no">取得したい配列番号</param>
 /// <returns>パターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no) const
+const Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no) const
 {
 	if (m_PatternArray.size() >= no)
 	{
@@ -598,7 +689,7 @@ const SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::si
 /// <param name="no">取得したい配列番号</param>
 /// <returns>パターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no)
+Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no)
 {
 	if (m_PatternArray.size() <= no)
 	{
@@ -613,7 +704,7 @@ SpriteAnimation::Pattern * const SpriteAnimation::patternByArrayNo(std::size_t n
 /// </summary>
 /// <returns>再生中のパターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
+const Pattern * const SpriteAnimation::currentPattern() const
 {
 	if (m_CurrentPatternNo < 0 || m_PatternArray.size() <= 0)
 	{
@@ -632,7 +723,7 @@ const SpriteAnimation::Pattern * const SpriteAnimation::currentPattern() const
 /// </summary>
 /// <returns>再生中のパターンデータポインタ, nullptr : データなし</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern * const SpriteAnimation::currentPattern()
+Pattern * const SpriteAnimation::currentPattern()
 {
 	if (m_CurrentPatternNo < 0 || m_PatternArray.size() <= 0)
 	{
@@ -795,14 +886,7 @@ bool SpriteAnimation::operator==(const SpriteAnimation & animation) const
 	if (m_hasLooped        != animation.m_hasLooped          ) return false;
 	for (std::int32_t i = 0; i < size; i++)
 	{
-		if (m_PatternArray[i].m_ImageNo     != animation.m_PatternArray[i].m_ImageNo    ) return false;
-		if (m_PatternArray[i].m_OffsetX     != animation.m_PatternArray[i].m_OffsetX    ) return false;
-		if (m_PatternArray[i].m_OffsetY     != animation.m_PatternArray[i].m_OffsetY    ) return false;
-		if (m_PatternArray[i].m_Width       != animation.m_PatternArray[i].m_Width      ) return false;
-		if (m_PatternArray[i].m_Height      != animation.m_PatternArray[i].m_Height     ) return false;
-		if (m_PatternArray[i].m_RefreshTime != animation.m_PatternArray[i].m_RefreshTime) return false;
-		if (m_PatternArray[i].m_DrawOffsetX != animation.m_PatternArray[i].m_DrawOffsetX) return false;
-		if (m_PatternArray[i].m_DrawOffsetY != animation.m_PatternArray[i].m_DrawOffsetY) return false;
+		if (m_PatternArray[i] != animation.m_PatternArray[i]) return false;
 	}
 	return true;
 }
@@ -901,7 +985,7 @@ SpriteAnimationController::SpriteAnimationController(const char * pData, std::si
 /// </summary>
 /// <param name="animations">アニメーション配列</param>
 // ********************************************************************************
-SpriteAnimationController::SpriteAnimationController(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
+SpriteAnimationController::SpriteAnimationController(const AnimationArray& animations)
 	: m_AnimationArray{ animations }
 	, m_CurrentAnimationNo{ -1 }
 {
@@ -913,7 +997,7 @@ SpriteAnimationController::SpriteAnimationController(const std::vector<std::pair
 /// </summary>
 /// <param name="animations">アニメーション配列</param>
 // ********************************************************************************
-SpriteAnimationController::SpriteAnimationController(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
+SpriteAnimationController::SpriteAnimationController(AnimationArray&& animations)
 	: m_AnimationArray{ std::move(animations) }
 	, m_CurrentAnimationNo{ -1 }
 {
@@ -926,7 +1010,7 @@ SpriteAnimationController::SpriteAnimationController(std::vector<std::pair<std::
 /// <param name="animations">アニメーション配列</param>
 /// <param name="count">アニメーション数</param>
 // ********************************************************************************
-SpriteAnimationController::SpriteAnimationController(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
+SpriteAnimationController::SpriteAnimationController(AnimationData* animations, std::size_t count)
 	: m_AnimationArray{ animations, animations + count }
 	, m_CurrentAnimationNo{ -1 }
 {
@@ -1021,7 +1105,7 @@ bool SpriteAnimationController::addAnimation(std::string && name, SpriteAnimatio
 /// <param name="animation">アニメーション配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::addAnimation(const std::pair<std::string, SpriteAnimation>& animation)
+bool SpriteAnimationController::addAnimation(const AnimationData& animation)
 {
 	m_AnimationArray.push_back(animation);
 	return true;
@@ -1034,7 +1118,7 @@ bool SpriteAnimationController::addAnimation(const std::pair<std::string, Sprite
 /// <param name="animation">アニメーション配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::addAnimation(std::pair<std::string, SpriteAnimation>&& animation)
+bool SpriteAnimationController::addAnimation(AnimationData&& animation)
 {
 	m_AnimationArray.emplace_back(std::move(animation));
 	return true;
@@ -1200,7 +1284,7 @@ bool SpriteAnimationController::setAnimation(std::size_t no, std::string && name
 /// <param name="animation">変更後のアニメーションデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std::string, SpriteAnimation>& animation)
+bool SpriteAnimationController::setAnimation(std::size_t no, const AnimationData& animation)
 {
 	if (no >= m_AnimationArray.size())
 	{
@@ -1218,7 +1302,7 @@ bool SpriteAnimationController::setAnimation(std::size_t no, const std::pair<std
 /// <param name="animation">変更後のアニメーションデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::setAnimation(std::size_t no, std::pair<std::string, SpriteAnimation>&& animation)
+bool SpriteAnimationController::setAnimation(std::size_t no, AnimationData&& animation)
 {
 	if (no >= m_AnimationArray.size())
 	{
@@ -1314,7 +1398,7 @@ bool SpriteAnimationController::removeAnimation(const std::string & name, Sprite
 /// <param name="animation">削除するアニメーションデータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::removeAnimation(const std::pair<std::string, SpriteAnimation> & animation)
+bool SpriteAnimationController::removeAnimation(const AnimationData & animation)
 {
 	auto size = m_AnimationArray.size();
 	m_AnimationArray.erase(
@@ -1334,7 +1418,7 @@ bool SpriteAnimationController::removeAnimation(const std::pair<std::string, Spr
 /// <param name="animation">削除するアニメーションデータイテレータ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::removeAnimation(std::vector<std::pair<std::string, SpriteAnimation>>::const_iterator animation)
+bool SpriteAnimationController::removeAnimation(AnimationArray::const_iterator animation)
 {
 	m_AnimationArray.erase(animation);
 	roundCurrentAnimationNo();
@@ -1361,7 +1445,7 @@ bool SpriteAnimationController::clear()
 /// <param name="animations">変更後のアニメーション配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::setAnimation(const std::vector<std::pair<std::string, SpriteAnimation>>& animations)
+bool SpriteAnimationController::setAnimation(const AnimationArray& animations)
 {
 	m_AnimationArray = animations;
 	return true;
@@ -1374,7 +1458,7 @@ bool SpriteAnimationController::setAnimation(const std::vector<std::pair<std::st
 /// <param name="animations">変更後のアニメーション配列</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::setAnimation(std::vector<std::pair<std::string, SpriteAnimation>>&& animations)
+bool SpriteAnimationController::setAnimation(AnimationArray&& animations)
 {
 	m_AnimationArray = std::move(animations);
 	return true;
@@ -1388,9 +1472,9 @@ bool SpriteAnimationController::setAnimation(std::vector<std::pair<std::string, 
 /// <param name="count">変更後のアニメーション数</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationController::setAnimation(std::pair<std::string, SpriteAnimation>* animations, std::size_t count)
+bool SpriteAnimationController::setAnimation(AnimationData* animations, std::size_t count)
 {
-	m_AnimationArray = std::vector<std::pair<std::string, SpriteAnimation>>(animations, animations + count);
+	m_AnimationArray = AnimationArray(animations, animations + count);
 	return true;
 }
 
@@ -1458,7 +1542,7 @@ bool SpriteAnimationController::changeAnimation(const std::string & key, bool is
 /// </summary>
 /// <returns>アニメーション配列, nullptr : データなし</returns>
 // ********************************************************************************
-const std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray() const
+const AnimationArray* const SpriteAnimationController::animationArray() const
 {
 	return &m_AnimationArray;
 }
@@ -1469,7 +1553,7 @@ const std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimatio
 /// </summary>
 /// <returns>アニメーション配列, nullptr : データなし</returns>
 // ********************************************************************************
-std::vector<std::pair<std::string, SpriteAnimation>>* const SpriteAnimationController::animationArray()
+AnimationArray* const SpriteAnimationController::animationArray()
 {
 	return &m_AnimationArray;
 }
@@ -1510,7 +1594,7 @@ SpriteAnimation * const SpriteAnimationController::currentAnimation()
 /// </summary>
 /// <returns>再生中のパターンデータ, nullptr : データなし</returns>
 // ********************************************************************************
-const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern() const
+const Pattern * const SpriteAnimationController::currentPattern() const
 {
 	if (m_CurrentAnimationNo < 0)
 	{
@@ -1525,7 +1609,7 @@ const SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern
 /// </summary>
 /// <returns>再生中のパターンデータ, nullptr : データなし</returns>
 // ********************************************************************************
-SpriteAnimation::Pattern * const SpriteAnimationController::currentPattern()
+Pattern * const SpriteAnimationController::currentPattern()
 {
 	if (m_CurrentAnimationNo < 0)
 	{
@@ -1803,7 +1887,7 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 		}
 		case SpriteAnimationDataChunk::PatternData:
 		{
-			std::int32_t animNo = charToNum(&(m_pData[m_Index])); index += sizeof(std::int32_t);
+			std::int32_t animNo = charToNum(&(m_pData[m_Index + index])); index += sizeof(std::int32_t);
 			if (!patternParse(out, index))
 			{
 				return false;
@@ -1825,84 +1909,163 @@ bool SpriteAnimationDataParser::animationParse(SpriteAnimationController * out)
 /// <param name="index">アニメーション情報データインデックス</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, std::int32_t& in)
+bool SpriteAnimationDataParser::patternParse(SpriteAnimationController * out, std::int32_t& anim_i)
 {
-	std::int32_t dataSize = charToNum(&(m_pData[m_Index + in]));
-	in += sizeof(std::int32_t);
+	std::int32_t dataSize = charToNum(&(m_pData[m_Index + anim_i]));
+	anim_i += sizeof(std::int32_t);
 	for (std::int32_t index = 0; index < dataSize;)
 	{
-		SpritePatternDataChunk chunk = static_cast<SpritePatternDataChunk>(m_pData[m_Index + in + index]);
+		const auto i = [&]() {return (m_Index + anim_i + index); };
+		SpritePatternDataChunk chunk = static_cast<SpritePatternDataChunk>(m_pData[i()]);
 		index += sizeof(SpritePatternDataChunk);
 		switch (chunk)
 		{
-		case SpritePatternDataChunk::ImageNo:
+		case SpritePatternDataChunk::LayerCount:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t imageNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_ImageNo = imageNo;
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t size      = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_LayerArray.resize(size);
 			break;
 		}
-		case SpritePatternDataChunk::OffsetX:
+		case SpritePatternDataChunk::LayerData:
 		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t offsetX   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_OffsetX = offsetX;
-			break;
-		}
-		case SpritePatternDataChunk::OffsetY:
-		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t offsetY   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_OffsetY = offsetY;
-			break;
-		}
-		case SpritePatternDataChunk::Width:
-		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t width     = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_Width = width;
-			break;
-		}
-		case SpritePatternDataChunk::Height:
-		{
-			std::int32_t animNo    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t height    = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_Height = height;
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			if (!layerParse(out, anim_i, index))
+			{
+				return false;
+			}
 			break;
 		}
 		case SpritePatternDataChunk::RefreshTime:
 		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t refreshTime = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
+			std::int32_t animNo      = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t refreshTime = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
 			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_RefreshTime = refreshTime * 0.001;
-			break;
-		}
-		case SpritePatternDataChunk::DrawOffsetX:
-		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t drawOffsetX = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_DrawOffsetX = drawOffsetX;
-			break;
-		}
-		case SpritePatternDataChunk::DrawOffsetY:
-		{
-			std::int32_t animNo      = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t patternNo   = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			std::int32_t drawOffsetY = charToNum(&(m_pData[m_Index + in + index])); index += sizeof(std::int32_t);
-			out->animationArray()->at(animNo).second.patternArray()->at(patternNo).m_DrawOffsetY = drawOffsetY;
 			break;
 		}
 		default: return false;
 		}
 	}
-	in += dataSize;
+	anim_i += dataSize;
+	return true;
+}
+
+// ********************************************************************************
+/// <summary>
+/// レイヤー情報の解析、分解
+/// </summary>
+/// <param name="out">出力先</param>
+/// <param name="anim_i">アニメーション情報データインデックス</param>
+/// <param name="ptn_i">パターン情報データインデックス</param>
+/// <returns>true : 成功, false : 失敗</returns>
+// ********************************************************************************
+bool SpriteAnimationDataParser::layerParse(SpriteAnimationController * out, std::int32_t & anim_i, std::int32_t & ptn_i)
+{
+	std::int32_t dataSize = charToNum(&(m_pData[m_Index + anim_i + ptn_i]));
+	ptn_i += sizeof(std::int32_t);
+	for (std::int32_t index = 0; index < dataSize;)
+	{
+		const auto i = [&]() {return (m_Index + anim_i + ptn_i + index); };
+		SpritePatternLayerDataChunk chunk = static_cast<SpritePatternLayerDataChunk>(m_pData[i()]);
+		index += sizeof(SpritePatternLayerDataChunk);
+		switch (chunk)
+		{
+		case SpritePatternLayerDataChunk::LayerName:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t length    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			std::get<std::string>(layers.at(layerNo)).assign(&(m_pData[i()]), &(m_pData[i() + length]));
+			index += length;
+			break;
+		}
+		case SpritePatternLayerDataChunk::ImageNo:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t imageNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_ImageNo = imageNo;
+			break;
+		}
+		case SpritePatternLayerDataChunk::OffsetX:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t offsetX   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_OffsetX = offsetX;
+			break;
+		}
+		case SpritePatternLayerDataChunk::OffsetY:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t offsetY   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_OffsetY = offsetY;
+			break;
+		}
+		case SpritePatternLayerDataChunk::Width:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t width     = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_Width = width;
+			break;
+		}
+		case SpritePatternLayerDataChunk::Height:
+		{
+			std::int32_t animNo    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t height    = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_Height = height;
+			break;
+		}
+		case SpritePatternLayerDataChunk::DrawOffsetX:
+		{
+			std::int32_t animNo      = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo     = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t drawOffsetX = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_DrawOffsetX = drawOffsetX;
+			break;
+		}
+		case SpritePatternLayerDataChunk::DrawOffsetY:
+		{
+			std::int32_t animNo      = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t patternNo   = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t layerNo     = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			std::int32_t drawOffsetY = charToNum(&(m_pData[i()])); index += sizeof(std::int32_t);
+			auto  patterns = out->animationArray()->at(animNo).second.patternArray();
+			auto& layers   = patterns->at(patternNo).m_LayerArray;
+			layers.at(layerNo).second.m_DrawOffsetY = drawOffsetY;
+			break;
+		}
+		default: return false;
+		}
+	}
+	ptn_i += dataSize;
 	return true;
 }
 
@@ -2037,32 +2200,10 @@ bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoort
 	ofs.write(reinterpret_cast<const char*>(&animCount), sizeof(animCount));
 
 	chunk = SpriteAnimationFileChunk::AnimationData;
-	size  = 0;
+	size  = 0; 
 	std::for_each(animations->begin(), animations->end(), [&](const auto& anim)
 	{
-		size += sizeof(SpriteAnimationDataChunk::Name);
-		size += sizeof(std::int32_t);
-		size += sizeof(std::int32_t);
-		size += anim.first.length();
-
-		size += sizeof(SpriteAnimationDataChunk::Loop);
-		size += sizeof(std::int32_t);
-		size += sizeof(char);
-
-		const std::size_t patternCount = anim.second.patternArray()->size();
-		const std::size_t dataSize     = sizeof(std::int32_t) + sizeof(std::int32_t) + sizeof(std::int32_t);
-		size +=  sizeof(SpriteAnimationDataChunk::PatternCount);
-		size +=  sizeof(std::int32_t);
-		size +=  sizeof(std::int32_t);
-		size += (sizeof(SpriteAnimationDataChunk::PatternData) + sizeof(std::int32_t) + sizeof(std::int32_t));
-		size += (sizeof(SpritePatternDataChunk::ImageNo      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetX      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetY      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Width        ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Height       ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::RefreshTime  ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetX  ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetY  ) + dataSize) * patternCount;
+		size += calcAnimationDataSize(anim);
 	});
 	ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 	ofs.write(reinterpret_cast<const char*>(&size ), sizeof(size ));
@@ -2088,54 +2229,101 @@ bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoort
 		ofs.write(reinterpret_cast<const char*>(&i           ), sizeof(i           ));
 		ofs.write(reinterpret_cast<const char*>(&patternCount), sizeof(patternCount));
 
-		const std::size_t dataSize = sizeof(std::int32_t) + sizeof(std::int32_t) + sizeof(std::int32_t);
 		chunk = SpriteAnimationDataChunk::PatternData;
 		size  = 0;
-		size += (sizeof(SpritePatternDataChunk::ImageNo    ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetX    ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::OffsetY    ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Width      ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::Height     ) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::RefreshTime) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetX) + dataSize) * patternCount;
-		size += (sizeof(SpritePatternDataChunk::DrawOffsetY) + dataSize) * patternCount;
+		std::for_each(anim.second.patternArray()->begin(), anim.second.patternArray()->end(), [&](const auto& pattern)
+		{
+			size += calcPatternDataSize(pattern);
+		});
 		ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 		ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
 		ofs.write(reinterpret_cast<const char*>(&size ), sizeof(size ));
 
 		for(std::int32_t j = 0; j < static_cast<std::int32_t>(patternCount); j++)
 		{
-			const auto&            pattern  = anim.second.patternArray()->at(j);
-			const std::size_t      dataSize = sizeof(std::int32_t);
-			SpritePatternDataChunk chunk    = SpritePatternDataChunk::ImageNo;
-			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
-			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
-			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_ImageNo)), dataSize);
+			const auto&            pattern     = anim.second.patternArray()->at(j);
+			const std::size_t      dataSize    = sizeof(std::int32_t);
 
-			chunk = SpritePatternDataChunk::OffsetX;
+			const std::int32_t     layerCount = static_cast<std::int32_t>(pattern.m_LayerArray.size());
+			SpritePatternDataChunk chunk      = SpritePatternDataChunk::LayerCount;
 			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
 			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_OffsetX)), dataSize);
+			ofs.write(reinterpret_cast<const char*>(&(layerCount)), dataSize);
 
-			chunk = SpritePatternDataChunk::OffsetY;
+			chunk = SpritePatternDataChunk::LayerData;
+			size  = 0;
+			std::for_each(pattern.m_LayerArray.begin(), pattern.m_LayerArray.end(), [&](const auto& layer)
+			{
+				size += calcPatternLayerDataSize(layer);
+			});
 			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
 			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_OffsetY)), dataSize);
+			ofs.write(reinterpret_cast<const char*>(&size ), sizeof(size ));
+			
+			for (std::int32_t k = 0; k < layerCount; k++)
+			{
+				const auto& layerData = pattern.m_LayerArray.at(k);
+				
+				SpritePatternLayerDataChunk chunk = SpritePatternLayerDataChunk::LayerName;
+				size = layerData.first.length();
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&size ), dataSize     );
+				ofs.write(layerData.first.c_str(), size);
 
-			chunk = SpritePatternDataChunk::Width;
-			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
-			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
-			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_Width)), dataSize);
+				chunk = SpritePatternLayerDataChunk::ImageNo;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_ImageNo)), dataSize);
 
-			chunk = SpritePatternDataChunk::Height;
-			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
-			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
-			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_Height)), dataSize);
+				chunk = SpritePatternLayerDataChunk::OffsetX;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_OffsetX)), dataSize);
+
+				chunk = SpritePatternLayerDataChunk::OffsetY;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_OffsetY)), dataSize);
+
+				chunk = SpritePatternLayerDataChunk::Width;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_Width)), dataSize);
+
+				chunk = SpritePatternLayerDataChunk::Height;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_Height)), dataSize);
+
+				chunk = SpritePatternLayerDataChunk::DrawOffsetX;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_DrawOffsetX)), dataSize);
+
+				chunk = SpritePatternLayerDataChunk::DrawOffsetY;
+				ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
+				ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
+				ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
+				ofs.write(reinterpret_cast<const char*>(&k    ), sizeof(k    ));
+				ofs.write(reinterpret_cast<const char*>(&(layerData.second.m_DrawOffsetY)), dataSize);
+			}
 
 			std::int32_t refreshTime = static_cast<std::int32_t>(pattern.m_RefreshTime * 1000);
 			chunk = SpritePatternDataChunk::RefreshTime;
@@ -2143,22 +2331,87 @@ bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoort
 			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
 			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
 			ofs.write(reinterpret_cast<const char*>(&refreshTime), dataSize);
-
-			chunk = SpritePatternDataChunk::DrawOffsetX;
-			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
-			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
-			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_DrawOffsetX)), dataSize);
-
-			chunk = SpritePatternDataChunk::DrawOffsetY;
-			ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
-			ofs.write(reinterpret_cast<const char*>(&i    ), sizeof(i    ));
-			ofs.write(reinterpret_cast<const char*>(&j    ), sizeof(j    ));
-			ofs.write(reinterpret_cast<const char*>(&(pattern.m_DrawOffsetY)), dataSize);
 		}
 	}
 
 	chunk = SpriteAnimationFileChunk::Eof;
 	ofs.write(reinterpret_cast<const char*>(&chunk), sizeof(chunk));
 	return true;
+}
+
+std::size_t SpriteAnimationDataExporter::calcAnimationDataSize(const AnimationData & anim)
+{
+	std::size_t size = 0;
+	size += sizeof(SpriteAnimationDataChunk::Name);         // chunk
+	size += sizeof(std::int32_t);                           // array no
+	size += sizeof(std::int32_t);                           // size(length)
+	size += anim.first.length();                            // data
+
+	size += sizeof(SpriteAnimationDataChunk::Loop);         // chunk
+	size += sizeof(std::int32_t);                           // array no
+	size += sizeof(char);                                   // loop(0x01 or 0x00)
+
+	size += sizeof(SpriteAnimationDataChunk::PatternCount); // chunk
+	size += sizeof(std::int32_t);                           // array no
+	size += sizeof(std::int32_t);                           // patternCount
+
+	size += sizeof(SpriteAnimationDataChunk::PatternData);  // chunk
+	size += sizeof(std::int32_t);                           // array no
+	size += sizeof(std::int32_t);                           // data size
+	// data
+	auto pPatternArray = anim.second.patternArray();
+	if (!pPatternArray)
+	{
+		return size;
+	}
+	std::for_each(pPatternArray->begin(), pPatternArray->end(), [&](const auto& pattern) 
+	{
+		size += calcPatternDataSize(pattern);
+	});
+	return size;
+}
+
+std::size_t SpriteAnimationDataExporter::calcPatternDataSize(const Pattern & pattern)
+{
+	std::size_t size = 0;
+	size += sizeof(SpritePatternDataChunk::LayerCount);                // chunk
+	size += sizeof(std::int32_t);                                      // array no
+	size += sizeof(std::int32_t);                                      // pattern no
+	size += sizeof(std::int32_t);                                      // layerCont
+
+	size += sizeof(SpritePatternDataChunk::LayerData);                 // chunk
+	size += sizeof(std::int32_t);                                      // array no
+	size += sizeof(std::int32_t);                                      // pattern no
+	size += sizeof(std::int32_t);                                      // data size
+
+	// data
+	std::for_each(pattern.m_LayerArray.begin(), pattern.m_LayerArray.end(), [&](const auto& layer)
+	{
+		size += calcPatternLayerDataSize(layer);
+	});
+
+	size += sizeof(SpritePatternDataChunk::RefreshTime);               // chunk
+	size += sizeof(std::int32_t);                                      // array no
+	size += sizeof(std::int32_t);                                      // pattern no
+	size += sizeof(std::int32_t);                                      // refreshTime
+	return size;
+}
+
+std::size_t SpriteAnimationDataExporter::calcPatternLayerDataSize(const LayerData & layer)
+{
+	std::size_t size = 0;
+	size += sizeof(SpritePatternLayerDataChunk::LayerName);            // chunk
+	size += sizeof(std::int32_t);                                      // array no
+	size += sizeof(std::int32_t);                                      // pattern no
+	size += sizeof(std::int32_t);                                      // layer no
+	size += sizeof(std::int32_t);                                      // size(length)
+	size += layer.first.length();                                      // name
+
+	const std::size_t layerDataChunkCount = 7;
+	size += sizeof(SpritePatternLayerDataChunk) * layerDataChunkCount; // chunk
+	size += sizeof(std::int32_t) * layerDataChunkCount;                // array no
+	size += sizeof(std::int32_t) * layerDataChunkCount;                // pattern no
+	size += sizeof(std::int32_t) * layerDataChunkCount;                // layer no
+	size += sizeof(std::int32_t) * layerDataChunkCount;                // data
+	return size;
 }

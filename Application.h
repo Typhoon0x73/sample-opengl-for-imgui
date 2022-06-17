@@ -35,7 +35,5 @@ namespace Sample {
 
 		//•`‰æŠÖ˜A
 		CameraPtr camera_;
-		SpritePtr canvas_;
-		FrameBufferPtr frameCanvas_;
 	};
 }

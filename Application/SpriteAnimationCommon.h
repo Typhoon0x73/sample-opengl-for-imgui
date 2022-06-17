@@ -42,14 +42,26 @@ enum class SpriteAnimationDataChunk : unsigned char
 // --------------------------------------------------------------------------------
 enum class SpritePatternDataChunk : unsigned char
 {
-	ImageNo            = 0x60, // chunk(0x60), i(array no), j(pattern no), image no,
-	OffsetX            = 0x61, // chunk(0x61), i(array no), j(pattern no), offset x,
-	OffsetY            = 0x62, // chunk(0x62), i(array no), j(pattern no), offset y,
-	Width              = 0x63, // chunk(0x63), i(array no), j(pattern no), width,
-	Height             = 0x64, // chunk(0x64), i(array no), j(pattern no), height,
-	RefreshTime        = 0x65, // chunk(0x65), i(array no), j(pattern no), refreshTime,
-	DrawOffsetX        = 0x66, // chunk(0x66), i(array no), j(pattern no), draw offset x,
-	DrawOffsetY        = 0x67, // chunk(0x67), i(array no), j(pattern no), draw offset y,
+	LayerCount         = 0x60, // chunk(0x60), i(array no), j(pattern no), layerCount,
+	LayerData          = 0x61, // chunk(0x61), i(array no), j(pattern no), size(data size), data,
+	RefreshTime        = 0x62, // chunk(0x62), i(array no), j(pattern no), refreshTime,
+};
+
+// --------------------------------------------------------------------------------
+/// <summary>
+/// .saスプライトレイヤーデータチャンク
+/// </summary>
+// --------------------------------------------------------------------------------
+enum class SpritePatternLayerDataChunk : unsigned char
+{
+	LayerName          = 0x80, // chunk(0x80), i(array no), j(pattern no), k(layer no), size(length), name, 
+	ImageNo            = 0x81, // chunk(0x81), i(array no), j(pattern no), k(layer no), image no,
+	OffsetX            = 0x82, // chunk(0x82), i(array no), j(pattern no), k(layer no), offset x,
+	OffsetY            = 0x83, // chunk(0x83), i(array no), j(pattern no), k(layer no), offset y,
+	Width              = 0x84, // chunk(0x84), i(array no), j(pattern no), k(layer no), width,
+	Height             = 0x85, // chunk(0x85), i(array no), j(pattern no), k(layer no), height,
+	DrawOffsetX        = 0x86, // chunk(0x86), i(array no), j(pattern no), k(layer no), draw offset x,
+	DrawOffsetY        = 0x87, // chunk(0x87), i(array no), j(pattern no), k(layer no), draw offset y,
 };
 
 // --------------------------------------------------------------------------------
