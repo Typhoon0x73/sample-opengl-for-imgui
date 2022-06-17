@@ -200,7 +200,8 @@ void Application::Update() {
 
 		ImGui::Begin("patterns");
 		{
-			auto ptns = test.animationArray()->at(editAnimNo).second.patternArray();
+			const auto const anims = test.animationArray();
+			const auto const ptns = anims->at(editAnimNo).second.patternArray();
 			if (!ptns)
 			{
 
@@ -210,11 +211,15 @@ void Application::Update() {
 				auto ptnCount = ptns->size();
 				for (std::size_t i = 0; i < ptnCount; i++)
 				{
-					auto ptn = ptns->at(i);
+					const auto& ptn = ptns->at(i);
 					auto no  = ptn.m_ImageNo;
 					if (no < 0)
 					{
-						if(ImGui::Button(""))
+						if (ImGui::Button("no image"))
+						{
+							editPatternNo = i;
+							break;
+						}
 					}
 					else
 					{
