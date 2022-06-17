@@ -44,7 +44,7 @@ public:
 		/// </summary>
 		/// <param name="copy">コピーデータ</param>
 		// ********************************************************************************
-		explicit Pattern(const Pattern& copy);
+		explicit Pattern(const SpriteAnimation::Pattern& copy);
 
 		// ********************************************************************************
 		/// <summary>
@@ -52,7 +52,7 @@ public:
 		/// </summary>
 		/// <param name="move">ムーブデータ</param>
 		// ********************************************************************************
-		explicit Pattern(Pattern&& move);
+		explicit Pattern(SpriteAnimation::Pattern&& move);
 
 		// ********************************************************************************
 		/// <summary>

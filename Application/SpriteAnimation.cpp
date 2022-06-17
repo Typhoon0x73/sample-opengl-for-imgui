@@ -8,7 +8,7 @@
 /// </summary>
 /// <param name="copy">コピーデータ</param>
 // ********************************************************************************
-SpriteAnimation::Pattern::Pattern(const Pattern & copy)
+SpriteAnimation::Pattern::Pattern(const SpriteAnimation::Pattern & copy)
 {
 	*this = copy;
 }
@@ -19,7 +19,7 @@ SpriteAnimation::Pattern::Pattern(const Pattern & copy)
 /// </summary>
 /// <param name="move">ムーブデータ</param>
 // ********************************************************************************
-SpriteAnimation::Pattern::Pattern(Pattern && move)
+SpriteAnimation::Pattern::Pattern(SpriteAnimation::Pattern && move)
 {
 	*this = std::move(move);
 }
