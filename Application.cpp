@@ -9,8 +9,10 @@ using namespace Sample;
 
 std::vector<TexturePtr>  sampleTextures;
 std::vector<std::string> texturePathArray;
-int editAnimNo = 0;
-int editPatternNo = 0;
+int editAnimNo         =  0;
+int editPatternNo      =  0;
+int editPatternLayerNo =  0;
+int selectTextureNo    = -1;
 
 /**
  * @brief		コンストラクタ
@@ -108,7 +110,7 @@ void Application::Update() {
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::Begin("canvas", nullptr, ImGuiWindowFlags_NoBackground);
+		ImGui::Begin("canvas", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 		{
 			auto tex = sampleTextures[0];
 			ImVec2 size(tex->Width(), tex->Height());
@@ -134,9 +136,18 @@ void Application::Update() {
 		}
 		ImGui::End();
 
-		ImGui::Begin("texture view");
+		ImGui::Begin("texture view", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 		{
-
+			if (selectTextureNo < 0)
+			{
+				ImGui::LabelText("##please select texture.", "please select texture.");
+			}
+			else
+			{
+				const auto&  tex = sampleTextures[selectTextureNo];
+				const ImVec2 size(tex->Width(), tex->Height());
+				ImGui::Image((ImTextureID)tex->ID(), size);
+			}
 		}
 		ImGui::End();
 
@@ -176,25 +187,42 @@ void Application::Update() {
 
 		ImGui::Begin("textures");
 		{
-
+			if (ImGui::BeginListBox("##textureList"))
+			{
+				if (ImGui::Selectable("none", selectTextureNo == -1))
+				{
+					selectTextureNo = -1;
+				}
+				const auto& texCount = texturePathArray.size();
+				for (std::size_t i = 0; i < texCount; i++)
+				{
+					if (ImGui::Selectable(texturePathArray[i].c_str(), i == selectTextureNo))
+					{
+						selectTextureNo = i;
+						break;
+					}
+				}
+				ImGui::EndListBox();
+			}
 		}
 		ImGui::End();
 
 		ImGui::Begin("patterns", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 		{
 			const auto const anims = test.animationArray();
-			const auto const ptns = anims->at(editAnimNo).second.patternArray();
+			const auto const ptns  = anims->at(editAnimNo).second.patternArray();
 			if (!ptns)
 			{
 
 			}
 			else
 			{
-				/*auto ptnCount = ptns->size();
+				auto ptnCount = ptns->size();
 				for (std::size_t i = 0; i < ptnCount; i++)
 				{
-					const auto& ptn = ptns->at(i);
-					const auto& no  = ptn.m_ImageNo;
+					const auto& ptn         = ptns->at(i);
+					const auto& selectLayer = ptn.m_LayerArray[editPatternLayerNo].second;
+					const auto& no          = selectLayer.m_ImageNo;
 					if (no < 0)
 					{
 						if (ImGui::Button("no image"))
@@ -208,11 +236,11 @@ void Application::Update() {
 						auto tex = sampleTextures[no];
 						auto tw = (float)tex->Width();
 						auto th = (float)tex->Height();
-						ImVec2 uv0((float)ptn.m_OffsetX / tw, (float)ptn.m_OffsetY / th);
-						ImVec2 uv1((float)(ptn.m_OffsetX + ptn.m_Width) / tw, (float)(ptn.m_OffsetY + ptn.m_Height) / th);
+						ImVec2 uv0((float)selectLayer.m_OffsetX / tw, (float)selectLayer.m_OffsetY / th);
+						ImVec2 uv1((float)(selectLayer.m_OffsetX + selectLayer.m_Width) / tw, (float)(selectLayer.m_OffsetY + selectLayer.m_Height) / th);
 						ImTextureID id = (void*)tex->ID();
-						auto w = (float)ptn.m_Width;
-						auto h = (float)ptn.m_Height;
+						auto w = (float)selectLayer.m_Width;
+						auto h = (float)selectLayer.m_Height;
 						ImVec2 padding = ImGui::GetStyle().FramePadding;
 						ImVec4 bgColor = ((i == editPatternNo) ? ImGui::GetStyle().Colors[ImGuiCol_Button] : ImVec4{ 0, 0, 0, 0 });
 						ImVec4 tintColor{ 1.0f, 1.0f, 1.0f, 1.0f };
@@ -224,7 +252,7 @@ void Application::Update() {
 						}
 					}
 					ImGui::SameLine();
-				}*/
+				}
 			}
 		}
 		ImGui::End();
@@ -264,60 +292,75 @@ void Application::Update() {
 			}
 			else
 			{
-				/*auto imageNo = pattern->m_ImageNo;
+				if (ImGui::BeginListBox("Layers"))
+				{
+					const auto& layerCount = pattern->m_LayerArray.size();
+					for (std::size_t i = 0; i < layerCount; i++)
+					{
+						const auto& layer = pattern->m_LayerArray[i];
+						if (ImGui::Selectable(layer.first.c_str(), (i == editPatternLayerNo)))
+						{
+							editPatternLayerNo = i;
+							break;
+						}
+					}
+					ImGui::EndListBox();
+				}
+				auto selectLayer = &(pattern->m_LayerArray[editPatternLayerNo].second);
+				const auto& imageNo = selectLayer->m_ImageNo;
 				bool isValid = (imageNo >= 0) && (imageNo < texturePathArray.size());
 				const char* const selectName = (isValid ? texturePathArray[imageNo].c_str() : "none");
 				if (ImGui::BeginCombo("texture", selectName))
 				{
 					if (ImGui::Selectable("none", (imageNo == -1)))
 					{
-						pattern->m_ImageNo = -1;
+						selectLayer->m_ImageNo = -1;
 					}
 					auto texPathCount = texturePathArray.size();
 					for (std::size_t i = 0; i < texPathCount; i++)
 					{
 						if (ImGui::Selectable(texturePathArray[i].c_str(), (i == imageNo)))
 						{
-							pattern->m_ImageNo = 0;
+							selectLayer->m_ImageNo = i;
 						}
 					}
 					ImGui::EndCombo();
 				}
-				auto offsetX = pattern->m_OffsetX;
+				auto offsetX = selectLayer->m_OffsetX;
 				if (ImGui::DragInt("offset x", &offsetX))
 				{
-					pattern->m_OffsetX = offsetX;
+					selectLayer->m_OffsetX = offsetX;
 				}
-				auto offsetY = pattern->m_OffsetY;
+				auto offsetY = selectLayer->m_OffsetY;
 				if (ImGui::DragInt("offset y", &offsetY))
 				{
-					pattern->m_OffsetY = offsetY;
+					selectLayer->m_OffsetY = offsetY;
 				}
-				auto width = pattern->m_Width;
+				auto width = selectLayer->m_Width;
 				if (ImGui::DragInt("width", &width))
 				{
-					pattern->m_Width = width;
+					selectLayer->m_Width = width;
 				}
-				auto height = pattern->m_Height;
+				auto height = selectLayer->m_Height;
 				if (ImGui::DragInt("height", &height))
 				{
-					pattern->m_Height = height;
+					selectLayer->m_Height = height;
+				}
+				auto drawOffsetX = selectLayer->m_DrawOffsetX;
+				if (ImGui::DragInt("draw offset x", &drawOffsetX))
+				{
+					selectLayer->m_DrawOffsetX = drawOffsetX;
+				}
+				auto drawOffsetY = selectLayer->m_DrawOffsetY;
+				if (ImGui::DragInt("draw offset y", &drawOffsetY))
+				{
+					selectLayer->m_DrawOffsetY = drawOffsetY;
 				}
 				float refresh = static_cast<float>(pattern->m_RefreshTime);
 				if (ImGui::DragFloat("refresh", &refresh, 0.004f, 0.0f, 100.0f, "%.3f", ImGuiSliderFlags_AlwaysClamp))
 				{
 					pattern->m_RefreshTime = static_cast<double>(refresh);
 				}
-				auto drawOffsetX = pattern->m_DrawOffsetX;
-				if (ImGui::DragInt("draw offset x", &drawOffsetX))
-				{
-					pattern->m_DrawOffsetX = drawOffsetX;
-				}
-				auto drawOffsetY = pattern->m_DrawOffsetY;
-				if (ImGui::DragInt("draw offset y", &drawOffsetY))
-				{
-					pattern->m_DrawOffsetY = drawOffsetY;
-				}*/
 			}
 		}
 		ImGui::End();
