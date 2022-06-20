@@ -926,6 +926,15 @@ void SpriteAnimation::roundCurrentPatternNo()
 /// <summary>
 /// コンストラクタ
 /// </summary>
+// ********************************************************************************
+spa::SpriteAnimationController::SpriteAnimationController()
+{
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
 /// <param name="copy">コピーデータ</param>
 // ********************************************************************************
 SpriteAnimationController::SpriteAnimationController(const SpriteAnimationController & copy)

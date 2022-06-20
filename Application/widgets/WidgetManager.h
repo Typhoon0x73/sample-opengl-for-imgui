@@ -13,13 +13,13 @@ public:
 	explicit WidgetManager();
 	virtual ~WidgetManager();
 
-	void regist(const WidgetPtr& widget);
+	void regist(WidgetPtr&& widget);
 
 	void update();
 
 private:
 
-	std::list<WidgetPtr> m_WidgetList;
+	std::list<WidgetPtr>* m_pWidgetList;
 };
 
 #endif // !WIDGETMANAGER_H_

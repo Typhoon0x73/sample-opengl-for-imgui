@@ -19,7 +19,7 @@ void TextureView::onRun()
 		else
 		{
 			const auto&  tex = sampleTextures[selectTextureNo];
-			const ImVec2 size(tex->Width(), tex->Height());
+			const ImVec2 size((float)tex->Width(), (float)tex->Height());
 			ImGui::Image((ImTextureID)tex->ID(), size);
 		}
 	}

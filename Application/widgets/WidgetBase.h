@@ -21,6 +21,6 @@ protected:
 	AnimakeData* m_pAnimakeData{ nullptr };
 };
 
-using WidgetPtr = std::shared_ptr<WidgetBase>;
+using WidgetPtr = std::unique_ptr<WidgetBase>;
 
 #endif // !WIDGETBASE_H_

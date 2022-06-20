@@ -20,7 +20,8 @@ using namespace Sample;
  * @brief		コンストラクタ
  */
 Application::Application()
-: Framework() {
+: Framework()
+, animakeData_(nullptr) {
 }
 
 /**
@@ -38,7 +39,7 @@ void Application::Initialize() {
 	//リソースディレクトリを素材配置先に指定
 	::SetCurrentDirectory(L"Resources");
 
-	animakeData_ = std::make_shared<AnimakeData>();
+	animakeData_.reset(new AnimakeData);
 
 	//TODO:
 	//アプリの初期化処理を記述
@@ -83,14 +84,14 @@ void Application::Initialize() {
 	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);
 
 	// Widgets
-	WidgetManager::GetInstance().regist(std::make_shared< AnimationListWidget >());
-	WidgetManager::GetInstance().regist(std::make_shared< AnimationView       >());
-	WidgetManager::GetInstance().regist(std::make_shared< CanvasWidget        >());
-	WidgetManager::GetInstance().regist(std::make_shared< EditorWidget        >());
-	WidgetManager::GetInstance().regist(std::make_shared< MainMenuBar         >());
-	WidgetManager::GetInstance().regist(std::make_shared< PatternListWidget   >());
-	WidgetManager::GetInstance().regist(std::make_shared< TextureListWidget   >());
-	WidgetManager::GetInstance().regist(std::make_shared< TextureView         >());
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationListWidget >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< CanvasWidget        >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< EditorWidget        >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureView         >()));
 }
 
 /**

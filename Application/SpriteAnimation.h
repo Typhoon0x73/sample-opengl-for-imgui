@@ -608,7 +608,7 @@ namespace spa
 		/// コンストラクタ
 		/// </summary>
 		// ********************************************************************************
-		explicit SpriteAnimationController() = default;
+		explicit SpriteAnimationController();
 
 		// ********************************************************************************
 		/// <summary>
