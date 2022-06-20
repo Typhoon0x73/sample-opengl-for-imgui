@@ -1,4 +1,4 @@
-#include "SpriteAnimation.h"
+﻿#include "SpriteAnimation.h"
 #include <algorithm>
 #include <cmath>
 

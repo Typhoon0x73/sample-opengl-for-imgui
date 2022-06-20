@@ -1,4 +1,4 @@
-#ifndef SPRITEANIMATION_H_
+﻿#ifndef SPRITEANIMATION_H_
 #define SPRITEANIMATION_H_
 
 #include <vector>

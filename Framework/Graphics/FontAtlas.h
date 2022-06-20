@@ -107,11 +107,11 @@ namespace Sample {
 					t = str[i];
 					text[0] = str[i];
 				}
-				if (destOffsetX + font_->Size() >= texture_->Width())
+				if (destOffsetX + (std::int32_t)font_->Size() >= texture_->Width())
 				{
 					destOffsetX = 0;
 					destOffsetY += font_->Size();
-					if (destOffsetY + font_->Size() >= texture_->Height())
+					if (destOffsetY + (std::int32_t)font_->Size() >= texture_->Height())
 					{
 						ERROR_LOG("Atlas Size Over!!");
 						return false;

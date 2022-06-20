@@ -10,7 +10,7 @@ WidgetManager::~WidgetManager()
 	m_WidgetList.clear();
 }
 
-void WidgetManager::regist(WidgetPtr widget)
+void WidgetManager::regist(const WidgetPtr& widget)
 {
 	if (widget)
 	{
@@ -20,9 +20,6 @@ void WidgetManager::regist(WidgetPtr widget)
 
 void WidgetManager::update()
 {
-	std::sort(
-		m_WidgetList.begin(), m_WidgetList.end(),
-		[](const auto& v1, const auto& v2) { return v1->getPrio() < v2->getPrio(); });
 	for (const auto& it : m_WidgetList)
 	{
 		if (!it->isValidAnimakeData())

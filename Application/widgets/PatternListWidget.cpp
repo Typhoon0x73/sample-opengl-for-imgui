@@ -1,7 +1,7 @@
 #include "PatternListWidget.h"
 
 PatternListWidget::PatternListWidget()
-	: WidgetBase(eTaskPrio_PatternListWidget)
+	: WidgetBase()
 {
 }
 
@@ -15,8 +15,8 @@ void PatternListWidget::onRun()
 
 	ImGui::Begin("patterns", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 	{
-		const auto const anims = animation.animationArray();
-		const auto const ptns = anims->at(editAnimNo).second.patternArray();
+		auto const anims = animation.animationArray();
+		auto const ptns  = anims->at(editAnimNo).second.patternArray();
 		if (!ptns)
 		{
 

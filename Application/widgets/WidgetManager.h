@@ -3,7 +3,7 @@
 
 #include "WidgetBase.h"
 #include "../../Framework/Common/Singleton.h"
-#include <vector>
+#include <list>
 
 class WidgetManager : public Sample::Singleton<WidgetManager>
 {
@@ -13,13 +13,13 @@ public:
 	explicit WidgetManager();
 	virtual ~WidgetManager();
 
-	void regist(WidgetPtr widget);
+	void regist(const WidgetPtr& widget);
 
 	void update();
 
 private:
 
-	std::vector<WidgetPtr> m_WidgetList;
+	std::list<WidgetPtr> m_WidgetList;
 };
 
 #endif // !WIDGETMANAGER_H_

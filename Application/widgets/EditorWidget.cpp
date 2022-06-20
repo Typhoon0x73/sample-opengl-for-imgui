@@ -1,7 +1,7 @@
 #include "EditorWidget.h"
 
 EditorWidget::EditorWidget()
-	: WidgetBase(eTaskPrio_EditWidget)
+	: WidgetBase()
 {
 }
 
@@ -38,7 +38,7 @@ void EditorWidget::onRun()
 			}
 			auto selectLayer = &(pattern->m_LayerArray[editPatternLayerNo].second);
 			const auto& imageNo = selectLayer->m_ImageNo;
-			bool isValid = (imageNo >= 0) && (imageNo < texturePathArray.size());
+			bool isValid = (imageNo >= 0) && (imageNo < (std::int32_t)texturePathArray.size());
 			const char* const selectName = (isValid ? texturePathArray[imageNo].c_str() : "none");
 			if (ImGui::BeginCombo("texture", selectName))
 			{

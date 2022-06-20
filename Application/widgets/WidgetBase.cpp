@@ -2,16 +2,10 @@
 #include "WidgetManager.h"
 #include "../Blackboard/SingletonBlackboard.h"
 
-WidgetBase::WidgetBase(TaskPrio prio)
-	: m_TaskPrio{ prio }
-	, m_pAnimakeData{ nullptr }
+WidgetBase::WidgetBase()
+	: m_pAnimakeData{ nullptr }
 {
 	m_pAnimakeData = g_pGetBlackboard(AnimakeData*)->get("AnimakeData");
-}
-
-TaskPrio WidgetBase::getPrio() const
-{
-	return m_TaskPrio;
 }
 
 bool WidgetBase::isValidAnimakeData() const

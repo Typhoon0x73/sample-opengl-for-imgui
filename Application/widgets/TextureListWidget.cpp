@@ -1,7 +1,7 @@
 #include "TextureListWidget.h"
 
 TextureListWidget::TextureListWidget()
-	: WidgetBase(eTaskPrio_TextureListWidget)
+	: WidgetBase()
 {
 }
 

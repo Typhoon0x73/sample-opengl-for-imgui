@@ -27,8 +27,8 @@ Application::Application()
  * @brief		デストラクタ
  */
 Application::~Application() {
-	g_pGetBlackboard(AnimakeData*)->erase("AnimakeData");
-	g_BlackboardRelease(AnimakeData*);
+	g_pGetBlackboard(AnimakeDataPtr&)->erase("AnimakeData");
+	g_BlackboardRelease(AnimakeDataPtr&);
 }
 
 /**
@@ -38,13 +38,10 @@ void Application::Initialize() {
 	//リソースディレクトリを素材配置先に指定
 	::SetCurrentDirectory(L"Resources");
 
+	animakeData_ = std::make_shared<AnimakeData>();
+
 	//TODO:
 	//アプリの初期化処理を記述
-
-	if (data_ == nullptr)
-	{
-		data_ = new AnimakeData();
-	}
 
 	//カメラ設定
 	camera_ = std::make_shared<Camera>();
@@ -64,36 +61,36 @@ void Application::Initialize() {
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
-	data_->m_SpriteAnimation.addAnimation("idle", animation);
+	animakeData_->m_SpriteAnimation.addAnimation("idle", animation);
 
-	data_->m_SampleTextures.push_back(std::make_shared<Texture>("Player.png"));
+	animakeData_->m_SampleTextures.push_back(std::make_shared<Texture>("Player.png"));
 
-	data_->m_TexturePathArray.push_back("Player.png");
+	animakeData_->m_TexturePathArray.push_back("Player.png");
 
 	spa::SpriteAnimationDataExporter exporter("sample.spa");
-	if (!exporter.exportToSA(&data_->m_SpriteAnimation, &data_->m_TexturePathArray))
+	if (!exporter.exportToSA(&animakeData_->m_SpriteAnimation, &animakeData_->m_TexturePathArray))
 	{
 		return;
 	}
 
 	std::vector<std::string> texturePathArray2;
 	spa::SpriteAnimationController test2("sample.spa", &texturePathArray2);
-	if (data_->m_SpriteAnimation != test2)
+	if (animakeData_->m_SpriteAnimation != test2)
 	{
 		return;
 	}
-	data_->m_SpriteAnimation.changeAnimation("idle");
-	g_pGetBlackboard(AnimakeData*)->add("AnimakeData", data_);
+	animakeData_->m_SpriteAnimation.changeAnimation("idle");
+	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);
 
 	// Widgets
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationListWidget >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< CanvasWidget        >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< EditorWidget        >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureView         >()));
+	WidgetManager::GetInstance().regist(std::make_shared< AnimationListWidget >());
+	WidgetManager::GetInstance().regist(std::make_shared< AnimationView       >());
+	WidgetManager::GetInstance().regist(std::make_shared< CanvasWidget        >());
+	WidgetManager::GetInstance().regist(std::make_shared< EditorWidget        >());
+	WidgetManager::GetInstance().regist(std::make_shared< MainMenuBar         >());
+	WidgetManager::GetInstance().regist(std::make_shared< PatternListWidget   >());
+	WidgetManager::GetInstance().regist(std::make_shared< TextureListWidget   >());
+	WidgetManager::GetInstance().regist(std::make_shared< TextureView         >());
 }
 
 /**
@@ -103,7 +100,7 @@ void Application::Update() {
 	//TODO:
 	//アプリの更新処理を記述
 
-	data_->m_SpriteAnimation.update(timer_->Time());
+	animakeData_->m_SpriteAnimation.update(timer_->Time());
 
     
 	/**/

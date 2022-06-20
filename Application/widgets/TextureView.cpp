@@ -1,7 +1,7 @@
 #include "TextureView.h"
 
 TextureView::TextureView()
-	: WidgetBase(eTaskPrio_ViewWidget)
+	: WidgetBase()
 {
 }
 

@@ -2,7 +2,7 @@
 #include "../../PrimitiveRenderUtilities.h"
 
 CanvasWidget::CanvasWidget()
-	: WidgetBase(eTaskPrio_CanvasWidget)
+	: WidgetBase()
 {
 }
 
@@ -14,7 +14,7 @@ void CanvasWidget::onRun()
 	ImGui::Begin("canvas", nullptr, ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 	{
 		auto tex = sampleTextures[0];
-		ImVec2 size(tex->Width(), tex->Height());
+		ImVec2 size((float)tex->Width(), (float)tex->Height());
 		ImGui::Image((ImTextureID)tex->ID(), size);
 		ImGui::SameLine();
 		auto ptn = animation.currentPattern();
@@ -29,8 +29,8 @@ void CanvasWidget::onRun()
 				const auto& t       = ImGui::GetCurrentContext()->CurrentWindow->TitleBarHeight();
 				const auto& x       = layer.second.m_OffsetX + pos.x + padding.x - scrollX;
 				const auto& y       = layer.second.m_OffsetY + pos.y + padding.y - scrollY + t;
-				const auto& w       = layer.second.m_Width;
-				const auto& h       = layer.second.m_Height;
+				const auto& w       = (float)layer.second.m_Width;
+				const auto& h       = (float)layer.second.m_Height;
 				PrimitiveRenderUtilities::RenderRect(x, y, w, h, { 0.6f, 0.1f, 0.1f, 1.0f }, false);
 			}
 		}
