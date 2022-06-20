@@ -79,8 +79,29 @@
     <Filter Include="Framework\imgui">
       <UniqueIdentifier>{1552d1ca-a206-4c93-b93f-62af5c45b261}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Command">
+    <Filter Include="ソース ファイル\Application">
+      <UniqueIdentifier>{95f71221-491a-4bf3-9c01-c775b13ba48c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Application\Widgets">
+      <UniqueIdentifier>{16fd0f35-b34e-4522-b834-bb8af70107b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Application\Blackboard">
+      <UniqueIdentifier>{3d1e52ac-b193-47ff-bf87-13b32827d528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Application\Command">
       <UniqueIdentifier>{967ef2d9-285b-4405-8b56-8e445f990b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Application">
+      <UniqueIdentifier>{bf326c72-48bd-4eb9-86d0-87e8fe9770f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Application\Blackboard">
+      <UniqueIdentifier>{2791a122-e089-46eb-970e-039fa1ddba8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Application\Command">
+      <UniqueIdentifier>{cd1954ff-6b95-4213-8dbd-60f81640fee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Application\Widgets">
+      <UniqueIdentifier>{5a289082-1e89-447b-844b-5999b95eaad9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +128,6 @@
     </ClCompile>
     <ClCompile Include="Framework\Sound\WaveFile.cpp">
       <Filter>Framework\Sound\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Graphics\FrameBuffer.cpp">
       <Filter>Framework\Graphics\FrameBuffer</Filter>
@@ -144,14 +162,47 @@
     <ClCompile Include="Framework\Graphics\GraphicsController.cpp">
       <Filter>Framework\Graphics\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Command\CommandManager.cpp">
+      <Filter>ソース ファイル\Application\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Application.cpp">
+      <Filter>ソース ファイル\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\SpriteAnimation.cpp">
+      <Filter>ソース ファイル\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\WidgetManager.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\WidgetBase.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\MainMenuBar.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\PatternListWidget.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\TextureListWidget.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\TextureView.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\CanvasWidget.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\widgets\AnimationListWidget.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
     <ClCompile Include="PrimitiveRenderUtilities.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Application\SpriteAnimation.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Application\widgets\AnimationView.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Command\CommandManager.cpp">
-      <Filter>ソース ファイル\Command</Filter>
+    <ClCompile Include="Application\widgets\EditorWidget.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,23 +332,65 @@
     <ClInclude Include="Library\include\imgui\imstb_truetype.h">
       <Filter>Framework\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="PrimitiveRenderUtilities.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Application.h">
+      <Filter>ヘッダー ファイル\Application</Filter>
+    </ClInclude>
     <ClInclude Include="Application\SpriteAnimation.h">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ヘッダー ファイル\Application</Filter>
     </ClInclude>
     <ClInclude Include="Application\SpriteAnimationCommon.h">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ヘッダー ファイル\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Widgets\MainMenuBar.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Widgets\WidgetBase.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Application\Command\CommandManager.h">
-      <Filter>ソース ファイル\Command</Filter>
+      <Filter>ヘッダー ファイル\Application\Command</Filter>
     </ClInclude>
     <ClInclude Include="Application\Command\ICommand.h">
-      <Filter>ソース ファイル\Command</Filter>
+      <Filter>ヘッダー ファイル\Application\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Blackboard\Blackboard.h">
+      <Filter>ヘッダー ファイル\Application\Blackboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Blackboard\ParameterMap.h">
+      <Filter>ヘッダー ファイル\Application\Blackboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Blackboard\SingletonBlackboard.h">
+      <Filter>ヘッダー ファイル\Application\Blackboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\WidgetManager.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimakeData.h">
+      <Filter>ヘッダー ファイル\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\AnimationListWidget.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\CanvasWidget.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\PatternListWidget.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\TextureListWidget.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\TextureView.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\AnimationView.h">
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\EditorWidget.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

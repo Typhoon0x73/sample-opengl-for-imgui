@@ -1,11 +1,14 @@
 #pragma once
 
-#include	"Framework/Framework/Framework.h"
+#include	"../Framework/Framework/Framework.h"
+#include    "../AnimakeData.h"
+#include    "SpriteAnimation.h"
 
 namespace Sample {
 
 	class Application : public Framework {
 	public:
+
 		/**
 		 * @brief		コンストラクタ
 		 */
@@ -35,5 +38,7 @@ namespace Sample {
 
 		//描画関連
 		CameraPtr camera_;
+
+		AnimakeData* data_;
 	};
 }
