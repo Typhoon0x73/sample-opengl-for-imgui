@@ -202,7 +202,7 @@
       <Filter>ソース ファイル\Application\Widgets</Filter>
     </ClCompile>
     <ClCompile Include="Application\widgets\EditorWidget.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Application\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -390,7 +390,7 @@
       <Filter>ヘッダー ファイル\Application\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Application\widgets\EditorWidget.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

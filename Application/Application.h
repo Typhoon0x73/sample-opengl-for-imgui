@@ -39,6 +39,6 @@ namespace Sample {
 		//•`‰æŠÖ˜A
 		CameraPtr camera_;
 
-		AnimakeData* data_;
+		AnimakeDataPtr data_;
 	};
 }

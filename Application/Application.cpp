@@ -27,8 +27,8 @@ Application::Application()
  * @brief		デストラクタ
  */
 Application::~Application() {
-	g_pGetBlackboard(AnimakeData*)->erase("AnimakeData");
-	g_BlackboardRelease(AnimakeData*);
+	g_pGetBlackboard(AnimakeDataPtr&)->erase("AnimakeData");
+	g_BlackboardRelease(AnimakeDataPtr&);
 }
 
 /**
@@ -43,7 +43,7 @@ void Application::Initialize() {
 
 	if (data_ == nullptr)
 	{
-		data_ = new AnimakeData();
+		data_.reset(new AnimakeData());
 	}
 
 	//カメラ設定
@@ -55,14 +55,14 @@ void Application::Initialize() {
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	spa::SpriteAnimation animation;
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
 	data_->m_SpriteAnimation.addAnimation("idle", animation);
 
@@ -83,7 +83,7 @@ void Application::Initialize() {
 		return;
 	}
 	data_->m_SpriteAnimation.changeAnimation("idle");
-	g_pGetBlackboard(AnimakeData*)->add("AnimakeData", data_);
+	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", data_);
 
 	// Widgets
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationListWidget >()));

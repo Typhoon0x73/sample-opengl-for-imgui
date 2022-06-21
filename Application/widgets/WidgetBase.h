@@ -36,7 +36,7 @@ public:
 
 protected:
 
-	AnimakeData* m_pAnimakeData{ nullptr };
+	AnimakeDataPtr m_pAnimakeData{ nullptr };
 
 private:
 

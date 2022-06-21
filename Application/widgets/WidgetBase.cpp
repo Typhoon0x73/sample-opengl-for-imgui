@@ -6,7 +6,7 @@ WidgetBase::WidgetBase(TaskPrio prio)
 	: m_TaskPrio{ prio }
 	, m_pAnimakeData{ nullptr }
 {
-	m_pAnimakeData = g_pGetBlackboard(AnimakeData*)->get("AnimakeData");
+	m_pAnimakeData = g_pGetBlackboard(AnimakeDataPtr&)->get("AnimakeData");
 }
 
 TaskPrio WidgetBase::getPrio() const
