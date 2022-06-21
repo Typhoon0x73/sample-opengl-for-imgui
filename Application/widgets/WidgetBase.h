@@ -18,7 +18,7 @@ public:
 
 protected:
 
-	AnimakeData* m_pAnimakeData{ nullptr };
+	AnimakeDataPtr m_pAnimakeData{ nullptr };
 };
 
 using WidgetPtr = std::unique_ptr<WidgetBase>;

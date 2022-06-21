@@ -216,6 +216,20 @@ bool Pattern::operator!=(const Pattern & pattern) const
 /// <summary>
 /// コンストラクタ
 /// </summary>
+// ********************************************************************************
+SpriteAnimation::SpriteAnimation()
+	: m_PatternArray{ 0 }
+	, m_hasLooped{ false }
+	, m_CurrentPatternNo{ -1 }
+	, m_Timer{ 0.0 }
+	, m_TotalTime{ 0.0 }
+{
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
 /// <param name="copy">コピーデータ</param>
 // ********************************************************************************
 SpriteAnimation::SpriteAnimation(const SpriteAnimation & copy)
@@ -928,6 +942,8 @@ void SpriteAnimation::roundCurrentPatternNo()
 /// </summary>
 // ********************************************************************************
 spa::SpriteAnimationController::SpriteAnimationController()
+	: m_AnimationArray{ 0 }
+	, m_CurrentAnimationNo{ -1 }
 {
 }
 
