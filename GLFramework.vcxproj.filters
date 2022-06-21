@@ -204,6 +204,9 @@
     <ClCompile Include="Application\widgets\EditorWidget.cpp">
       <Filter>ソース ファイル\Application\Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="Application\widgets\MainToolBar.cpp">
+      <Filter>ソース ファイル\Application\Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Timer\IFrameTimer.h">
@@ -391,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="Application\widgets\EditorWidget.h">
       <Filter>ヘッダー ファイル\Application\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\widgets\MainToolBar.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

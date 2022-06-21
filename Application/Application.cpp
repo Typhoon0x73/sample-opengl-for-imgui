@@ -10,6 +10,7 @@
 #include    "widgets/CanvasWidget.h"
 #include    "widgets/EditorWidget.h"
 #include    "widgets/MainMenuBar.h"
+#include    "widgets/MainToolBar.h"
 #include    "widgets/PatternListWidget.h"
 #include    "widgets/TextureListWidget.h"
 #include    "widgets/TextureView.h"
@@ -17,14 +18,15 @@
 using namespace Sample;
 
 /**
- * @brief		ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ * @brief		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 Application::Application()
-: Framework() {
+: Framework()
+, animakeData_(nullptr) {
 }
 
 /**
- * @brief		ƒfƒXƒgƒ‰ƒNƒ^
+ * @brief		ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 Application::~Application() {
 	g_pGetBlackboard(AnimakeDataPtr&)->erase("AnimakeData");
@@ -32,21 +34,18 @@ Application::~Application() {
 }
 
 /**
- * @brief		‰Šú‰»
+ * @brief		åˆæœŸåŒ–
  */
 void Application::Initialize() {
-	//ƒŠƒ\[ƒXƒfƒBƒŒƒNƒgƒŠ‚ğ‘fŞ”z’uæ‚Éw’è
+	//ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ç´ æé…ç½®å…ˆã«æŒ‡å®š
 	::SetCurrentDirectory(L"Resources");
 
+	animakeData_.reset(new AnimakeData);
+
 	//TODO:
-	//ƒAƒvƒŠ‚Ì‰Šú‰»ˆ—‚ğ‹Lq
-
-	if (data_ == nullptr)
-	{
-		data_.reset(new AnimakeData());
-	}
-
-	//ƒJƒƒ‰İ’è
+	//ã‚¢ãƒ—ãƒªã®åˆæœŸåŒ–å‡¦ç†ã‚’è¨˜è¿°
+  
+	//ã‚«ãƒ¡ãƒ©è¨­å®š
 	camera_ = std::make_shared<Camera>();
 	camera_->Create2D(1024, 768);
 	GraphicsController::GetInstance().Camera(camera_);
@@ -64,46 +63,48 @@ void Application::Initialize() {
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
-	data_->m_SpriteAnimation.addAnimation("idle", animation);
+	animakeData_->m_SpriteAnimation.addAnimation("idle", animation);
 
-	data_->m_SampleTextures.push_back(std::make_shared<Texture>("Player.png"));
+	animakeData_->m_SampleTextures.push_back(std::make_shared<Texture>("Player.png"));
 
-	data_->m_TexturePathArray.push_back("Player.png");
+	animakeData_->m_TexturePathArray.push_back("Player.png");
 
 	spa::SpriteAnimationDataExporter exporter("sample.spa");
-	if (!exporter.exportToSA(&data_->m_SpriteAnimation, &data_->m_TexturePathArray))
+	if (!exporter.exportToSA(&animakeData_->m_SpriteAnimation, &animakeData_->m_TexturePathArray))
 	{
 		return;
 	}
 
 	std::vector<std::string> texturePathArray2;
 	spa::SpriteAnimationController test2("sample.spa", &texturePathArray2);
-	if (data_->m_SpriteAnimation != test2)
+	if (animakeData_->m_SpriteAnimation != test2)
 	{
 		return;
 	}
-	data_->m_SpriteAnimation.changeAnimation("idle");
-	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", data_);
+  
+	animakeData_->m_SpriteAnimation.changeAnimation("idle");
+	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);
 
 	// Widgets
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainToolBar         >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationListWidget >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< CanvasWidget        >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< EditorWidget        >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureView         >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
 }
 
 /**
- * @brief		XV
+ * @brief		æ›´æ–°
  */
 void Application::Update() {
 	//TODO:
-	//ƒAƒvƒŠ‚ÌXVˆ—‚ğ‹Lq
+	//ã‚¢ãƒ—ãƒªã®æ›´æ–°å‡¦ç†ã‚’è¨˜è¿°
 
-	data_->m_SpriteAnimation.update(timer_->Time());
+	animakeData_->m_SpriteAnimation.update(timer_->Time());
 
     
 	/**/
@@ -125,12 +126,6 @@ void Application::Update() {
 		// Widgets
 		WidgetManager::GetInstance().update();
 
-		ImGui::Begin("tool bar");
-		{
-
-		}
-		ImGui::End();
-
 	}
     ImGui::End();
 
@@ -139,15 +134,15 @@ void Application::Update() {
 }
 
 /**
- * @brief		•`‰æ
+ * @brief		æç”»
  */
 void Application::Render() {
 
-	// ’Êí•`‰æ
-	//ƒtƒŒ[ƒ€ƒoƒbƒtƒ@—˜—p
+	// é€šå¸¸æç”»
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡åˆ©ç”¨
 	GraphicsController::GetInstance().FrameBuffer()->Bind();
 	{
-		//‰Šúİ’è‚Æ‰æ–ÊƒNƒŠƒA
+		//åˆæœŸè¨­å®šã¨ç”»é¢ã‚¯ãƒªã‚¢
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -156,12 +151,12 @@ void Application::Render() {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		//TODO:
-		//ƒAƒvƒŠ‚Ì•`‰æˆ—‚ğ‹Lq
+		//ã‚¢ãƒ—ãƒªã®æç”»å‡¦ç†ã‚’è¨˜è¿°
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 
-    //ƒ^[ƒQƒbƒg‚ÌƒŠƒZƒbƒg
+    //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒªã‚»ãƒƒãƒˆ
     GraphicsController::GetInstance().ResetTarget();
 }

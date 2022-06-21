@@ -10,35 +10,35 @@ namespace Sample {
 	public:
 
 		/**
-		 * @brief		ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		 * @brief		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		 */
 		Application();
 
 		/**
-		 * @brief		ƒfƒXƒgƒ‰ƒNƒ^
+		 * @brief		ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		 */
 		virtual ~Application();
 	protected:
 		/**
-		 * @brief		‰Šú‰»
+		 * @brief		åˆæœŸåŒ–
 		 */
 		void Initialize() override;
 
 		/**
-		 * @brief		XV
+		 * @brief		æ›´æ–°
 		 */
 		void Update() override;
 
 		/**
-		 * @brief		•`‰æ
+		 * @brief		æç”»
 		 */
 		void Render() override;
 
 	private:
 
-		//•`‰æŠÖ˜A
+		//æç”»é–¢é€£
 		CameraPtr camera_;
 
-		AnimakeDataPtr data_;
+		AnimakeDataPtr animakeData_;
 	};
 }

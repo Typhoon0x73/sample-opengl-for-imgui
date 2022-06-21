@@ -1,7 +1,7 @@
 #include "AnimationListWidget.h"
 
 AnimationListWidget::AnimationListWidget()
-	: WidgetBase(eTaskPrio_AnimationListWidget)
+	: WidgetBase()
 {
 }
 

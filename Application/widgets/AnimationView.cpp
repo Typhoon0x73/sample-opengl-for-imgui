@@ -1,7 +1,7 @@
 #include "AnimationView.h"
 
 AnimationView::AnimationView()
-	: WidgetBase(eTaskPrio_ViewWidget)
+	: WidgetBase()
 {
 }
 
@@ -27,10 +27,10 @@ void AnimationView::onRun()
 				const auto& w = layer.second.m_Width;
 				const auto& h = layer.second.m_Height;
 				const auto& tex = sampleTextures[imageNo];
-				ImVec2 size(tex->Width(), tex->Height());
+				ImVec2 size((float)tex->Width(), (float)tex->Height());
 				ImVec2 uv0((float)(x) / (float)tex->Width(), (float)(y) / (float)tex->Height());
 				ImVec2 uv1((float)(x + w) / (float)tex->Width(), (float)(y + h) / (float)tex->Height());
-				ImGui::Image((ImTextureID)tex->ID(), ImVec2(w, h), uv0, uv1);
+				ImGui::Image((ImTextureID)tex->ID(), ImVec2((float)w, (float)h), uv0, uv1);
 			}
 		}
 	}

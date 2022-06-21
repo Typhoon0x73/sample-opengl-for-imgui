@@ -1,4 +1,4 @@
-#ifndef SPRITEANIMATION_H_
+﻿#ifndef SPRITEANIMATION_H_
 #define SPRITEANIMATION_H_
 
 #include <vector>
@@ -214,7 +214,7 @@ namespace spa
 		/// コンストラクタ
 		/// </summary>
 		// ********************************************************************************
-		explicit SpriteAnimation() = default;
+		explicit SpriteAnimation();
 
 		// ********************************************************************************
 		/// <summary>
@@ -608,7 +608,7 @@ namespace spa
 		/// コンストラクタ
 		/// </summary>
 		// ********************************************************************************
-		explicit SpriteAnimationController() = default;
+		explicit SpriteAnimationController();
 
 		// ********************************************************************************
 		/// <summary>

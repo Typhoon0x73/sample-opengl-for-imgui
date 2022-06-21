@@ -56,7 +56,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>Library/include/imgui/;Library/include/FreeType/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>Library/include/imgui/;Library/include/FreeType/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -98,6 +98,7 @@
     <ClCompile Include="Application\widgets\CanvasWidget.cpp" />
     <ClCompile Include="Application\widgets\EditorWidget.cpp" />
     <ClCompile Include="Application\widgets\MainMenuBar.cpp" />
+    <ClCompile Include="Application\widgets\MainToolBar.cpp" />
     <ClCompile Include="Application\widgets\PatternListWidget.cpp" />
     <ClCompile Include="Application\widgets\TextureListWidget.cpp" />
     <ClCompile Include="Application\widgets\TextureView.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Application\widgets\AnimationView.h" />
     <ClInclude Include="Application\widgets\CanvasWidget.h" />
     <ClInclude Include="Application\widgets\EditorWidget.h" />
+    <ClInclude Include="Application\widgets\MainToolBar.h" />
     <ClInclude Include="Application\widgets\PatternListWidget.h" />
     <ClInclude Include="Application\widgets\TextureListWidget.h" />
     <ClInclude Include="Application\widgets\TextureView.h" />

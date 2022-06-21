@@ -1,4 +1,4 @@
-#include "SpriteAnimation.h"
+﻿#include "SpriteAnimation.h"
 #include <algorithm>
 #include <cmath>
 
@@ -210,6 +210,20 @@ bool Pattern::operator==(const Pattern & pattern) const
 bool Pattern::operator!=(const Pattern & pattern) const
 {
 	return !(operator==(pattern));
+}
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+// ********************************************************************************
+SpriteAnimation::SpriteAnimation()
+	: m_PatternArray{ 0 }
+	, m_hasLooped{ false }
+	, m_CurrentPatternNo{ -1 }
+	, m_Timer{ 0.0 }
+	, m_TotalTime{ 0.0 }
+{
 }
 
 // ********************************************************************************
@@ -921,6 +935,17 @@ void SpriteAnimation::roundCurrentPatternNo()
 
 #include <iostream>
 #include <fstream>
+
+// ********************************************************************************
+/// <summary>
+/// コンストラクタ
+/// </summary>
+// ********************************************************************************
+spa::SpriteAnimationController::SpriteAnimationController()
+	: m_AnimationArray{ 0 }
+	, m_CurrentAnimationNo{ -1 }
+{
+}
 
 // ********************************************************************************
 /// <summary>

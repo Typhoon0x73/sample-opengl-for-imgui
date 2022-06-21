@@ -25,11 +25,11 @@ class WidgetBase
 {
 public:
 	
-	explicit WidgetBase(TaskPrio prio);
+	explicit WidgetBase();
 	virtual ~WidgetBase() = default;
 
 	virtual void onRun() = 0;
-
+  
 	TaskPrio getPrio() const;
 
 	bool isValidAnimakeData() const;
@@ -37,7 +37,7 @@ public:
 protected:
 
 	AnimakeDataPtr m_pAnimakeData{ nullptr };
-
+  
 private:
 
 	TaskPrio m_TaskPrio{ eTaskPrio_Unknown };
