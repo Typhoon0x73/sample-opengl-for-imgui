@@ -27,8 +27,8 @@ void PatternListWidget::onRun()
 			for (std::size_t i = 0; i < ptnCount; i++)
 			{
 				const auto& ptn = ptns->at(i);
-				const auto& selectLayer = ptn.m_LayerArray[editPatternLayerNo].second;
-				const auto& no = selectLayer.m_ImageNo;
+				auto& [name, data] = ptn.m_LayerArray[editPatternLayerNo];
+				const auto& no = data.m_ImageNo;
 				if (no < 0)
 				{
 					if (ImGui::Button("no image"))
@@ -42,11 +42,11 @@ void PatternListWidget::onRun()
 					auto tex = sampleTextures[no];
 					auto tw  = (float)tex->Width();
 					auto th  = (float)tex->Height();
-					ImVec2 uv0((float)selectLayer.m_OffsetX / tw, (float)selectLayer.m_OffsetY / th);
-					ImVec2 uv1((float)(selectLayer.m_OffsetX + selectLayer.m_Width) / tw, (float)(selectLayer.m_OffsetY + selectLayer.m_Height) / th);
+					ImVec2 uv0((float)data.m_OffsetX / tw, (float)data.m_OffsetY / th);
+					ImVec2 uv1((float)(data.m_OffsetX + data.m_Width) / tw, (float)(data.m_OffsetY + data.m_Height) / th);
 					ImTextureID id = (void*)tex->ID();
-					auto w = (float)selectLayer.m_Width;
-					auto h = (float)selectLayer.m_Height;
+					auto w = (float)data.m_Width;
+					auto h = (float)data.m_Height;
 					ImVec2 padding = ImGui::GetStyle().FramePadding;
 					ImVec4 bgColor = ((i == editPatternNo) ? ImGui::GetStyle().Colors[ImGuiCol_Button] : ImVec4{ 0, 0, 0, 0 });
 					ImVec4 tintColor{ 1.0f, 1.0f, 1.0f, 1.0f };

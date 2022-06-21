@@ -3,6 +3,7 @@
 EditorWidget::EditorWidget()
 	: WidgetBase(eTaskPrio_EditWidget)
 {
+	std::fill_n(m_LayerName, 128, 0);
 }
 
 void EditorWidget::onRun()
@@ -22,7 +23,19 @@ void EditorWidget::onRun()
 		}
 		else
 		{
-
+			if (m_LayerName[0] == 0)
+			{
+				const auto& layerName = pattern->m_LayerArray[editPatternLayerNo].first;
+				std::copy(layerName.begin(), layerName.end(), m_LayerName);
+			}
+			if (ImGui::InputText("layer name", m_LayerName, IM_ARRAYSIZE(m_LayerName), ImGuiInputTextFlags_EnterReturnsTrue))
+			{
+				std::string str = m_LayerName;
+				if (str.length() > 0)
+				{
+					pattern->m_LayerArray[editPatternLayerNo].first = str;
+				}
+			}
 			if (ImGui::BeginListBox("Layers", ImVec2(0.0f, 3.0f * 18.0f)))
 			{
 				const auto& layerCount = pattern->m_LayerArray.size();
@@ -32,12 +45,18 @@ void EditorWidget::onRun()
 					if (ImGui::Selectable(layer.first.c_str(), (i == editPatternLayerNo)))
 					{
 						editPatternLayerNo = i;
+						const auto& layerName = pattern->m_LayerArray[editPatternLayerNo].first;
+						std::copy(layerName.begin(), layerName.end(), m_LayerName);
 						break;
 					}
 				}
 				ImGui::EndListBox();
 			}
-			if (ImGui::Button("add layer"))
+			if (ImGui::Button("add##add_layer"))
+			{
+
+			} ImGui::SameLine();
+			if (ImGui::Button("delete##delete_layer"))
 			{
 
 			}
