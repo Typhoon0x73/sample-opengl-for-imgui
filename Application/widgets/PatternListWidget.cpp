@@ -1,7 +1,7 @@
 #include "PatternListWidget.h"
 
 PatternListWidget::PatternListWidget()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_PatternListWidget)
 {
 }
 

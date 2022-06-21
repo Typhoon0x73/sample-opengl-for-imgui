@@ -25,7 +25,7 @@ class WidgetBase
 {
 public:
 	
-	explicit WidgetBase();
+	explicit WidgetBase(TaskPrio prio);
 	virtual ~WidgetBase() = default;
 
 	virtual void onRun() = 0;

@@ -1,7 +1,7 @@
 #include "MainToolBar.h"
 
 MainToolBar::MainToolBar()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_ToolBar)
 {
 }
 

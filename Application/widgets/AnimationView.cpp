@@ -1,7 +1,7 @@
 #include "AnimationView.h"
 
 AnimationView::AnimationView()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_ViewWidget)
 {
 }
 

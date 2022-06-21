@@ -396,7 +396,7 @@
       <Filter>ヘッダー ファイル\Application\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Application\widgets\MainToolBar.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Application\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

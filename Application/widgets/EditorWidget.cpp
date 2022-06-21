@@ -1,7 +1,7 @@
 #include "EditorWidget.h"
 
 EditorWidget::EditorWidget()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_EditWidget)
 {
 }
 

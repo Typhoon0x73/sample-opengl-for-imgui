@@ -2,7 +2,7 @@
 #include "../../PrimitiveRenderUtilities.h"
 
 CanvasWidget::CanvasWidget()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_CanvasWidget)
 {
 }
 

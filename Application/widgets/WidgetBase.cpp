@@ -2,8 +2,9 @@
 #include "WidgetManager.h"
 #include "../Blackboard/SingletonBlackboard.h"
 
-WidgetBase::WidgetBase()
+WidgetBase::WidgetBase(TaskPrio prio)
 	: m_pAnimakeData{ nullptr }
+	, m_TaskPrio{ prio }
 {
 	m_pAnimakeData = g_pGetBlackboard(AnimakeDataPtr&)->get("AnimakeData");
 }

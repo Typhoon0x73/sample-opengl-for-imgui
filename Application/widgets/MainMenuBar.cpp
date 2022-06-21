@@ -1,7 +1,7 @@
 #include "MainMenuBar.h"
 
 MainMenuBar::MainMenuBar()
-	: WidgetBase()
+	: WidgetBase(eTaskPrio_MenuBar)
 {
 }
 
