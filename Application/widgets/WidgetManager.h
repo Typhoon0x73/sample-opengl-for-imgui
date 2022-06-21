@@ -19,7 +19,7 @@ public:
 
 private:
 
-	std::list<WidgetPtr>* m_pWidgetList;
+	std::list<WidgetPtr> m_WidgetList;
 };
 
 #endif // !WIDGETMANAGER_H_

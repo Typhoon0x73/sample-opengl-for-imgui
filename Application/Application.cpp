@@ -18,7 +18,7 @@
 using namespace Sample;
 
 /**
- * @brief		ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+ * @brief		ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 Application::Application()
 : Framework()
@@ -26,7 +26,7 @@ Application::Application()
 }
 
 /**
- * @brief		ƒfƒXƒgƒ‰ƒNƒ^
+ * @brief		ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
  */
 Application::~Application() {
 	g_pGetBlackboard(AnimakeDataPtr&)->erase("AnimakeData");
@@ -34,18 +34,18 @@ Application::~Application() {
 }
 
 /**
- * @brief		‰Šú‰»
+ * @brief		åˆæœŸåŒ–
  */
 void Application::Initialize() {
-	//ƒŠƒ\[ƒXƒfƒBƒŒƒNƒgƒŠ‚ğ‘fŞ”z’uæ‚Éw’è
+	//ãƒªã‚½ãƒ¼ã‚¹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ç´ æé…ç½®å…ˆã«æŒ‡å®š
 	::SetCurrentDirectory(L"Resources");
 
 	animakeData_.reset(new AnimakeData);
 
 	//TODO:
-	//ƒAƒvƒŠ‚Ì‰Šú‰»ˆ—‚ğ‹Lq
-
-	//ƒJƒƒ‰İ’è
+	//ã‚¢ãƒ—ãƒªã®åˆæœŸåŒ–å‡¦ç†ã‚’è¨˜è¿°
+  
+	//ã‚«ãƒ¡ãƒ©è¨­å®š
 	camera_ = std::make_shared<Camera>();
 	camera_->Create2D(1024, 768);
 	GraphicsController::GetInstance().Camera(camera_);
@@ -81,6 +81,7 @@ void Application::Initialize() {
 	{
 		return;
 	}
+  
 	animakeData_->m_SpriteAnimation.changeAnimation("idle");
 	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);
 
@@ -97,11 +98,11 @@ void Application::Initialize() {
 }
 
 /**
- * @brief		XV
+ * @brief		æ›´æ–°
  */
 void Application::Update() {
 	//TODO:
-	//ƒAƒvƒŠ‚ÌXVˆ—‚ğ‹Lq
+	//ã‚¢ãƒ—ãƒªã®æ›´æ–°å‡¦ç†ã‚’è¨˜è¿°
 
 	animakeData_->m_SpriteAnimation.update(timer_->Time());
 
@@ -133,15 +134,15 @@ void Application::Update() {
 }
 
 /**
- * @brief		•`‰æ
+ * @brief		æç”»
  */
 void Application::Render() {
 
-	// ’Êí•`‰æ
-	//ƒtƒŒ[ƒ€ƒoƒbƒtƒ@—˜—p
+	// é€šå¸¸æç”»
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡åˆ©ç”¨
 	GraphicsController::GetInstance().FrameBuffer()->Bind();
 	{
-		//‰Šúİ’è‚Æ‰æ–ÊƒNƒŠƒA
+		//åˆæœŸè¨­å®šã¨ç”»é¢ã‚¯ãƒªã‚¢
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -150,12 +151,12 @@ void Application::Render() {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		//TODO:
-		//ƒAƒvƒŠ‚Ì•`‰æˆ—‚ğ‹Lq
+		//ã‚¢ãƒ—ãƒªã®æç”»å‡¦ç†ã‚’è¨˜è¿°
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
 
-    //ƒ^[ƒQƒbƒg‚ÌƒŠƒZƒbƒg
+    //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒªã‚»ãƒƒãƒˆ
     GraphicsController::GetInstance().ResetTarget();
 }

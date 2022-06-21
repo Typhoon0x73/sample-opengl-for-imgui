@@ -8,6 +8,11 @@ WidgetBase::WidgetBase()
 	m_pAnimakeData = g_pGetBlackboard(AnimakeDataPtr&)->get("AnimakeData");
 }
 
+TaskPrio WidgetBase::getPrio() const
+{
+	return m_TaskPrio;
+}
+
 bool WidgetBase::isValidAnimakeData() const
 {
 	return (m_pAnimakeData != nullptr);
