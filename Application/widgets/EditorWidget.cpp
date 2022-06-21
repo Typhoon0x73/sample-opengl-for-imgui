@@ -37,10 +37,6 @@ void EditorWidget::onRun()
 				}
 				ImGui::EndListBox();
 			}
-			if (ImGui::InputText("layer name"))
-			{
-
-			}
 			if (ImGui::Button("add layer"))
 			{
 
