@@ -22,8 +22,7 @@ void EditorWidget::onRun()
 		}
 		else
 		{
-
-			if (ImGui::BeginListBox("Layers", ImVec2(0.0f, 3.0f * 18.0f)))
+			if (ImGui::BeginListBox("Layers"))
 			{
 				const auto& layerCount = pattern->m_LayerArray.size();
 				for (std::size_t i = 0; i < layerCount; i++)
@@ -36,14 +35,6 @@ void EditorWidget::onRun()
 					}
 				}
 				ImGui::EndListBox();
-			}
-			if (ImGui::InputText("layer name"))
-			{
-
-			}
-			if (ImGui::Button("add layer"))
-			{
-
 			}
 			auto selectLayer = &(pattern->m_LayerArray[editPatternLayerNo].second);
 			const auto& imageNo = selectLayer->m_ImageNo;

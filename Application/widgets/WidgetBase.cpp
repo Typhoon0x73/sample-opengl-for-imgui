@@ -5,7 +5,7 @@
 WidgetBase::WidgetBase()
 	: m_pAnimakeData{ nullptr }
 {
-	m_pAnimakeData = g_pGetBlackboard(AnimakeDataPtr&)->get("AnimakeData");
+	m_pAnimakeData = g_pGetBlackboard(AnimakeData*)->get("AnimakeData");
 }
 
 bool WidgetBase::isValidAnimakeData() const

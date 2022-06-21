@@ -10,7 +10,6 @@
 #include    "widgets/CanvasWidget.h"
 #include    "widgets/EditorWidget.h"
 #include    "widgets/MainMenuBar.h"
-#include    "widgets/MainToolBar.h"
 #include    "widgets/PatternListWidget.h"
 #include    "widgets/TextureListWidget.h"
 #include    "widgets/TextureView.h"
@@ -54,14 +53,14 @@ void Application::Initialize() {
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	spa::SpriteAnimation animation;
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "0", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
 	animakeData_->m_SpriteAnimation.addAnimation("idle", animation);
 
@@ -85,15 +84,14 @@ void Application::Initialize() {
 	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);
 
 	// Widgets
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainToolBar         >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationListWidget >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< CanvasWidget        >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< EditorWidget        >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< MainMenuBar         >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< PatternListWidget   >()));
+	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureListWidget   >()));
 	WidgetManager::GetInstance().regist(std::move(std::make_unique< TextureView         >()));
-	WidgetManager::GetInstance().regist(std::move(std::make_unique< AnimationView       >()));
 }
 
 /**
@@ -124,6 +122,12 @@ void Application::Update() {
 
 		// Widgets
 		WidgetManager::GetInstance().update();
+
+		ImGui::Begin("tool bar");
+		{
+
+		}
+		ImGui::End();
 
 	}
     ImGui::End();
