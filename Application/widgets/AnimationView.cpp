@@ -15,10 +15,12 @@ void AnimationView::onRun()
 		auto ptn = animation.currentPattern();
 		if (ptn)
 		{
+			ImGuiWindow* window = ImGui::GetCurrentWindow();
+			ImVec2 animPos = window->DC.CursorPos;
 			for (const auto& layer : ptn->m_LayerArray)
 			{
 				const auto& imageNo = layer.second.m_ImageNo;
-				if (imageNo < 0)
+				if (imageNo < 0 || window->SkipItems)
 				{
 					continue;
 				}
@@ -30,7 +32,13 @@ void AnimationView::onRun()
 				ImVec2 size((float)tex->Width(), (float)tex->Height());
 				ImVec2 uv0((float)(x) / (float)tex->Width(), (float)(y) / (float)tex->Height());
 				ImVec2 uv1((float)(x + w) / (float)tex->Width(), (float)(y + h) / (float)tex->Height());
-				ImGui::Image((ImTextureID)tex->ID(), ImVec2((float)w, (float)h), uv0, uv1);
+
+				animPos.x += layer.second.m_DrawOffsetX;
+				animPos.y += layer.second.m_DrawOffsetY;
+				ImRect bb(animPos, ImVec2(animPos.x + w, animPos.y + h));
+				if (!ImGui::ItemAdd(bb, 0))
+					continue;
+				window->DrawList->AddImage((ImTextureID)tex->ID(), bb.Min, bb.Max, uv0, uv1, ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 1.0f)));
 			}
 		}
 	}
