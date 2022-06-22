@@ -12,6 +12,7 @@ public:
 
 	virtual void onRun() override;
 
+	void resetInputText();
 private:
 
 	char m_LayerName[128];

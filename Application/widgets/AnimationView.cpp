@@ -22,10 +22,10 @@ void AnimationView::onRun()
 				{
 					continue;
 				}
-				const auto& x = layer.second.m_OffsetX;
-				const auto& y = layer.second.m_OffsetY;
-				const auto& w = layer.second.m_Width;
-				const auto& h = layer.second.m_Height;
+				const auto& x   = layer.second.m_OffsetX;
+				const auto& y   = layer.second.m_OffsetY;
+				const auto& w   = layer.second.m_Width;
+				const auto& h   = layer.second.m_Height;
 				const auto& tex = sampleTextures[imageNo];
 				ImVec2 size((float)tex->Width(), (float)tex->Height());
 				ImVec2 uv0((float)(x) / (float)tex->Width(), (float)(y) / (float)tex->Height());

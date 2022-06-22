@@ -54,14 +54,14 @@ void Application::Initialize() {
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	spa::SpriteAnimation animation;
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
-	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base1", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base2", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base3", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base4", spa::Layer{ 0, 180, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base5", spa::Layer{ 0, 240, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base6", spa::Layer{ 0, 300, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base7", spa::Layer{ 0, 360, 0, 60, 64, 0, 0 })), 0.080 });
+	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base8", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
 	animakeData_->m_SpriteAnimation.addAnimation("idle", animation);
 

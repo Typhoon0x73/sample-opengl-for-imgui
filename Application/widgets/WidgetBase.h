@@ -36,11 +36,22 @@ public:
 
 protected:
 
+	void refreshPrevNo();
+
+	bool changedEditAnimNo() const;
+	bool changedEditPatternNo() const;
+	bool changedEditPatternLayerNo() const;
+	bool changedSelectTextureNo() const;
+
 	AnimakeDataPtr m_pAnimakeData{ nullptr };
   
 private:
 
 	TaskPrio m_TaskPrio{ eTaskPrio_Unknown };
+	int      m_PrevEditAnimNo{ 0 };
+	int      m_PrevEditPatternNo{ 0 };
+	int      m_PrevEditPatternLayerNo{ 0 };
+	int      m_PrevSelectTextureNo{ -1 };
 };
 
 using WidgetPtr = std::unique_ptr<WidgetBase>;
