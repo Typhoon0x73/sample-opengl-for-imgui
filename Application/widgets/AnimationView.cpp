@@ -36,8 +36,7 @@ void AnimationView::onRun()
 				animPos.x += layer.second.m_DrawOffsetX;
 				animPos.y += layer.second.m_DrawOffsetY;
 				ImRect bb(animPos, ImVec2(animPos.x + w, animPos.y + h));
-				if (!ImGui::ItemAdd(bb, 0))
-					continue;
+				if (!ImGui::ItemAdd(bb, 0)) continue;
 				window->DrawList->AddImage((ImTextureID)tex->ID(), bb.Min, bb.Max, uv0, uv1, ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 1.0f)));
 			}
 		}

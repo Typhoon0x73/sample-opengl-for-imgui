@@ -62,7 +62,7 @@ void EditorWidget::onRun()
 			std::int32_t n = 0;
 			const auto& layerCount = pattern->m_LayerArray.size();
 			std::string layerName  = "layer_" + std::to_string(n);
-			for (std::size_t i = 0; i < layerCount; i++)
+			for (std::size_t i = 0; i < layerCount;)
 			{
 				if (layerName.compare(pattern->m_LayerArray.at(i).first) == 0)
 				{
@@ -70,12 +70,34 @@ void EditorWidget::onRun()
 					i         = 0;
 					continue;
 				}
+				i++;
 			}
 			pattern->m_LayerArray.push_back(spa::LayerData(layerName, spa::Layer(-1, 0, 0, 0, 0, 0, 0)));
 		} ImGui::SameLine();
 		if (ImGui::Button("delete##delete_layer"))
 		{
+			if (pattern->m_LayerArray.size() <= 1)
+			{
+				ImGui::OpenPopup("not delete item");
+				if (!ImGui::IsPopupOpen("not delete item"))
+				{
+				}
+			}
+			else
+			{
+				pattern->m_LayerArray.erase(pattern->m_LayerArray.begin() + editPatternLayerNo);
+				editPatternLayerNo = std::clamp(editPatternLayerNo, 0, static_cast<std::int32_t>(pattern->m_LayerArray.size() - 1));
+			}
+		}
 
+		if (ImGui::BeginPopupModal("not delete item", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+		{
+			ImGui::LabelText("##can't_delete...", "can't delete...");
+			if (ImGui::Button("hmm..."))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
 		}
 
 		auto const  selectLayer = &(pattern->m_LayerArray[editPatternLayerNo].second);
