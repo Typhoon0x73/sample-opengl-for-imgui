@@ -54,6 +54,7 @@ void Application::Initialize() {
 	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	spa::SpriteAnimation animation;
+	spa::SpriteAnimation animation2;
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base1", spa::Layer{ 0,   0, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base2", spa::Layer{ 0,  60, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base3", spa::Layer{ 0, 120, 0, 60, 64, 0, 0 })), 0.080 });
@@ -64,6 +65,7 @@ void Application::Initialize() {
 	animation.addPattern(spa::Pattern{ spa::LayerArray(1, spa::LayerData( "base8", spa::Layer{ 0, 420, 0, 60, 64, 0, 0 })), 0.080 });
 	animation.setLoop(true);
 	animakeData_->m_SpriteAnimation.addAnimation("idle", animation);
+	animakeData_->m_SpriteAnimation.addAnimation("idle2", animation2);
 
 	animakeData_->m_SampleTextures.push_back(std::make_shared<Texture>("Player.png"));
 
@@ -130,7 +132,7 @@ void Application::Update() {
     ImGui::End();
 
     /*//**/
-    //ImGui::ShowDemoWindow();
+    ImGui::ShowDemoWindow();
 }
 
 /**

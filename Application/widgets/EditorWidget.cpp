@@ -2,6 +2,7 @@
 
 EditorWidget::EditorWidget()
 	: WidgetBase(eTaskPrio_EditWidget)
+	, m_PatternCount(0)
 {
 	std::fill_n(m_LayerName, 128, 0);
 }
@@ -19,7 +20,19 @@ void EditorWidget::onRun()
 		auto const pattern = animation.animationArray()->at(editAnimNo).second.patternByArrayNo(editPatternNo);
 		if (!pattern)
 		{
-			ImGui::LabelText("##editor_please_add_pattern.", "please add pattern.");
+			ImGui::LabelText("##editor_please_create_pattern.", "please create pattern.");
+
+			if (ImGui::Button("create##pattern_create"))
+			{
+				ImGui::OpenPopup("create patterns");
+			}
+
+			if (ImGui::BeginPopupModal("create patterns", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+			{
+
+				ImGui::EndPopup();
+			}
+
 			ImGui::End();
 			refreshPrevNo();
 			return;
@@ -47,12 +60,23 @@ void EditorWidget::onRun()
 			const auto& layerCount = pattern->m_LayerArray.size();
 			for (std::size_t i = 0; i < layerCount; i++)
 			{
-				const auto& layer = pattern->m_LayerArray[i];
+				const auto& layer     = pattern->m_LayerArray[i];
+				const auto  layer_tmp = layer;
 				if (ImGui::Selectable(layer.first.c_str(), (i == editPatternLayerNo)))
 				{
 					editPatternLayerNo = i;
 					resetInputText();
 					break;
+				}
+				if (ImGui::IsItemActive() && !ImGui::IsItemHovered())
+				{
+					int i_next = i + (ImGui::GetMouseDragDelta(0).y < 0.f ? -1 : 1);
+					if (i_next >= 0 && i_next < layerCount)
+					{
+						pattern->m_LayerArray[i]      = pattern->m_LayerArray[i_next];
+						pattern->m_LayerArray[i_next] = layer_tmp;
+						ImGui::ResetMouseDragDelta();
+					}
 				}
 			}
 			ImGui::EndListBox();
@@ -79,14 +103,12 @@ void EditorWidget::onRun()
 			if (pattern->m_LayerArray.size() <= 1)
 			{
 				ImGui::OpenPopup("not delete item");
-				if (!ImGui::IsPopupOpen("not delete item"))
-				{
-				}
 			}
 			else
 			{
 				pattern->m_LayerArray.erase(pattern->m_LayerArray.begin() + editPatternLayerNo);
 				editPatternLayerNo = std::clamp(editPatternLayerNo, 0, static_cast<std::int32_t>(pattern->m_LayerArray.size() - 1));
+				resetInputText();
 			}
 		}
 
@@ -167,9 +189,9 @@ void EditorWidget::resetInputText()
 	auto&       editPatternLayerNo = m_pAnimakeData->m_EditPatternLayerNo;
 	auto&       animation          = m_pAnimakeData->m_SpriteAnimation;
 	auto const  pAnimArray         = animation.animationArray();
+	std::fill_n(m_LayerName, 128, 0);
 	if (!pAnimArray)
 	{
-		std::fill_n(m_LayerName, 128, 0);
 		return;
 	}
 	auto const pPattern = pAnimArray->at(editAnimNo).second.patternByArrayNo(editPatternNo);
@@ -180,4 +202,9 @@ void EditorWidget::resetInputText()
 	}
 	const auto& layerName = pPattern->m_LayerArray[editPatternLayerNo].first;
 	std::copy(layerName.begin(), layerName.end(), m_LayerName);
+}
+
+void EditorWidget::initPatternCreatePopup()
+{
+	m_PatternCount = 0;
 }
