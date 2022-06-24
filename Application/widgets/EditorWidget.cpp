@@ -116,11 +116,11 @@ void EditorWidget::onRun()
 			}
 			pattern->m_LayerArray.push_back(spa::LayerData(layerName, spa::Layer(-1, 0, 0, 0, 0, 0, 0)));
 		} ImGui::SameLine();
-		if (ImGui::Button("delete##delete_layer"))
+		if (ImGui::Button("erase##erase_layer"))
 		{
 			if (pattern->m_LayerArray.size() <= 1)
 			{
-				ImGui::OpenPopup("not delete item");
+				ImGui::OpenPopup("not erase item");
 			}
 			else
 			{
@@ -130,9 +130,9 @@ void EditorWidget::onRun()
 			}
 		}
 
-		if (ImGui::BeginPopupModal("not delete item", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+		if (ImGui::BeginPopupModal("not erase item", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 		{
-			ImGui::LabelText("##can't_delete...", "can't delete...");
+			ImGui::LabelText("##can't_erase...", "can't erase...");
 			if (ImGui::Button("hmm..."))
 			{
 				ImGui::CloseCurrentPopup();
@@ -204,9 +204,9 @@ void EditorWidget::resetInputText()
 {
 	const auto& editAnimNo         = m_pAnimakeData->m_EditAnimNo;
 	const auto& editPatternNo      = m_pAnimakeData->m_EditPatternNo;
-	auto&       editPatternLayerNo = m_pAnimakeData->m_EditPatternLayerNo;
-	auto&       animation          = m_pAnimakeData->m_SpriteAnimation;
-	auto const  pAnimArray         = animation.animationArray();
+	const auto& editPatternLayerNo = m_pAnimakeData->m_EditPatternLayerNo;
+	const auto& animation          = m_pAnimakeData->m_SpriteAnimation;
+	const auto& pAnimArray         = animation.animationArray();
 	std::fill_n(m_LayerName, 128, 0);
 	if (!pAnimArray)
 	{
