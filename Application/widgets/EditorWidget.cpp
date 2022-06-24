@@ -38,8 +38,10 @@ void EditorWidget::onRun()
 				{
 					for (std::size_t i = 0; i < m_PatternCount; i++)
 					{
-						animation.animationArray()->at(editAnimNo).second.addPattern(std::move(spa::Pattern()));
+						auto pAnim = &(animation.animationByArrayNo(editAnimNo)->second);
+						pAnim->addPattern(std::move(spa::Pattern({ spa::LayerData{ "layer_0", spa::Layer() } }, 0.000)));
 					}
+					resetInputText();
 					ImGui::CloseCurrentPopup();
 				} ImGui::SameLine();
 				if (ImGui::Button("cancel##create_patterns"))
@@ -54,7 +56,7 @@ void EditorWidget::onRun()
 			return;
 		}
 
-		if (changedEditPatternNo())
+		if (changedEditAnimNo() || changedEditPatternNo())
 		{
 			editPatternLayerNo = 0;
 			resetInputText();

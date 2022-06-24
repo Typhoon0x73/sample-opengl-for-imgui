@@ -1563,6 +1563,38 @@ bool SpriteAnimationController::changeAnimation(const std::string & key, bool is
 
 // ********************************************************************************
 /// <summary>
+/// アニメーションデータの取得
+/// </summary>
+/// <param name="no">取得したいアニメーション番号</param>
+/// <returns>アニメーションデータ, nullptr : データなし</returns>
+// ********************************************************************************
+const AnimationData * const SpriteAnimationController::animationByArrayNo(std::size_t no) const
+{
+	if (m_AnimationArray.size() <= no)
+	{
+		return nullptr;
+	}
+	return &(m_AnimationArray[no]);
+}
+
+// ********************************************************************************
+/// <summary>
+/// アニメーションデータの取得
+/// </summary>
+/// <param name="no">取得したいアニメーション番号</param>
+/// <returns>アニメーションデータ, nullptr : データなし</returns>
+// ********************************************************************************
+AnimationData * const SpriteAnimationController::animationByArrayNo(std::size_t no)
+{
+	if (m_AnimationArray.size() <= no)
+	{
+		return nullptr;
+	}
+	return &(m_AnimationArray[no]);
+}
+
+// ********************************************************************************
+/// <summary>
 /// アニメーション配列の取得
 /// </summary>
 /// <returns>アニメーション配列, nullptr : データなし</returns>
