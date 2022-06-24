@@ -15,8 +15,6 @@ public:
 	void resetInputText();
 private:
 
-	void initPatternCreatePopup();
-
 	char m_LayerName[128];
 	std::size_t m_PatternCount;
 };

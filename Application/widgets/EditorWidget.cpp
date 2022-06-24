@@ -29,7 +29,23 @@ void EditorWidget::onRun()
 
 			if (ImGui::BeginPopupModal("create patterns", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 			{
-
+				int patternCount = static_cast<int>(m_PatternCount);
+				if (ImGui::DragInt("pattern count", &patternCount, 1.0f, 0, INT32_MAX))
+				{
+					m_PatternCount = static_cast<std::size_t>(patternCount);
+				}
+				if (ImGui::Button("create##create_patterns"))
+				{
+					for (std::size_t i = 0; i < m_PatternCount; i++)
+					{
+						animation.animationArray()->at(editAnimNo).second.addPattern(std::move(spa::Pattern()));
+					}
+					ImGui::CloseCurrentPopup();
+				} ImGui::SameLine();
+				if (ImGui::Button("cancel##create_patterns"))
+				{
+					ImGui::CloseCurrentPopup();
+				}
 				ImGui::EndPopup();
 			}
 
@@ -202,9 +218,4 @@ void EditorWidget::resetInputText()
 	}
 	const auto& layerName = pPattern->m_LayerArray[editPatternLayerNo].first;
 	std::copy(layerName.begin(), layerName.end(), m_LayerName);
-}
-
-void EditorWidget::initPatternCreatePopup()
-{
-	m_PatternCount = 0;
 }
