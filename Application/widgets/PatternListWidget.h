@@ -11,6 +11,10 @@ public:
 	virtual ~PatternListWidget() = default;
 
 	virtual void onRun() override;
+
+private:
+
+	ImVec2 m_ChildSize;
 };
 
 #endif // !PATTERNLISTWIDGET_H_
