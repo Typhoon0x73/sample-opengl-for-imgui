@@ -14,7 +14,6 @@ void AnimationListWidget::onRun()
 
 	ImGui::Begin("animations");
 	{
-		int current = editAnimNo;
 		auto pAnimArray = animation.animationArray();
 
 		if (changedEditAnimNo() || m_AnimationName[0] == 0)
@@ -26,7 +25,7 @@ void AnimationListWidget::onRun()
 			std::string str = m_AnimationName;
 			if (str.length() > 0)
 			{
-				animation.animationByArrayNo(current)->first = str;
+				animation.animationByArrayNo(editAnimNo)->first = str;
 			}
 		}
 
@@ -36,7 +35,7 @@ void AnimationListWidget::onRun()
 			for (std::size_t i = 0; i < listCount; i++)
 			{
 				auto anim = pAnimArray->at(i);
-				if (ImGui::Selectable(anim.first.c_str(), (i == current)))
+				if (ImGui::Selectable(anim.first.c_str(), (i == editAnimNo)))
 				{
 					animation.changeAnimation(i);
 					editAnimNo = i;
@@ -60,15 +59,44 @@ void AnimationListWidget::onRun()
 		}
 		if (ImGui::Button("duplicate##duplicate_animation"))
 		{
-
+			const auto& animCount = pAnimArray->size();
+			std::string animName  = pAnimArray->at(editAnimNo).first + "_copy";
+			for (std::size_t i = 0; i < animCount;)
+			{
+				if (animName.compare(pAnimArray->at(i).first) == 0)
+				{
+					animName += "_copy";
+					i = 0;
+					continue;
+				}
+				i++;
+			}
+			pAnimArray->insert(pAnimArray->begin() + editAnimNo + 1, spa::AnimationData(animName, pAnimArray->at(editAnimNo).second));
 		} ImGui::SameLine();
 		if (ImGui::Button("add##add_animation"))
 		{
-
+			std::int32_t n = 0;
+			const auto& animCount = pAnimArray->size();
+			std::string animName  = "animation_" + std::to_string(n);
+			for (std::size_t i = 0; i < animCount;)
+			{
+				if (animName.compare(pAnimArray->at(i).first) == 0)
+				{
+					animName = "animation_" + std::to_string(++n);
+					i         = 0;
+					continue;
+				}
+				i++;
+			}
+			pAnimArray->push_back(spa::AnimationData(animName, spa::SpriteAnimation()));
 		} ImGui::SameLine();
 		if (ImGui::Button("erase##erase_animation"))
 		{
-
+			if (pAnimArray->size() > 1)
+			{
+				pAnimArray->erase(pAnimArray->begin() + editAnimNo);
+				editAnimNo = std::clamp(editAnimNo, 0, static_cast<std::int32_t>(pAnimArray->size()) - 1);
+			}
 		}
 	}
 	ImGui::End();

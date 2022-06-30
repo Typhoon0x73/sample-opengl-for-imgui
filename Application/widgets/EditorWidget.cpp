@@ -101,14 +101,13 @@ void EditorWidget::onRun()
 		}
 		if (ImGui::Button("duplicate##duplicate_layer"))
 		{
-			std::int32_t n = 0;
 			const auto& layerCount = pattern->m_LayerArray.size();
-			std::string layerName  = pattern->m_LayerArray[editPatternLayerNo].first + std::to_string(n);
+			std::string layerName  = pattern->m_LayerArray[editPatternLayerNo].first + "_copy";
 			for (std::size_t i = 0; i < layerCount;)
 			{
 				if (layerName.compare(pattern->m_LayerArray.at(i).first) == 0)
 				{
-					layerName = pattern->m_LayerArray[editPatternLayerNo].first + std::to_string(++n);
+					layerName += "_copy";
 					i         = 0;
 					continue;
 				}
@@ -142,7 +141,7 @@ void EditorWidget::onRun()
 			else
 			{
 				pattern->m_LayerArray.erase(pattern->m_LayerArray.begin() + editPatternLayerNo);
-				editPatternLayerNo = std::clamp(editPatternLayerNo, 0, static_cast<std::int32_t>(pattern->m_LayerArray.size() - 1));
+				editPatternLayerNo = std::clamp(editPatternLayerNo, 0, static_cast<std::int32_t>(pattern->m_LayerArray.size()) - 1);
 				resetInputText();
 			}
 		}
