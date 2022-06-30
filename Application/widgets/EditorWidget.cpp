@@ -99,6 +99,23 @@ void EditorWidget::onRun()
 			}
 			ImGui::EndListBox();
 		}
+		if (ImGui::Button("duplicate##duplicate_layer"))
+		{
+			std::int32_t n = 0;
+			const auto& layerCount = pattern->m_LayerArray.size();
+			std::string layerName  = pattern->m_LayerArray[editPatternLayerNo].first + std::to_string(n);
+			for (std::size_t i = 0; i < layerCount;)
+			{
+				if (layerName.compare(pattern->m_LayerArray.at(i).first) == 0)
+				{
+					layerName = pattern->m_LayerArray[editPatternLayerNo].first + std::to_string(++n);
+					i         = 0;
+					continue;
+				}
+				i++;
+			}
+			pattern->m_LayerArray.insert(pattern->m_LayerArray.begin() + editPatternLayerNo + 1, spa::LayerData(layerName, pattern->m_LayerArray[editPatternLayerNo].second));
+		} ImGui::SameLine();
 		if (ImGui::Button("add##add_layer"))
 		{
 			std::int32_t n = 0;

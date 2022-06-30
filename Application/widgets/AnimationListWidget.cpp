@@ -58,9 +58,13 @@ void AnimationListWidget::onRun()
 			}
 			ImGui::EndListBox();
 		}
+		if (ImGui::Button("duplicate##duplicate_animation"))
+		{
+
+		} ImGui::SameLine();
 		if (ImGui::Button("add##add_animation"))
 		{
-			
+
 		} ImGui::SameLine();
 		if (ImGui::Button("erase##erase_animation"))
 		{
