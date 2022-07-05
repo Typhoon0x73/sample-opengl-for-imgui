@@ -1,4 +1,5 @@
 #include "TextureListWidget.h"
+#include <filesystem>
 
 TextureListWidget::TextureListWidget()
 	: WidgetBase(eTaskPrio_TextureListWidget)
@@ -28,6 +29,22 @@ void TextureListWidget::onRun()
 				}
 			}
 			ImGui::EndListBox();
+		}
+		if (ImGui::Button("add##texture_add"))
+		{
+			ImGui::OpenPopup("load texture##load_texture_dialog");
+		}
+		if (ImGui::BeginPopup("load texture##load_texture_dialog", ImGuiWindowFlags_Modal))
+		{
+			if (ImGui::Button("load"))
+			{
+				ImGui::CloseCurrentPopup();
+			} ImGui::SameLine();
+			if (ImGui::Button("cancel"))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
 		}
 	}
 	ImGui::End();

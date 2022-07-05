@@ -689,7 +689,7 @@ Pattern * const SpriteAnimation::patternByTime(double t)
 // ********************************************************************************
 const Pattern * const SpriteAnimation::patternByArrayNo(std::size_t no) const
 {
-	if (m_PatternArray.size() >= no)
+	if (m_PatternArray.size() <= no)
 	{
 		return nullptr;
 	}

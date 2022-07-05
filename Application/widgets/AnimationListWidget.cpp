@@ -20,7 +20,7 @@ void AnimationListWidget::onRun()
 		{
 			resetInputText();
 		}
-		if (ImGui::InputText("layer name", m_AnimationName, IM_ARRAYSIZE(m_AnimationName), ImGuiInputTextFlags_EnterReturnsTrue))
+		if (ImGui::InputText("animation name", m_AnimationName, IM_ARRAYSIZE(m_AnimationName), ImGuiInputTextFlags_EnterReturnsTrue))
 		{
 			std::string str = m_AnimationName;
 			if (str.length() > 0)
@@ -96,6 +96,7 @@ void AnimationListWidget::onRun()
 			{
 				pAnimArray->erase(pAnimArray->begin() + editAnimNo);
 				editAnimNo = std::clamp(editAnimNo, 0, static_cast<std::int32_t>(pAnimArray->size()) - 1);
+				animation.changeAnimation(editAnimNo);
 			}
 		}
 	}

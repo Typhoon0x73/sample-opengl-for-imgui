@@ -93,6 +93,10 @@ void PatternListWidget::onRun()
 					}
 					ImGui::SameLine();
 				}
+				if (ptnCount == 0)
+				{
+					childSizeH = 0;
+				}
 				m_ChildSize.y = childSizeH + ImGui::GetStyle().WindowPadding.y * 2.0f;
 				ImGui::EndChild();
 			}
