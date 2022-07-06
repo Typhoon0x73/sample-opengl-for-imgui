@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="Application\Command\CommandManager.cpp" />
+    <ClCompile Include="Application\FileDialog.cpp" />
     <ClCompile Include="Application\SpriteAnimation.cpp" />
     <ClCompile Include="Application\widgets\AnimationListWidget.cpp" />
     <ClCompile Include="Application\widgets\AnimationView.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Application\Blackboard\SingletonBlackboard.h" />
     <ClInclude Include="Application\Command\CommandManager.h" />
     <ClInclude Include="Application\Command\ICommand.h" />
+    <ClInclude Include="Application\FileDialog.h" />
     <ClInclude Include="Application\SpriteAnimation.h" />
     <ClInclude Include="Application\widgets\AnimationListWidget.h" />
     <ClInclude Include="Application\widgets\AnimationView.h" />
