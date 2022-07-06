@@ -32,17 +32,21 @@ void TextureListWidget::onRun()
 		}
 		if (ImGui::Button("add##texture_add"))
 		{
-			ImGui::OpenPopup("load texture##load_texture_dialog");
+			ImGui::OpenPopup("##load_texture_dialog");
 		}
-		if (ImGui::BeginPopup("load texture##load_texture_dialog", ImGuiWindowFlags_Modal))
+		if (ImGui::BeginPopup("##load_texture_dialog", ImGuiWindowFlags_Modal))
 		{
-			if (ImGui::Button("load"))
+			if (ImGui::Begin("load texture##load_texture_window", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 			{
-				ImGui::CloseCurrentPopup();
-			} ImGui::SameLine();
-			if (ImGui::Button("cancel"))
-			{
-				ImGui::CloseCurrentPopup();
+				if (ImGui::Button("load"))
+				{
+					ImGui::CloseCurrentPopup();
+				} ImGui::SameLine();
+				if (ImGui::Button("cancel"))
+				{
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::End();
 			}
 			ImGui::EndPopup();
 		}
