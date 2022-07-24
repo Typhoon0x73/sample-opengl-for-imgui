@@ -20,7 +20,7 @@ void AnimationView::onRun()
 			for (const auto& layer : ptn->m_LayerArray)
 			{
 				const auto& imageNo = layer.second.m_ImageNo;
-				if (imageNo < 0 || window->SkipItems)
+				if (imageNo < 0 || sampleTextures.size() <= imageNo || window->SkipItems)
 				{
 					continue;
 				}

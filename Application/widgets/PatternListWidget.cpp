@@ -67,7 +67,7 @@ void PatternListWidget::onRun()
 							}
 							auto& layerData = ptn.m_LayerArray[j].second;
 							const auto& no = layerData.m_ImageNo;
-							if (no < 0)
+							if (no < 0 || sampleTextures.size() <= no)
 							{
 								continue;
 							}

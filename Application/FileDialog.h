@@ -1,6 +1,8 @@
 #ifndef FILEDIALOG_H_
+#define FILEDIALOG_H_
 
 #include "../Framework/Framework/Framework.h"
+#include <string_view>
 
 #define  PATH_MAX 1000
 
@@ -83,7 +85,7 @@ public:
     /// <created>‚¢‚Ì‚¤‚¦,2020/11/11</created>
     /// <changed>‚¢‚Ì‚¤‚¦,2020/11/11</changed>
     // ********************************************************************************
-    static void SeparatePath(std::string_view pPath, std::vector<std::string>& outArray, std::string* outCurrentDirPath = nullptr);
+    static void SeparatePath(WCHAR* pPath, std::vector<std::wstring>& outArray, std::wstring* outCurrentDirPath = nullptr);
 };
 
 #endif // !FILEDIALOG_H_

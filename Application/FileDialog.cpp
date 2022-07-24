@@ -100,10 +100,10 @@ std::string FileDialog::ChangeFullPath(std::string_view path) {
 /// <created>いのうえ,2020/11/11</created>
 /// <changed>いのうえ,2020/11/11</changed>
 // ********************************************************************************
-void FileDialog::SeparatePath(std::string_view pPath, std::vector<std::string>& outArray, std::string* outCurrentDirPath) {
+void FileDialog::SeparatePath(WCHAR* pPath, std::vector<std::wstring>& outArray, std::wstring* outCurrentDirPath) {
     // 文字の長さを保存する用の配列
     std::vector<int> lengthArray;
-    int pathLength = pPath.length();
+    int pathLength = wcslen(pPath);
 
     // カレントディレクトリの出力先がある場合、出力する。
     if (outCurrentDirPath) {
@@ -114,7 +114,9 @@ void FileDialog::SeparatePath(std::string_view pPath, std::vector<std::string>& 
     while (true) {
         lengthArray.push_back(pathLength);
         old = pathLength;
-        pathLength += strlen(&pPath[pathLength + 1]);
+
+        std::wstring tmp(&pPath[pathLength + 1]);
+        pathLength += strlen(wide_to_sjis(tmp).c_str());
 
         // \0\0が来たらループをぬける。
         if ((pathLength - old) == 0) {

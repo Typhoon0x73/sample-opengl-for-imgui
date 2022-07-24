@@ -41,6 +41,7 @@ void Application::Initialize() {
 	::SetCurrentDirectory(L"Resources");
 
 	animakeData_.reset(new AnimakeData);
+	animakeData_->m_CurrentPath = wide_to_sjis(std::filesystem::current_path().native());
 
 	//TODO:
 	//アプリの初期化処理を記述
@@ -132,7 +133,7 @@ void Application::Update() {
     ImGui::End();
 
     /*//**/
-    ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 }
 
 /**

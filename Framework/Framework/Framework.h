@@ -11,6 +11,7 @@
 #include	"../Graphics/FrameBuffer.h"
 #include	"../Graphics/ShaderParameterBind1F.h"
 #include	"../Graphics/GraphicsController.h"
+#include    "../strconv/strconv.h"
 #include    "imgui.h"
 #include    "imgui_impl_glfw.h"
 #include    "imgui_impl_opengl3.h"
