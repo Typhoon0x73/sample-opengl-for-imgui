@@ -985,7 +985,7 @@ SpriteAnimationController::SpriteAnimationController(const char * pFile, std::ve
 	{
 		std::string data((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
 		SpriteAnimationDataParser parser(data.c_str(), data.length());
-		parser.parseFromSA(this, outTexturePathArray);
+		parser.parseFromSPA(this, outTexturePathArray);
 	}
 }
 
@@ -1001,7 +1001,7 @@ SpriteAnimationController::SpriteAnimationController(const char * pData, std::si
 	: m_CurrentAnimationNo{ -1 }
 {
 	SpriteAnimationDataParser parser(pData, dataLen);
-	parser.parseFromSA(this, outTexturePathArray);
+	parser.parseFromSPA(this, outTexturePathArray);
 }
 
 // ********************************************************************************
@@ -1798,6 +1798,24 @@ void SpriteAnimationController::roundCurrentAnimationNo()
 
 #include "SpriteAnimationCommon.h"
 
+spa::SpriteAnimationDataParser::SpriteAnimationDataParser(const char* pFile)
+	: m_pData{ nullptr }
+	, m_DataLen{ 0 }
+	, m_Index{ 0 }
+{
+	std::ifstream ifs(pFile, std::ios::binary);
+	if (ifs)
+	{
+		std::string data((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+		m_DataLen = data.length();
+		if (m_DataLen > 1)
+		{
+			m_pData = new char[m_DataLen];
+			memcpy_s(m_pData, m_DataLen, data.c_str(), m_DataLen);
+		}
+	}
+}
+
 // ********************************************************************************
 /// <summary>
 /// コンストラクタ
@@ -1806,10 +1824,15 @@ void SpriteAnimationController::roundCurrentAnimationNo()
 /// <param name="dataLen">データ長</param>
 // ********************************************************************************
 SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::size_t dataLen)
-	: m_pData{ pData }
+	: m_pData{ nullptr }
 	, m_DataLen{ dataLen }
 	, m_Index{ 0 }
 {
+	if (m_DataLen > 1)
+	{
+		m_pData = new char[m_DataLen];
+		memcpy_s(m_pData, m_DataLen, pData, dataLen);
+	}
 }
 
 // ********************************************************************************
@@ -1819,6 +1842,11 @@ SpriteAnimationDataParser::SpriteAnimationDataParser(const char * pData, std::si
 // ********************************************************************************
 SpriteAnimationDataParser::~SpriteAnimationDataParser()
 {
+	if (m_pData)
+	{
+		delete[] m_pData;
+		m_pData = nullptr;
+	}
 }
 
 // ********************************************************************************
@@ -1829,7 +1857,7 @@ SpriteAnimationDataParser::~SpriteAnimationDataParser()
 /// <param name="outTexturePathArray">出力先</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationDataParser::parseFromSA(SpriteAnimationController * outAnimation, std::vector<std::string>* outTexturePathArray)
+bool SpriteAnimationDataParser::parseFromSPA(SpriteAnimationController * outAnimation, std::vector<std::string>* outTexturePathArray)
 {
 	if (outTexturePathArray == nullptr ||
 		outAnimation        == nullptr ||
@@ -2209,7 +2237,7 @@ SpriteAnimationDataExporter::~SpriteAnimationDataExporter()
 /// <param name="exportTexturePathArray">出力する画像パス配列データ</param>
 /// <returns>true : 成功, false : 失敗</returns>
 // ********************************************************************************
-bool SpriteAnimationDataExporter::exportToSA(SpriteAnimationController * expoortController, std::vector<std::string>* exportTexturePathArray)
+bool SpriteAnimationDataExporter::exportToSPA(SpriteAnimationController * expoortController, std::vector<std::string>* exportTexturePathArray)
 {
 	std::ofstream ofs(m_pFileName, std::ios::binary);
 	if (!ofs)

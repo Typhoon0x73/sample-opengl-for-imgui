@@ -1,0 +1,4 @@
+PatternsタブにTimeラインを追加　->　Unityのアニメーションのように編集できるように　Refreshtime
+Patternsタブの各ボタン機能
+Loopの設定ができるように
+

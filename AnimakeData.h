@@ -14,6 +14,7 @@ struct AnimakeData
 	std::int32_t                    m_EditPatternLayerNo{ 0 };
 	std::int32_t                    m_SelectTextureNo{ -1 };
 	std::string                     m_CurrentPath{};
+	std::string                     m_OpenFileName{};
 };
 
 using AnimakeDataPtr = std::shared_ptr<AnimakeData>;

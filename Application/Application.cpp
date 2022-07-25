@@ -73,7 +73,7 @@ void Application::Initialize() {
 	animakeData_->m_TexturePathArray.push_back("Player.png");
 
 	spa::SpriteAnimationDataExporter exporter("sample.spa");
-	if (!exporter.exportToSA(&animakeData_->m_SpriteAnimation, &animakeData_->m_TexturePathArray))
+	if (!exporter.exportToSPA(&animakeData_->m_SpriteAnimation, &animakeData_->m_TexturePathArray))
 	{
 		return;
 	}
@@ -84,6 +84,7 @@ void Application::Initialize() {
 	{
 		return;
 	}
+	animakeData_->m_OpenFileName = "sample.spa";
   
 	animakeData_->m_SpriteAnimation.changeAnimation("idle");
 	g_pGetBlackboard(AnimakeDataPtr&)->add("AnimakeData", animakeData_);

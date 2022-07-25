@@ -630,7 +630,7 @@ namespace spa
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="pFile">.saファイルパス</param>
+		/// <param name="pFile">.spaファイルパス</param>
 		/// <param name="outTexturePathArray">出力先画像ファイルパス配列</param>
 		// ********************************************************************************
 		explicit SpriteAnimationController(const char* pFile, std::vector<std::string>* outTexturePathArray);
@@ -1102,12 +1102,20 @@ namespace spa
 
 	// --------------------------------------------------------------------------------
 	/// <summary>
-	/// .saデータからアニメーション管理クラス,画像パス配列に分解するクラス
+	/// .spaデータからアニメーション管理クラス,画像パス配列に分解するクラス
 	/// </summary>
 	// --------------------------------------------------------------------------------
 	class SpriteAnimationDataParser
 	{
 	public:
+
+		// ********************************************************************************
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="pFile">.spaファイルパス</param>
+		// ********************************************************************************
+		explicit SpriteAnimationDataParser(const char* pFile);
 
 		// ********************************************************************************
 		/// <summary>
@@ -1133,7 +1141,7 @@ namespace spa
 		/// <param name="outTexturePathArray">出力先</param>
 		/// <returns>true : 成功, false : 失敗</returns>
 		// ********************************************************************************
-		bool parseFromSA(SpriteAnimationController* outAnimation, std::vector<std::string>* outTexturePathArray);
+		bool parseFromSPA(SpriteAnimationController* outAnimation, std::vector<std::string>* outTexturePathArray);
 
 	private:
 
@@ -1185,7 +1193,7 @@ namespace spa
 		// ********************************************************************************
 		std::int32_t charToNum(const char* pData);
 
-		const char*     m_pData            ;     //!< .saデータ
+		char*           m_pData            ;     //!< .spaデータ
 		std::size_t     m_DataLen     { 0 };     //!< データ長
 		std::size_t     m_Index       { 0 };     //!< 操作インデックス
 	};
@@ -1194,7 +1202,7 @@ namespace spa
 
 	// --------------------------------------------------------------------------------
 	/// <summary>
-	/// .saファイルに出力するクラス
+	/// .spaファイルに出力するクラス
 	/// </summary>
 	// --------------------------------------------------------------------------------
 	class SpriteAnimationDataExporter
@@ -1218,13 +1226,13 @@ namespace spa
 
 		// ********************************************************************************
 		/// <summary>
-		/// .saデータに出力
+		/// .spaデータに出力
 		/// </summary>
 		/// <param name="expoortController">出力するアニメーションデータ</param>
 		/// <param name="exportTexturePathArray">出力する画像パス配列データ</param>
 		/// <returns>true : 成功, false : 失敗</returns>
 		// ********************************************************************************
-		bool exportToSA(SpriteAnimationController* expoortController, std::vector<std::string>* exportTexturePathArray);
+		bool exportToSPA(SpriteAnimationController* expoortController, std::vector<std::string>* exportTexturePathArray);
 
 	private:
 
